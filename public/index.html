@@ -1616,103 +1616,106 @@ function aiAsk(question){
   box.innerHTML = '<b>Assistant :</b><br>' + answer;
 }
 async function aiAsk(question){
-  const q=String(question||'').trim();
-  const box=document.getElementById('aiAnswer');
-  if(!box)return;
-
-  box.classList.remove('hidden');
-
-  if(!q){
-    box.innerHTML='<b>Assistant :</b><br>Écrivez votre question pour commencer.';
-    return;
-  }
-
-  box.innerHTML='<b>Assistant :</b><br>Je réfléchis...';
-
-  try{
-    const response=await fetch('/api/chat',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        messages:[
-          {
-            role:'system',
-            content:"Tu es l’Assistant IA de Solution Africa. Réponds en français, clairement et utilement. Aide les clients et professionnels à utiliser Solution Africa."
-          },
-          {role:'user',content:q}
-        ]
-      })
-    });
-
-    if(!response.ok)throw new Error('Serveur: '+response.status);
-    if(!response.body)throw new Error('Réponse vide');
-
-    const reader=response.body.getReader();
-    const decoder=new TextDecoder();
-    let buffer='';
-    let answer='';
-
-    function render(){
-      box.innerHTML='';
-      const title=document.createElement('b');
-      title.textContent='Assistant :';
-      box.appendChild(title);
-      box.appendChild(document.createElement('br'));
-      box.appendChild(document.createTextNode(answer));
-    }
-
-    function consume(chunk){
-      buffer+=chunk;
-      buffer=buffer.replace(/\r/g,'');
-      let index;
-
-      while((index=buffer.indexOf('\n\n'))!==-1){
-        const event=buffer.slice(0,index);
-        buffer=buffer.slice(index+2);
-        const lines=event.split('\n');
-        const dataLines=[];
-
-        for(const line of lines){
-          if(line.startsWith('data:')){
-            dataLines.push(line.slice(5).trimStart());
-          }
-        }
-
-        if(!dataLines.length)continue;
-
-        const data=dataLines.join('\n');
-        if(data==='[DONE]')continue;
-
-        try{
-          const obj=JSON.parse(data);
-          const part=typeof obj.response==='string'
-            ?obj.response
-            :(obj.choices?.[0]?.delta?.content||'');
-
-          if(part){
-            answer+=part;
-            render();
-          }
-        }catch(e){}
-      }
-    }
-
-    while(true){
-      const {done,value}=await reader.read();
-      if(done)break;
-      consume(decoder.decode(value,{stream:true}));
-    }
-
-    if(!answer){
-      render();
-      box.appendChild(document.createTextNode('Aucune réponse reçue.'));
-    }
-
-  }catch(error){
-    box.innerHTML='<b>Assistant :</b><br>Impossible de contacter l’IA pour le moment. Vérifiez la connexion puis réessayez.';
-    console.error(error);
-  }
- }
-</script>
+    const q = String(question || '').trim();
+      const box = document.getElementById('aiAnswer');
+        if(!box) return;
+        
+          box.classList.remove('hidden');
+          
+            if(!q){
+                box.innerHTML = '<b>Assistant :</b><br>Écrivez votre question pour commencer.';
+                    return;
+                      }
+                      
+                        box.innerHTML = '<b>Assistant :</b><br>Je réfléchis...';
+                        
+                          try {
+                              const response = await fetch('/api/chat', {
+                                    method: 'POST',
+                                          headers: {'Content-Type':'application/json'},
+                                                body: JSON.stringify({
+                                                        messages: [
+                                                                  {
+                                                                              role: 'system',
+                                                                                          content: "Tu es l’Assistant IA de Solution Africa. Réponds en français, clairement et utilement. Aide les clients et professionnels à utiliser Solution Africa, notamment pour les services, les demandes, les missions et les échanges."
+                                                                                                    },
+                                                                                                              {role:'user', content:q}
+                                                                                                                      ]
+                                                                                                                            })
+                                                                                                                                });
+                                                                                                                                
+                                                                                                                                    if(!response.ok) throw new Error('Serveur: ' + response.status);
+                                                                                                                                        if(!response.body) throw new Error('Réponse vide');
+                                                                                                                                        
+                                                                                                                                            const reader = response.body.getReader();
+                                                                                                                                                const decoder = new TextDecoder();
+                                                                                                                                                    let buffer = '';
+                                                                                                                                                        let answer = '';
+                                                                                                                                                        
+                                                                                                                                                            function render(){
+                                                                                                                                                                  box.innerHTML = '';
+                                                                                                                                                                        const title = document.createElement('b');
+                                                                                                                                                                              title.textContent = 'Assistant :';
+                                                                                                                                                                                    box.appendChild(title);
+                                                                                                                                                                                          box.appendChild(document.createElement('br'));
+                                                                                                                                                                                                box.appendChild(document.createTextNode(answer));
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                    
+                                                                                                                                                                                                        function consume(chunk){
+                                                                                                                                                                                                              buffer += chunk;
+                                                                                                                                                                                                                    buffer = buffer.replace(/\r/g,'');
+                                                                                                                                                                                                                          let index;
+                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                while((index = buffer.indexOf('\n\n')) !== -1){
+                                                                                                                                                                                                                                        const event = buffer.slice(0,index);
+                                                                                                                                                                                                                                                buffer = buffer.slice(index + 2);
+                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                        const lines = event.split('\n');
+                                                                                                                                                                                                                                                                const dataLines = [];
+                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                        for(const line of lines){
+                                                                                                                                                                                                                                                                                  if(line.startsWith('data:')){
+                                                                                                                                                                                                                                                                                              dataLines.push(line.slice(5).trimStart());
+                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                        if(!dataLines.length) continue;
+                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                const data = dataLines.join('\n');
+                                                                                                                                                                                                                                                                                                                                        if(data === '[DONE]') continue;
+                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                try{
+                                                                                                                                                                                                                                                                                                                                                          const obj = JSON.parse(data);
+                                                                                                                                                                                                                                                                                                                                                                    const part =
+                                                                                                                                                                                                                                                                                                                                                                                typeof obj.response === 'string'
+                                                                                                                                                                                                                                                                                                                                                                                              ? obj.response
+                                                                                                                                                                                                                                                                                                                                                                                                            : (obj.choices?.[0]?.delta?.content || '');
+                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                      if(part){
+                                                                                                                                                                                                                                                                                                                                                                                                                                  answer += part;
+                                                                                                                                                                                                                                                                                                                                                                                                                                              render();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                }catch(e){}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                              while(true){
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    const {done,value} = await reader.read();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          if(done) break;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                consume(decoder.decode(value,{stream:true}));
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        consume('\n\n');
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            if(!answer){
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  render();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        box.appendChild(document.createTextNode('Aucune réponse reçue.'));
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              }catch(error){
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  box.innerHTML = '<b>Assistant :</b><br>Impossible de contacter l’IA pour le moment. Vérifiez la connexion puis réessayez.';
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      console.error(error);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }</script>
 </body>
 </html>
