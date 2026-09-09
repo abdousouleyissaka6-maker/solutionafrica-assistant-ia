@@ -552,7 +552,7 @@ placeholder="Écrivez votre question ici..."></textarea>
 window.addEventListener('error', function(e){ console.error('Solution Africa:', e.error || e.message); });
 window.addEventListener('DOMContentLoaded',function(){ if(typeof demoProfessionals!=='undefined') ensureDemoProfessionalAccounts(); });
 const sections=['lessonDetail','home','client','searchProfessional','publishNeed','myRequests','myMessages','conversation','rateProfessional','clientProfile','wallet','pro','dashboard','courses','pedagogy','chapters','chapterDetail','pedExercises','studentExercise','createExercise','pedResources','english','civic','subject','createLesson','createCourse','students','createStudent','evaluations','createEvaluation','resources','createResource','clientRequests','professionalRatings','results','profile','proWallet','adminLogin','adminRecovery','adminDashboard','adminUsers','adminRequests','adminEvaluations','adminPayments','adminPaymentSettings']
-function show(id){const target=document.getElementById(id);if(!target){return}document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));target.classList.remove('hidden');window.scrollTo(0,0)}
+function show(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));target.classList.remove('hidden');window.scrollTo(0,0)}
 function professional(){currentRole='professional';document.getElementById('proTab').classList.add('active');document.getElementById('clientTab').classList.remove('active');show('pro')}
 function createAccount(){
  const a={phone:proPhone.value.trim(),pass:proPass.value,name:proName.value.trim(),role:proRole.value.trim()};
