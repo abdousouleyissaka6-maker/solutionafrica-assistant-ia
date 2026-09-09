@@ -1642,7 +1642,12 @@ async function aiAsk(question){
                                                                                                                                                                               title.textContent = 'Assistant :';
                                                                                                                                                                                     box.appendChild(title);
                                                                                                                                                                                           box.appendChild(document.createElement('br'));
-                                                                                                                                                                                                box.appendChild(document.createTextNode(answer));
+                                                                                                                                                                                                box.appendChild(document.createTextNode(answer));const vocal=document.createElement('button');
+vocal.className='btn outline';
+vocal.type='button';
+vocal.textContent='🔊 Écouter la réponse';
+vocal.onclick=()=>lireVocal(answer);
+box.appendChild(vocal);
                                                                                                                                                                                                     }
                                                                                                                                                                                                     
                                                                                                                                                                                                         function consume(chunk){
