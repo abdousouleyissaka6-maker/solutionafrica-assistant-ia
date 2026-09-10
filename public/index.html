@@ -1894,5 +1894,28 @@ document.addEventListener('click', function(e) {
     }
   }
 }, true);
+</script><script>
+document.addEventListener('click', function(e) {
+  const b = e.target.closest('button');
+  if (!b) return;
+
+  const texte = (b.textContent || '').trim();
+
+  if (texte.includes('Retour')) {
+    const home = document.getElementById('home');
+
+    if (home) {
+      document.querySelectorAll('section').forEach(function(s) {
+        s.classList.add('hidden');
+      });
+
+      home.classList.remove('hidden');
+      window.scrollTo(0, 0);
+
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+}, true);
 </script></body>
 </html>
