@@ -590,31 +590,75 @@ function getCurrentClientName(){
   const a=getCurrentClient();
   return String((a&&a.name)||'Client Solution Africa').trim()||'Client Solution Africa';
 }
-
 function saveClientProfile(){
- const current=getCurrentClient();
- if(!current){alert('Session Client introuvable.');return;}
- const name=document.getElementById('clientProfileName').value.trim();
- const phone=document.getElementById('clientProfilePhone').value.trim();
- const email=document.getElementById('clientProfileEmail').value.trim();
- const city=document.getElementById('clientProfileCity').value.trim();
- const newPass=document.getElementById('clientProfilePass').value;
- const msg=document.getElementById('clientProfileMsg');
- if(!name||!phone){msg.innerHTML='<div class="msg">❌ Le nom et le numéro de téléphone sont obligatoires.</div>';return;}
- let clients=[];try{clients=JSON.parse(localStorage.getItem('solutionAfricaClients')||'[]')}catch(e){clients=[]}
- if(!Array.isArray(clients))clients=[];
- const oldPhone=String(current.phone||'').trim();
- const conflict=clients.find(x=>String(x.phone||'').trim()===phone && String(x.phone||'').trim()!==oldPhone);
- if(conflict){msg.innerHTML='<div class="msg">❌ Ce numéro de téléphone est déjà utilisé par un autre compte Client.</div>';return;}
- const idx=clients.findIndex(x=>String(x.phone||'').trim()===oldPhone);
- const updated={...(idx>=0?clients[idx]:current),name,phone,email,city,role:'Client'};
- if(newPass.trim())updated.pass=newPass;
- if(idx>=0)clients[idx]=updated;else clients.push(updated);
- localStorage.setItem('solutionAfricaClients',JSON.stringify(clients));
- localStorage.setItem('solutionAfricaCurrentClient',JSON.stringify(updated));
- const w=document.getElementById('welcome');if(w)w.textContent='Bienvenue, '+name+' 👋';
- msg.innerHTML='<div class="msg">✅ Profil Client enregistré avec succès.</div>';
-}
+  const name=document.getElementById('clientProfileName').value.trim();
+  const phone=document.getElementById('clientProfilePhone').value.trim();
+  const email=document.getElementById('clientProfileEmail').value.trim();
+  const city=document.getElementById('clientProfileCity').value.trim();
+  const newPass=document.getElementById('clientProfilePass').value;
+  const msg=document.getElementById('clientProfileMsg');
+
+  if(!name || !phone){
+    msg.innerHTML='<div class="msg">❌ Le nom et le numéro de téléphone sont obligatoires.</div>';
+    return;
+  }
+
+  let current={};
+  try{
+    current=JSON.parse(localStorage.getItem('solutionAfricaCurrentClient')||'{}');
+  }catch(e){
+    current={};
+  }
+
+  const updated={
+    ...current,
+    name:name,
+    phone:phone,
+    email:email,
+    city:city,
+    role:'Client'
+  };
+
+  if(newPass.trim()){
+    updated.pass=newPass;
+  }
+
+  localStorage.setItem(
+    'solutionAfricaCurrentClient',
+    JSON.stringify(updated)
+  );
+
+  let clients=[];
+  try{
+    clients=JSON.parse(localStorage.getItem('solutionAfricaClients')||'[]');
+  }catch(e){
+    clients=[];
+  }
+
+  if(!Array.isArray(clients)) clients=[];
+
+  const index=clients.findIndex(
+    x=>String(x.phone||'').trim()===String(current.phone||'').trim()
+  );
+
+  if(index>=0){
+    clients[index]=updated;
+  }else{
+    clients.push(updated);
+  }
+
+  localStorage.setItem(
+    'solutionAfricaClients',
+    JSON.stringify(clients)
+  );
+
+  const welcome=document.getElementById('welcome');
+  if(welcome){
+    welcome.textContent='Bienvenue, '+name+' 👋';
+  }
+
+  msg.innerHTML='<div class="msg">✅ Profil Client enregistré avec succès.</div>';
+ }
 function createClientDemo(){
  const phone=prompt('Numéro de téléphone du client :','90000000'); if(phone===null)return;
  const pass=prompt('Mot de passe du client :','1234'); if(pass===null)return;
