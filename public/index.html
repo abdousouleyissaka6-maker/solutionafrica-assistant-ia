@@ -1917,5 +1917,31 @@ document.addEventListener('click', function(e) {
     }
   }
 }, true);
+</script><script>
+document.addEventListener('click', function(e) {
+  const b = e.target.closest('button');
+  if (!b) return;
+
+  const texte = (b.textContent || '').trim();
+
+  function ouvrir(id) {
+    const page = document.getElementById(id);
+    if (!page) return;
+
+    document.querySelectorAll('section').forEach(function(s) {
+      s.classList.add('hidden');
+    });
+
+    page.classList.remove('hidden');
+    window.scrollTo(0, 0);
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+  }
+
+  if (texte === 'Retour à l’accueil' || texte === "Retour à l'accueil") {
+    ouvrir('home');
+  }
+}, true);
 </script></body>
 </html>
