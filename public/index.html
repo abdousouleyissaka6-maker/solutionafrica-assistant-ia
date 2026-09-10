@@ -1816,5 +1816,60 @@ window.speechSynthesis.speak(voix);
     }
   },true);
 })();
+</script><script>
+document.addEventListener('click', function(e) {
+  const b = e.target.closest('button');
+  if (!b) return;
+
+  const t = (b.textContent || '').trim();
+
+  function ouvrir(id) {
+    const cible = document.getElementById(id);
+    if (!cible) return false;
+
+    document.querySelectorAll('section').forEach(function(s) {
+      s.classList.add('hidden');
+    });
+
+    cible.classList.remove('hidden');
+    window.scrollTo(0, 0);
+    return true;
+  }
+
+  if (t.includes('Client')) {
+    if (ouvrir('client')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  else if (t.includes('Professionnel')) {
+    if (ouvrir('pro')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  else if (t.includes('Accéder au mode démo')) {
+    if (ouvrir('client')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  else if (t.includes('Assistant IA')) {
+    if (ouvrir('aiAssistant')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+
+  else if (t.includes('Espace Administrateur')) {
+    if (ouvrir('adminLogin')) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+    }
+  }
+}, true);
 </script></body>
 </html>
