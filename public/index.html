@@ -2008,5 +2008,56 @@ document.addEventListener('click', function(e) {
     ouvrir('home');
   }
 }, true);
-</script></body>
+</script><script>
+(function () {
+  function ajouterAudio() {
+    const messages = document.querySelectorAll('.msg');
+
+    messages.forEach(function (message) {
+      if (message.querySelector('.bouton-audio')) return;
+
+      const bouton = document.createElement('button');
+      bouton.className = 'bouton-audio';
+      bouton.type = 'button';
+      bouton.textContent = '🔊 Écouter';
+
+      bouton.style.marginTop = '8px';
+      bouton.style.padding = '8px 14px';
+      bouton.style.borderRadius = '10px';
+      bouton.style.border = '1px solid #087443';
+      bouton.style.background = '#fff';
+      bouton.style.color = '#087443';
+      bouton.style.fontWeight = 'bold';
+
+      bouton.addEventListener('click', function () {
+        window.speechSynthesis.cancel();
+
+        const texte = message.innerText
+          .replace('🔊 Écouter', '')
+          .trim();
+
+        if (!texte) return;
+
+        const voix = new SpeechSynthesisUtterance(texte);
+        voix.lang = 'fr-FR';
+        voix.rate = 0.9;
+        voix.pitch = 1;
+
+        window.speechSynthesis.speak(voix);
+      });
+
+      message.appendChild(bouton);
+    });
+  }
+
+  ajouterAudio();
+
+  const observer = new MutationObserver(ajouterAudio);
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+})();
+</script>
+</body></body>
 </html>
