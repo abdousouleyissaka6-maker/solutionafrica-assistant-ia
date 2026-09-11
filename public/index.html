@@ -590,7 +590,28 @@ function getCurrentClientName(){
   const a=getCurrentClient();
   return String((a&&a.name)||'Client Solution Africa').trim()||'Client Solution Africa';
 }
-function saveClientProfile(){
+function getCurrentClientName(){
+  ...
+}
+
+function openClientProfile(){
+  const client=getCurrentClient();
+
+  if(!client){
+    alert('Profil client introuvable.');
+    return;
+  }
+
+  document.getElementById('clientProfileName').value=client.name||client.nom||'';
+  document.getElementById('clientProfilePhone').value=client.phone||'';
+  document.getElementById('clientProfileEmail').value=client.email||'';
+  document.getElementById('clientProfileCity').value=client.city||'';
+  document.getElementById('clientProfilePass').value='';
+
+  show('clientProfile');
+}
+
+function saveClientProfile(){function saveClientProfile(){
   const name=document.getElementById('clientProfileName').value.trim();
   const phone=document.getElementById('clientProfilePhone').value.trim();
   const email=document.getElementById('clientProfileEmail').value.trim();
