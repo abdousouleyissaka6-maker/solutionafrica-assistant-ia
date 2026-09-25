@@ -586,7 +586,7 @@ function openClientDashboard(a){
 function getCurrentClient(){
  try{const a=JSON.parse(localStorage.getItem('solutionAfricaCurrentClient')||'null');return a&&a.phone?a:null}catch(e){return null}
 }
-function getCurrentClientName(){
+
   const a=getCurrentClient();
   return String((a&&a.name)||'Client Solution Africa').trim()||'Client Solution Africa';
 }
