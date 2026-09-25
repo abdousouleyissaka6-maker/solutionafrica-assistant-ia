@@ -584,11 +584,11 @@ function openClientDashboard(a){
  show('client');
 }
 function getCurrentClient(){
- try{const a=JSON.parse(localStorage.getItem('solutionAfricaCurrentClient')||'null');return a&&a.phone?a:null}catch(e){return null}
+ try{const a=JSON.parse(localStorage.getItem('IA AfricaCurrentClient')||'null');return a&&a.phone?a:null}catch(e){return null}
 }
 
   const a=getCurrentClient();
-  return String((a&&a.name)||'Client Solution Africa').trim()||'Client Solution Africa';
+  return String((a&&a.name)||'Client IA Africa').trim()||'Client IA Africa';
 }
 
 
@@ -624,7 +624,7 @@ function saveClientProfile(){
 
   let current={};
   try{
-    current=JSON.parse(localStorage.getItem('solutionAfricaCurrentClient')||'{}');
+    current=JSON.parse(localStorage.getItem('IA AfricaCurrentClient')||'{}');
   }catch(e){
     current={};
   }
@@ -649,7 +649,7 @@ function saveClientProfile(){
 
   let clients=[];
   try{
-    clients=JSON.parse(localStorage.getItem('solutionAfricaClients')||'[]');
+    clients=JSON.parse(localStorage.getItem('IA AfricaClients')||'[]');
   }catch(e){
     clients=[];
   }
@@ -681,11 +681,11 @@ function saveClientProfile(){
 function createClientDemo(){
  const phone=prompt('Numéro de téléphone du client :','90000000'); if(phone===null)return;
  const pass=prompt('Mot de passe du client :','1234'); if(pass===null)return;
- const name=prompt('Nom et prénom du client :','Client Solution Africa'); if(name===null)return;
- let clients=[];try{clients=JSON.parse(localStorage.getItem('solutionAfricaClients')||'[]')}catch(e){clients=[]}
+ const name=prompt('Nom et prénom du client :','Client IA Africa'); if(name===null)return;
+ let clients=[];try{clients=JSON.parse(localStorage.getItem('IA AfricaClients')||'[]')}catch(e){clients=[]}
  if(!Array.isArray(clients))clients=[];
  const idx=clients.findIndex(x=>x.phone===phone.trim());
- const c={phone:phone.trim(),pass,name:name.trim()||'Client Solution Africa',role:'Client'};
+ const c={phone:phone.trim(),pass,name:name.trim()||'Client IA Africa',role:'Client'};
  if(idx>=0)clients[idx]=c;else clients.push(c);
  localStorage.setItem('solutionAfricaClients',JSON.stringify(clients));
  currentRole='client'; openClientDashboard(c);
@@ -702,7 +702,7 @@ function ensureDemoProfessionalAccounts(){
    const idx=arr.findIndex(x=>String(x.phone||'').trim()===d.phone);
    if(idx<0)arr.push(d); else arr[idx]={...arr[idx],...d};
  });
- localStorage.setItem('solutionAfricaProfessionalAccounts',JSON.stringify(arr));
+ localStorage.setItem('IA AfricaProfessionalAccounts',JSON.stringify(arr));
  return arr;
 }
 function proLogin(){
