@@ -590,9 +590,7 @@ function getCurrentClient(){
   const a=getCurrentClient();
   return String((a&&a.name)||'Client Solution Africa').trim()||'Client Solution Africa';
 }
-function getCurrentClientName(){
-  ...
-}
+
 
 function openClientProfile(){
   const client=getCurrentClient();
@@ -611,7 +609,7 @@ function openClientProfile(){
   show('clientProfile');
 }
 
-function saveClientProfile(){function saveClientProfile(){
+function saveClientProfile(){
   const name=document.getElementById('clientProfileName').value.trim();
   const phone=document.getElementById('clientProfilePhone').value.trim();
   const email=document.getElementById('clientProfileEmail').value.trim();
