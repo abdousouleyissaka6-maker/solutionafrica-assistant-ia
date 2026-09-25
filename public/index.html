@@ -1636,32 +1636,10 @@ function approveDeposit(index){const arr=getProfessionalDeposits();if(!arr[index
 function renderAdminPayments(){const b=document.getElementById('adminPaymentsList');if(!b)return;const a=adminArr('solutionAfricaProfessionalDeposits');b.innerHTML=a.length?a.map((x,i)=>'<div class="course"><b>💰 Dépôt : '+escapeHtml(x.amount||'0')+' FCFA</b><p>👤 '+escapeHtml(x.professional||x.name||'Professionnel')+'<br>📱 '+escapeHtml(x.method||'')+'<br>🔖 Référence : '+escapeHtml(x.reference||'')+'<br>📌 Statut : <b>'+escapeHtml(x.status||'En attente')+'</b></p>'+((x.status||'En attente')==='En attente'?'<button class="btn" onclick="approveDeposit('+i+')">✅ Approuver</button>':'')+'</div>').join(''):'<div class="course">Aucun paiement enregistré.</div>'; }
 function renderAdminPaymentSettings(){const x=JSON.parse(localStorage.getItem('solutionAfricaAdminPaymentSettings')||'{"recipient":"99424366","beneficiary":"Issaka Abdou","note":"Effectuez le dépôt sur ce compte puis indiquez la référence de transaction."}');document.getElementById('adminRecipient').value=x.recipient||'';document.getElementById('adminBeneficiary').value=x.beneficiary||'';document.getElementById('adminPaymentNote').value=x.note||'';}
 function saveAdminPaymentSettings(){const x={recipient:document.getElementById('adminRecipient').value.trim(),beneficiary:document.getElementById('adminBeneficiary').value.trim(),note:document.getElementById('adminPaymentNote').value.trim()};localStorage.setItem('solutionAfricaAdminPaymentSettings',JSON.stringify(x));document.getElementById('adminSettingsMsg').innerHTML='<div class="msg">✅ Paramètres enregistrés.</div>';}
+  
 
-function aiAsk(question){
-  const q = String(question || '').trim();
-  const box = document.getElementById('aiAnswer');
-  if(!box) return;
 
-  if(!q){
-    box.classList.remove('hidden');
-    box.innerHTML = '<b>Assistant :</b><br>Écrivez votre question pour commencer.';
-    return;
-  }
 
-  const text = q.toLowerCase();
-  let answer = "Je peux vous aider à utiliser Solution Africa. Pour une réponse personnalisée, décrivez votre besoin, votre métier ou votre ville.";
-
-  if(text.includes('professionnel') || text.includes('électricien') || text.includes('mécanicien') || text.includes('enseignant')){
-    answer = "Pour trouver un professionnel, utilisez « Rechercher un professionnel », saisissez le métier ou le service recherché, puis consultez les résultats.";
-  } else if(text.includes('publier') || text.includes('besoin')){
-    answer = "Pour publier un besoin, ouvrez « Publier un besoin » dans votre espace Client et indiquez clairement le service recherché, la description et les informations utiles.";
-  } else if(text.includes('fonctionne') || text.includes('solution africa')){
-    answer = "Solution Africa met en relation les clients et les professionnels : recherche, demandes, échanges, missions, portefeuille et évaluations. L'Assistant IA servira de guide intelligent à travers ces étapes.";
-  }
-
-  box.classList.remove('hidden');
-  box.innerHTML = '<b>Assistant :</b><br>' + answer;
-}
 async function aiAsk(question){
     const q = String(question || '').trim();
     const box = document.getElementById('aiAnswer');
