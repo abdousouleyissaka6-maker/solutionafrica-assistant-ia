@@ -1664,15 +1664,115 @@ function aiAsk(question){
 }
 async function aiAsk(question){
     const q = String(question || '').trim();
-      const box = document.getElementById('aiAnswer');
-        if(!box) return;
+    const box = document.getElementById('aiAnswer');
+
+    if(!box) return;
+
+    box.classList.remove('hidden');
+
+    if(!q){
+        box.innerHTML = '<b>Assistant :</b><br>Écrivez votre question pour commencer.';
+        return;
+    }
+
+    box.innerHTML = '<b>Assistant :</b><br>Je réfléchis...';
+
+    try{
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                messages: [
+                    {
+                        role: 'system',
+                        content: "Tu es l’Assistant IA de IA Africa. Réponds en français, clairement et utilement. Aide les clients et les professionnels à utiliser la plateforme."
+                    },
+                    {
+                        role: 'user',
+                        content: q
+                    }
+                ]
+            })
+        });
+
+        if(!response.ok){
+            throw new Error('Serveur : ' + response.status);
+        }
+
+        const raw = await response.text();
+
+        let answer = '';
+
+        const events = raw.split(/\n\n+/);
+
+        for(const event of events){
+
+            const lines = event.split('\n');
+
+            for(const line of lines){
+
+                if(!line.startsWith('data:')) continue;
+
+                const data = line.slice(5).trim();
+
+                if(!data || data === '[DONE]') continue;
+
+                try{
+                    const obj = JSON.parse(data);
+
+                    const part =
+                        typeof obj.response === 'string'
+                            ? obj.response
+                            : (
+                                obj.choices?.[0]?.delta?.content ||
+                                obj.choices?.[0]?.message?.content ||
+                                obj.content ||
+                                obj.text ||
+                                ''
+                            );
+
+                    if(part){
+                        answer += part;
+                    }
+
+                }catch(e){
+                    // Ignore les morceaux non JSON
+                }
+            }
+        }
+
+        if(!answer){
+            answer = raw.trim();
+        }
+
+        if(!answer){
+            answer = "Je n’ai pas reçu de réponse du serveur.";
+        }
+
+        box.innerHTML =
+            '<b>Assistant :</b><br>' +
+            answer.replace(/\n/g, '<br>');
+
+    }catch(error){
+
+        box.innerHTML =
+            '<b>Assistant :</b><br>' +
+            'Désolé, une erreur est survenue.<br>' +
+            '<small>' + error.message + '</small>';
+    }
+}
+    
+      
+       
         
-          box.classList.remove('hidden');
+         
           
-            if(!q){
-                box.innerHTML = '<b>Assistant :</b><br>Écrivez votre question pour commencer.';
-                    return;
-                      }
+           
+               
+                   
+                 
                       
                         box.innerHTML = '<b>Assistant :</b><br>Je réfléchis...';
                         
