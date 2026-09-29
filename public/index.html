@@ -1752,43 +1752,38 @@ function saveAdminPaymentSettings(){const x={recipient:document.getElementById('
                    
                  
                       
-                        box.innerHTML = '<b>Assistant :</b><br>Je réfléchis...';
                         
-                          try {
-                              const response = await fetch('/api/chat', {
-                                    method: 'POST',
-                                          headers: {'Content-Type':'application/json'},
-                                                body: JSON.stringify({
-                                                        messages: [
-                                                                  {
-                                                                              role: 'system',
-                                                                                          content: "Tu es l’Assistant IA de Solution Africa. Réponds en français, clairement et utilement. Aide les clients et professionnels à utiliser Solution Africa, notamment pour les services, les demandes, les missions et les échanges."
-                                                                                                    },
-                                                                                                              {role:'user', content:q}
-                                                                                                                      ]
-                                                                                                                            })
-                                                                                                                                });
+                        
+                 
+                    
+                           
+                            
+                                   
+                                               
+                                                                  
+                                                                     
+                                                                                   
+                                                                                                  
+                                                                                                     
+                                                                                                                     
+                                                                                                                  
+                                                                                                        
                                                                                                                                 
-                                                                                                                                    if(!response.ok) throw new Error('Serveur: ' + response.status);
-                                                                                                                                        if(!response.body) throw new Error('Réponse vide');
+                                                                                                                            
+                                                                                                                         
                                                                                                                                         
-                                                                                                                                            const reader = response.body.getReader();
-                                                                                                                                                const decoder = new TextDecoder();
-                                                                                                                                                    let buffer = '';
-                                                                                                                                                        let answer = '';
+                                                                                                                                    
+                                                                                                                                            
+                                                                                                                                              
+                                                                                                                                                  
                                                                                                                                                         
-                                                                                                                                                            function render(){
-                                                                                                                                                                  box.innerHTML = '';
-                                                                                                                                                                        const title = document.createElement('b');
-                                                                                                                                                                              title.textContent = 'Assistant :';
-                                                                                                                                                                                    box.appendChild(title);
-                                                                                                                                                                                          box.appendChild(document.createElement('br'));
-                                                                                                                                                                                                box.appendChild(document.createTextNode(answer));const vocal=document.createElement('button');
-vocal.className='btn outline';
-vocal.type='button';
-vocal.textContent='🔊 Écouter la réponse';
-vocal.onclick=()=>lireVocal(answer);
-box.appendChild(vocal);
+                                                                                                                                                     
+                                                                                                                                                          
+                                                                                                                                                             
+                                                                                                                                                                       
+                                                                                                                                                                        
+                                                                                                                                                                                  
+                                                                                                                                                                      
                                                                                                                                                                                                     }
                                                                                                                                                                                                     
                                                                                                                                                                                                         function consume(chunk){
