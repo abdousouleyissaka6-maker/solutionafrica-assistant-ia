@@ -47,7 +47,6 @@ h1{font-size:28px;margin:24px 0 10px} h2{font-size:23px}
 <button class="btn" onclick="document.getElementById('home').classList.add('hidden');document.getElementById('aiAssistant').classList.remove('hidden')">🤖 IA Africa</button>
 </section>
 
-
 <section id="client" class="hidden">
 <h1>👤 Espace Client</h1>
 <p class="muted">Trouvez un professionnel ou publiez votre besoin.</p>
@@ -66,7 +65,6 @@ h1{font-size:28px;margin:24px 0 10px} h2{font-size:23px}
 <button class="btn" onclick="show('home')">🚪 Se déconnecter</button>
 </section>
 
-
 <section id="aiAssistant" class="hidden">
 <h1>🤖 Assistant IA Solution Africa</h1>
 <p class="muted">Votre assistant pour utiliser la plateforme plus facilement.</p>
@@ -78,14 +76,14 @@ comprendre les étapes de la plateforme et vous orienter vers le bon service.
 </div>
 
 <div id="aiQuickActions" class="menu">
-<button onclick="show('searchProfessionnel')">🔎 Trouver un professionnel</button>
+<button onclick="show('searchProfessional')">🔎 Trouver un professionnel</button>
 <button onclick="aiAsk('Je veux publier un besoin')">📝 Publier un besoin</button>
-<button onclick="aiAsk('Comment fonctionne Solution Africa ?')">❓ Comprendre la plateforme</button>
+<button onclick="aiAsk('Comment fonctionne IA Africa ?')">❓ Comprendre la plateforme</button>
 </div>
 
 <textarea id="aiQuestion" class="input" rows="4"
 placeholder="Écrivez votre question ici..."></textarea>
-<button class="btn" type="button" onclick="window.aiAsk(document.getElementById('aiQuestion').value)">Envoyer</button>
+<button class="btn" type="button" id="aiSendButton">Envoyer</button>
 <div id="aiAnswer" class="profile hidden"></div>
 
 <button class="btn outline back" onclick="show('client')">← Retour à l'espace Client</button>
@@ -116,8 +114,10 @@ placeholder="Écrivez votre question ici..."></textarea>
 <div id="myRequestsList" class="list"></div>
 <button class="btn outline back" onclick="show('client')">← Retour</button>
 </section>
+
 <section id="myMessages" class="hidden">
-<h1>💬 Mes échanges</h1><div id="messagesList" class="list"></div>
+<h1>💬 Mes échanges</h1>
+<div id="messagesList" class="list"></div>
 <button class="btn outline back" onclick="show('client')">← Retour</button>
 </section>
 
@@ -130,12 +130,14 @@ placeholder="Écrivez votre question ici..."></textarea>
 </div>
 <button class="btn outline back" onclick="show('searchProfessional')">← Retour</button>
 </section>
+
 <section id="rateProfessional" class="hidden">
 <h1>⭐ Évaluer un professionnel</h1>
 <p class="muted">Évaluez un professionnel après une intervention terminée.</p>
 <div id="ratingRequestList"></div>
 <button class="btn outline back" onclick="show('client')">← Retour</button>
 </section>
+
 <section id="clientProfile" class="hidden">
 <h1>👤 Mon profil Client</h1>
 <p class="muted">Modifiez vos informations personnelles et votre mot de passe.</p>
@@ -148,8 +150,10 @@ placeholder="Écrivez votre question ici..."></textarea>
 <button class="btn" type="button" onclick="saveClientProfile()">💾 Enregistrer le profil</button>
 <button class="btn outline back" type="button" onclick="show('client')">← Retour</button>
 </section>
+
 <section id="wallet" class="hidden">
-<h1>💰 Mon portefeuille</h1><div class="profile"><b>Solde disponible</b><br>0 FCFA</div>
+<h1>💰 Mon portefeuille</h1>
+<div class="profile"><b>Solde disponible</b><br>0 FCFA</div>
 <button class="btn" onclick="alert('Le dépôt sera connecté au moyen de paiement choisi dans la version production.')">➕ Déposer 1 000 FCFA</button>
 <button class="btn outline back" onclick="show('client')">← Retour</button>
 </section>
@@ -166,9 +170,7 @@ placeholder="Écrivez votre question ici..."></textarea>
 <button class="btn outline" onclick="proLogin()">Se connecter</button>
 <button class="btn outline" type="button" onclick="showDemoProfessionalCodes()">🔐 Codes professionnels démo</button>
 <button class="btn outline" onclick="show('home')">Retour à l'accueil</button>
-</section>
-
-<section id="dashboard" class="hidden">
+ </section><section id="dashboard" class="hidden">
 <h1 id="welcome">Bienvenue, Soafrica 👋</h1>
 <p class="muted">Votre espace enseignant Solution Africa.</p>
 <div class="profile"><b>Profil enseignant</b><br><span id="dashName"></span><br><span id="dashRole"></span><br><span id="dashPhone"></span></div>
@@ -312,9 +314,7 @@ placeholder="Écrivez votre question ici..."></textarea>
 <button class="btn outline" onclick="addQuestionBlock()">➕ Ajouter une question</button>
 <button class="btn" onclick="saveExercise()">💾 Enregistrer l'exercice</button>
 <button class="btn outline back" onclick="show('pedExercises')">← Retour aux exercices</button>
-</section>
-
-<section id="pedResources" class="hidden">
+</section><section id="pedResources" class="hidden">
 <h1>📄 Ressources pédagogiques</h1>
 <p class="muted">Supports, documents et fichiers pédagogiques.</p>
 <button class="btn">➕ Ajouter une ressource</button>
@@ -340,7 +340,6 @@ placeholder="Écrivez votre question ici..."></textarea>
 </div>
 <button class="btn outline back" onclick="show('courses')">← Retour à Mes cours</button>
 </section>
-
 
 <section id="lessonDetail" class="hidden">
 <h1 id="lessonDetailTitle">📖 Leçon</h1>
@@ -393,7 +392,16 @@ placeholder="Écrivez votre question ici..."></textarea>
 <input id="newCourseName" class="input" placeholder="Nom de la matière">
 <input id="newCourseDesc" class="input" placeholder="Description">
 <select id="newCourseIcon" class="input">
-<option>📚</option><option>📕</option><option>📐</option><option>🔬</option><option>🌍</option><option>⚗️</option><option>💻</option><option>🎨</option><option>🎵</option><option>🕌</option>
+<option>📚</option>
+<option>📕</option>
+<option>📐</option>
+<option>🔬</option>
+<option>🌍</option>
+<option>⚗️</option>
+<option>💻</option>
+<option>🎨</option>
+<option>🎵</option>
+<option>🕌</option>
 </select>
 <div id="courseMsg"></div>
 <button class="btn" onclick="saveCustomCourse()">💾 Enregistrer la matière</button>
@@ -401,7 +409,8 @@ placeholder="Écrivez votre question ici..."></textarea>
 </section>
 
 <section id="students" class="hidden">
-<h1>👨‍🎓 Mes élèves</h1><p class="muted">Gérez votre liste d'élèves.</p>
+<h1>👨‍🎓 Mes élèves</h1>
+<p class="muted">Gérez votre liste d'élèves.</p>
 <div id="studentList" class="list"></div>
 <button class="btn" onclick="show('createStudent')">➕ Ajouter un élève</button>
 <button class="btn outline back" onclick="show('dashboard')">← Retour</button>
@@ -419,12 +428,16 @@ placeholder="Écrivez votre question ici..."></textarea>
 </section>
 
 <section id="evaluations" class="hidden">
-<h1>📝 Évaluations</h1><p class="muted">Créez et consultez les évaluations scolaires.</p>
+<h1>📝 Évaluations</h1>
+<p class="muted">Créez et consultez les évaluations scolaires.</p>
 <div id="evaluationList" class="list"></div>
 <button id="newEvaluationBtn" class="btn" type="button">➕ Nouvelle évaluation</button>
 <button class="btn outline back" onclick="show('dashboard')">← Retour</button>
-<div class="msg"><b>⭐ Avis des clients</b><br>Pour voir les notes reçues après vos interventions, utilisez cette fonction dédiée.<br>
-<button class="btn" onclick="page('professionalRatings')">⭐ Ouvrir mes avis clients</button></div>
+<div class="msg">
+<b>⭐ Avis des clients</b><br>
+Pour voir les notes reçues après vos interventions, utilisez cette fonction dédiée.
+<button class="btn" onclick="page('professionalRatings')">⭐ Ouvrir mes avis clients</button>
+</div>
 </section>
 
 <section id="createEvaluation" class="hidden">
@@ -434,13 +447,16 @@ placeholder="Écrivez votre question ici..."></textarea>
 <input id="evalSubject" class="input" placeholder="Matière">
 <input id="evalDate" class="input" type="date">
 <textarea id="evalInstruction" class="input" rows="5" placeholder="Consigne ou description de l'évaluation"></textarea>
-<div id="evalMsg"></div>
-<button class="btn" onclick="saveEvaluation()">💾 Enregistrer l'évaluation</button>
-<button class="btn outline back" onclick="show(currentSubjectName ? 'subject' : 'evaluations')">← Retour</button>
+<div id="eval<section id="results" class="hidden">
+<h1>📊 Résultats</h1>
+<p class="muted">Consultez les résultats et statistiques de vos élèves.</p>
+<div id="resultsList" class="list"></div>
+<button class="btn outline back" onclick="show('dashboard')">← Retour</button>
 </section>
 
 <section id="resources" class="hidden">
-<h1>📖 Ressources</h1><p class="muted">Retrouvez vos documents et supports de cours.</p>
+<h1>📖 Ressources</h1>
+<p class="muted">Vos documents et supports pédagogiques.</p>
 <div id="resourceList" class="list"></div>
 <button class="btn" onclick="show('createResource')">➕ Ajouter une ressource</button>
 <button class="btn outline back" onclick="show('dashboard')">← Retour</button>
@@ -448,216 +464,1335 @@ placeholder="Écrivez votre question ici..."></textarea>
 
 <section id="createResource" class="hidden">
 <h1>➕ Ajouter une ressource</h1>
-<p class="muted">Enregistrez le titre et la description d'un support pédagogique.</p>
-<input id="resourceTitle" class="input" placeholder="Titre du document">
-<input id="resourceType" class="input" placeholder="Type : PDF, fiche, vidéo, exercice...">
-<textarea id="resourceDesc" class="input" rows="5" placeholder="Description du support"></textarea>
+<input id="resourceTitle" class="input" placeholder="Titre de la ressource">
+<select id="resourceType" class="input">
+<option value="Document">📄 Document</option>
+<option value="Cours">📚 Cours</option>
+<option value="Exercice">📝 Exercice</option>
+<option value="Vidéo">🎥 Vidéo</option>
+<option value="Lien">🔗 Lien</option>
+</select>
+<textarea id="resourceDescription" class="input" rows="4" placeholder="Description"></textarea>
+<input id="resourceLink" class="input" placeholder="Lien ou adresse de la ressource">
 <div id="resourceMsg"></div>
-<button class="btn" onclick="saveResource()">💾 Enregistrer la ressource</button>
-<button class="btn outline back" onclick="show(currentSubjectName ? 'subject' : 'resources')">← Retour</button>
+<button class="btn" onclick="saveResource()">💾 Enregistrer</button>
+<button class="btn outline back" onclick="show('resources')">← Retour</button>
 </section>
 
 <section id="clientRequests" class="hidden">
 <h1>📋 Demandes des clients</h1>
-<p class="muted">Consultez les besoins publiés par les clients et répondez-leur.</p>
-<div id="clientRequestsList" class="list"></div>
+<p class="muted">Consultez les demandes qui correspondent à votre métier.</p>
+<div id="professionalRequests" class="list"></div>
 <button class="btn outline back" onclick="show('dashboard')">← Retour</button>
 </section>
+
 <section id="professionalRatings" class="hidden">
-<h1>⭐ Avis clients / Mes évaluations</h1>
-<p class="muted">Consultez les notes laissées par les clients après les interventions.</p>
-<div id="professionalRatingsList" class="list"></div>
-<button class="btn outline back" onclick="show('dashboard')">← Retour</button>
-</section>
-<section id="results" class="hidden">
-<h1>📊 Résultats</h1><p class="muted">Consultez les résultats de vos élèves.</p>
-<div class="course"><b>Pas encore de résultats</b><p>Les résultats apparaîtront après les évaluations.</p></div>
-<button class="btn outline back" onclick="show('dashboard')">← Retour</button>
+<h1>⭐ Mes avis clients</h1>
+<p class="muted">Consultez les évaluations reçues après vos interventions.</p>
+<div id="professionalRatingList" class="list"></div>
+<div id="professionalRatingSummary" class="profile"></div>
+<button class="btn outline back" onclick="show('dashboard')">← Retour au tableau de bord</button>
 </section>
 
 <section id="profile" class="hidden">
-<h1>👤 Mon profil</h1>
-<div class="profile"><b id="pname"></b><br><span id="prole"></span><br><span id="pphone"></span></div>
-<button class="btn outline" onclick="show('dashboard')">← Retour</button>
-</section>
-
-<section id="proWallet" class="hidden">
-<h1>💰 Mon portefeuille</h1>
-<div id="proWalletSummary" class="profile"></div>
-<h2>➕ Faire un dépôt</h2>
-<input id="depositAmount" class="input" type="number" min="100" placeholder="Montant en FCFA">
-<select id="depositMethod" class="input">
-<option value="Mobile Money">Mobile Money</option><option value="Orange Money">Orange Money</option><option value="Airtel Money">Airtel Money</option><option value="Moov Money">Moov Money</option><option value="Zamani Cash">Zamani Cash</option><option value="NITA">NITA</option><option value="AMANATA">AMANATA</option><option value="AL IZZA">AL IZZA</option><option value="Virement bancaire">Virement bancaire</option>
-</select>
-<input id="depositPayer" class="input" placeholder="Numéro / compte du payeur">
-<input id="depositReference" class="input" placeholder="Référence de transaction">
-<div id="depositInstructions" class="msg"></div>
-<div id="depositMsg"></div>
-<button class="btn" onclick="saveProfessionalDeposit()">💾 Enregistrer le dépôt</button>
-<h2>📋 Historique des dépôts</h2>
-<div id="proDepositHistory" class="list"></div>
+<h1>👤 Mon profil professionnel</h1>
+<input id="profileName" class="input" placeholder="Nom complet">
+<input id="profilePhone" class="input" placeholder="Numéro de téléphone">
+<input id="profileEmail" class="input" type="email" placeholder="Adresse e-mail">
+<input id="profileRole" class="input" placeholder="Profession / métier">
+<input id="profileCity" class="input" placeholder="Ville">
+<textarea id="profileBio" class="input" rows="4" placeholder="Présentation professionnelle"></textarea>
+<div id="profileMsg"></div>
+<button class="btn" onclick="saveProfessionalProfile()">💾 Enregistrer</button>
 <button class="btn outline back" onclick="show('dashboard')">← Retour</button>
 </section>
 
+<section id="proWallet" class="hidden">
+<h1>💰 Mon portefeuille professionnel</h1>
+<div id="proWalletSummary" class="profile"></div>
+<div id="proWalletHistory" class="list"></div>
+<button class="btn" onclick="proDeposit()">➕ Déposer 1 000 FCFA</button>
+<button class="btn outline" onclick="show('dashboard')">← Retour</button>
+</section>
+
+<section id="proCodes" class="hidden">
+<h1>🔐 Codes professionnels démo</h1>
+<p class="muted">Utilisez ces informations uniquement pour tester la plateforme.</p>
+<div class="profile">
+<b>Professionnel démo</b><br>
+Numéro : <b>99424366</b><br>
+Mot de passe : <b>2026issa</b><br>
+Métier : <b>Enseignant</b>
+</div>
+<button class="btn" onclick="useDemoProfessional()">Utiliser ces codes</button>
+<button class="btn outline back" onclick="show('pro')">← Retour</button>
+</section>
+
 <section id="adminLogin" class="hidden">
-<h1>👨‍💼 Espace Administrateur</h1>
-<p class="muted">Accès sécurisé à l’administration de Solution Africa.</p>
-<input id="adminPhone" class="input" placeholder="Numéro de téléphone">
+<h1>👨‍💼 Administrateur</h1>
+<p class="muted">Accès réservé à l'administration de la plateforme.</p>
+<input id="adminPhone" class="input" placeholder="Identifiant administrateur">
 <input id="adminPass" class="input" type="password" placeholder="Mot de passe">
-<div id="adminMsg"></div>
+<div id="adminLoginMsg"></div>
 <button class="btn" onclick="adminLogin()">Se connecter</button>
-<button class="btn outline" onclick="openAdminRecovery()">🔑 Mot de passe oublié ?</button>
-<button class="btn outline" onclick="show('home')">← Retour</button>
+<button class="btn outline" onclick="show('forgotPassword')">🔑 Mot de passe oublié</button>
+<button class="btn outline back" onclick="show('home')">← Retour à l'accueil</button>
 </section>
 
-<section id="adminRecovery" class="hidden">
-<h1>🔐 Récupération administrateur</h1>
-<p class="muted">Pour des raisons de sécurité, la réinitialisation réelle doit être validée par le serveur.</p>
-<input id="recoveryPhone" class="input" placeholder="Numéro administrateur">
-<input id="recoveryEmail" class="input" type="email" placeholder="E-mail administrateur">
-<div id="recoveryMsg"></div>
-<div id="recoveryVerify" class="hidden">
-<input id="recoveryCode" class="input" inputmode="numeric" maxlength="6" placeholder="Code de vérification">
-<input id="newAdminPass" class="input" type="password" placeholder="Nouveau mot de passe">
-<input id="confirmAdminPass" class="input" type="password" placeholder="Confirmer le nouveau mot de passe">
-<button class="btn" onclick="resetAdminPassword()">🔑 Enregistrer le nouveau mot de passe</button>
+<section id="admin" class="hidden">
+<h1>👨‍💼 Tableau de bord administrateur</h1>
+<p class="muted">Gestion de la plateforme IA Africa.</p>
+<div class="profile">
+<b>Administration</b><br>
+Gérez les clients, professionnels, demandes, dépôts et évaluations.
 </div>
-<button id="requestRecoveryBtn" class="btn" onclick="requestAdminRecovery()">📩 Demander la réinitialisation</button>
-<button class="btn outline" onclick="show('adminLogin')">← Retour à la connexion</button>
-</section>
-
-<section id="adminDashboard" class="hidden">
-<h1>👨‍💼 Administration</h1>
-<p class="muted">Gestion de la plateforme Solution Africa.</p>
 <div class="menu">
-<button onclick="show('adminUsers');renderAdminUsers()">👥 Utilisateurs</button>
-<button onclick="show('adminRequests');renderAdminRequests()">📋 Demandes</button>
-<button onclick="show('adminEvaluations');renderAdminEvaluations()">📝 Évaluations</button>
-<button onclick="show('adminPayments');renderAdminPayments()">💰 Paiements</button>
-<button onclick="show('adminPaymentSettings');renderAdminPaymentSettings()">⚙️ Moyens de paiement</button>
+<button onclick="adminClients()">👥 Clients</button>
+<button onclick="adminProfessionals()">👨‍🏫 Professionnels</button>
+<button onclick="adminRequests()">📋 Demandes</button>
+<button onclick="adminDeposits()">💰 Dépôts</button>
+<button onclick="adminEvaluations()">⭐ Évaluations</button>
+<button onclick="adminStatistics()">📊 Statistiques</button>
+<button onclick="adminMessages()">💬 Messages</button>
+<button onclick="adminSettings()">⚙️ Paramètres</button>
 </div>
-<button class="btn outline" onclick="show('home')">Se déconnecter</button>
+<div id="adminContent" class="list"></div>
+<button class="btn" onclick="show('adminAI')">🤖 Assistant IA administratif</button>
+<button class="btn outline" onclick="show('home')">🚪 Déconnexion</button>
 </section>
 
-<section id="adminUsers" class="hidden"><h1>👥 Utilisateurs</h1><div id="adminUsersList" class="list"></div><button class="btn outline" onclick="show('adminDashboard')">← Retour</button></section>
-<section id="adminRequests" class="hidden"><h1>📋 Demandes</h1><div id="adminRequestsList" class="list"></div><button class="btn outline" onclick="show('adminDashboard')">← Retour</button></section>
-<section id="adminEvaluations" class="hidden"><h1>📝 Évaluations</h1><div id="adminEvaluationsList" class="list"></div><button class="btn outline" onclick="show('adminDashboard')">← Retour</button></section>
-<section id="adminPayments" class="hidden"><h1>💰 Paiements</h1><div id="adminPaymentsList" class="list"></div><button class="btn outline" onclick="show('adminDashboard')">← Retour</button></section>
-<section id="adminPaymentSettings" class="hidden"><h1>⚙️ Moyens de paiement</h1><input id="adminRecipient" class="input" placeholder="Numéro bénéficiaire"><input id="adminBeneficiary" class="input" placeholder="Nom du bénéficiaire"><textarea id="adminPaymentNote" class="input" rows="4" placeholder="Instructions de paiement"></textarea><button class="btn" onclick="saveAdminPaymentSettings()">💾 Enregistrer</button><div id="adminSettingsMsg"></div><button class="btn outline" onclick="show('adminDashboard')">← Retour</button></section>
+<section id="forgotPassword" class="hidden">
+<h1>🔑 Mot de passe oublié</h1>
+<p class="muted">Indiquez votre numéro de téléphone pour demander une récupération de compte.</p>
+<input id="forgotPhone" class="input" placeholder="Numéro de téléphone">
+<input id="forgotEmail" class="input" type="email" placeholder="E-mail (facultatif)">
+<div id="forgotMsg"></div>
+<button class="btn" onclick="requestPasswordReset()">Envoyer la demande</button>
+<button class="btn outline back" onclick="show('home')">← Retour</button>
+</section>
 
+<section id="adminAI" class="hidden">
+<h1>🤖 Assistant IA administratif</h1>
+<p class="muted">Assistant réservé à l'administration.</p>
+<textarea id="adminAIQuestion" class="input" rows="4" placeholder="Posez votre question..."></textarea>
+<button class="btn" onclick="adminAIAsk()">Envoyer</button>
+<div id="adminAIAnswer" class="profile hidden"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminList" class="hidden">
+<h1 id="adminListTitle">Gestion</h1>
+<div id="adminListContent" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminStatistics" class="hidden">
+<h1>📊 Statistiques</h1>
+<div id="statisticsContent" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminSettings" class="hidden">
+<h1>⚙️ Paramètres</h1>
+<div class="profile">
+<b>IA Africa</b><br>
+Plateforme de mise en relation entre clients et professionnels.
 </div>
+<button class="btn" onclick="alert('Les paramètres généraux seront disponibles dans la prochaine version.')">Modifier les paramètres</button>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section><section id="adminClients" class="hidden">
+<h1>👥 Clients</h1>
+<div id="adminClientsList" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
 
-<script>
-window.addEventListener('error',function(e){alert('ERREUR JS : '+e.message);});
-window.addEventListener('DOMContentLoaded',function(){ if(typeof demoProfessionals!=='undefined') ensureDemoProfessionalAccounts(); });
-const sections=['lessonDetail','home','client','searchProfessional','publishNeed','myRequests','myMessages','conversation','rateProfessional','clientProfile','wallet','pro','dashboard','courses','pedagogy','chapters','chapterDetail','pedExercises','studentExercise','createExercise','pedResources','english','civic','subject','createLesson','createCourse','students','createStudent','evaluations','createEvaluation','resources','createResource','clientRequests','professionalRatings','results','profile','proWallet','adminLogin','adminRecovery','adminDashboard','adminUsers','adminRequests','adminEvaluations','adminPayments','adminPaymentSettings']
-function show(id){const target=document.getElementById(id);if(!target)return;document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));target.classList.remove('hidden');window.scrollTo(0,0)}
-function professional(){currentRole='professional';document.getElementById('proTab').classList.add('active');document.getElementById('clientTab').classList.remove('active');show('pro')}
-function createAccount(){
- const a={phone:proPhone.value.trim(),pass:proPass.value,name:proName.value.trim(),role:proRole.value.trim()};
- if(!a.phone||!a.pass||!a.name||!a.role){msg.innerHTML='<div class="msg">Veuillez remplir tous les champs.</div>';return}
- localStorage.setItem('solutionAfricaAccount',JSON.stringify(a));
- msg.innerHTML='<div class="msg">✅ Compte créé avec succès. Vous pouvez maintenant vous connecter.</div>';
-}
-function getAccount(){try{return JSON.parse(localStorage.getItem('solutionAfricaAccount')||'null')}catch(e){return null}}
-function login(){
- const p=document.getElementById('loginPhone').value.trim(),pw=document.getElementById('loginPass').value;
- let clients=[];try{clients=JSON.parse(localStorage.getItem('solutionAfricaClients')||'[]')}catch(e){clients=[]}
- if(!Array.isArray(clients))clients=[];
- let c=clients.find(x=>String(x.phone||'').trim()===p && String(x.pass||'')===pw);
- // Compte client de démonstration prêt à l'emploi pour tester l'espace Client.
- if(!c && p==='99424366' && pw==='2026issa'){
-   c={phone:p,pass:pw,name:'Client Solution Africa',role:'Client'};
-   clients.push(c);
-   localStorage.setItem('solutionAfricaClients',JSON.stringify(clients));
- }
- if(c){currentRole='client';openClientDashboard(c);return;}
- alert('Compte client introuvable. Si vous n’avez pas encore créé votre compte, appuyez sur « ➕ Créer mon compte Client ».');
-}
-function openClientDashboard(a){
- const name=a.name||a.nom||'Client';
- const phone=a.phone||'';
- const role=a.role||'Client';
- localStorage.setItem('solutionAfricaCurrentClient',JSON.stringify(a));
- const w=document.getElementById('welcome');if(w)w.textContent='Bienvenue, '+name+' 👋';
- show('client');
-}
-function getCurrentClient(){
- try{const a=JSON.parse(localStorage.getItem('IA AfricaCurrentClient')||'null');return a&&a.phone?a:null}catch(e){return null}
+<section id="adminProfessionals" class="hidden">
+<h1>👨‍🏫 Professionnels</h1>
+<div id="adminProfessionalsList" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminRequests" class="hidden">
+<h1>📋 Demandes</h1>
+<div id="adminRequestsList" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminDeposits" class="hidden">
+<h1>💰 Dépôts</h1>
+<div id="adminDepositsList" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminEvaluations" class="hidden">
+<h1>⭐ Évaluations</h1>
+<div id="adminEvaluationsList" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="adminMessages" class="hidden">
+<h1>💬 Messages</h1>
+<div id="adminMessagesList" class="list"></div>
+<button class="btn outline back" onclick="show('admin')">← Retour</button>
+</section>
+
+<section id="proRequests" class="hidden">
+<h1>📋 Demandes professionnelles</h1>
+<p class="muted">Demandes reçues de la part des clients.</p>
+<div id="proRequestsList" class="list"></div>
+<button class="btn outline back" onclick="show('dashboard')">← Retour</button>
+</section>
+
+<section id="requestDetail" class="hidden">
+<h1 id="requestDetailTitle">📋 Demande</h1>
+<div id="requestDetailContent" class="profile"></div>
+<textarea id="requestResponse" class="input" rows="4" placeholder="Écrivez votre réponse au client..."></textarea>
+<button class="btn" onclick="respondToRequest()">➤ Envoyer la réponse</button>
+<button class="btn outline back" onclick="show('clientRequests')">← Retour</button>
+</section>
+
+<section id="professionalRegister" class="hidden">
+<h1>👨‍🏫 Inscription professionnel</h1>
+<p class="muted">Créez votre profil professionnel.</p>
+<input id="regProName" class="input" placeholder="Nom complet">
+<input id="regProPhone" class="input" placeholder="Numéro de téléphone">
+<input id="regProEmail" class="input" type="email" placeholder="E-mail">
+<input id="regProRole" class="input" placeholder="Profession / métier">
+<input id="regProCity" class="input" placeholder="Ville">
+<input id="regProPass" class="input" type="password" placeholder="Mot de passe">
+<div id="regProMsg"></div>
+<button class="btn" onclick="registerProfessional()">Créer mon compte</button>
+<button class="btn outline back" onclick="show('home')">← Retour</button>
+</section>
+
+<section id="clientRegister" class="hidden">
+<h1>👤 Créer mon compte Client</h1>
+<p class="muted">Inscrivez-vous pour utiliser les services de IA Africa.</p>
+<input id="regClientName" class="input" placeholder="Nom complet">
+<input id="regClientPhone" class="input" placeholder="Numéro de téléphone">
+<input id="regClientEmail" class="input" type="email" placeholder="E-mail">
+<input id="regClientCity" class="input" placeholder="Ville">
+<input id="regClientPass" class="input" type="password" placeholder="Mot de passe">
+<div id="regClientMsg"></div>
+<button class="btn" onclick="registerClient()">Créer mon compte</button>
+<button class="btn outline back" onclick="show('home')">← Retour</button>
+</section>
+
+<section id="myProfile" class="hidden">
+<h1>👤 Mon profil</h1>
+<div id="myProfileContent" class="profile"></div>
+<button class="btn" onclick="show('profile')">✏️ Modifier mon profil</button>
+<button class="btn outline back" onclick="show('dashboard')">← Retour</button>
+</section>
+
+<section id="payment" class="hidden">
+<h1>💳 Paiement</h1>
+<p class="muted">Sélectionnez votre moyen de paiement.</p>
+<div class="list">
+<button class="course" onclick="selectPayment('NITA')"><b>📱 NITA</b><p>Paiement mobile.</p></button>
+<button class="course" onclick="selectPayment('Amanata')"><b>📱 Amanata</b><p>Paiement mobile.</p></button>
+<button class="course" onclick="selectPayment('Carte bancaire')"><b>💳 Carte bancaire</b><p>Paiement par carte.</p></button>
+</div>
+<div id="paymentMsg"></div>
+<button class="btn outline back" onclick="show('client')">← Retour</button>
+</section>
+
+<section id="paymentConfirm" class="hidden">
+<h1>✅ Confirmation du paiement</h1>
+<div id="paymentConfirmContent" class="profile"></div>
+<input id="paymentAmount" class="input" type="number" placeholderfunction openSubject(name){
+  currentSubjectName=name;
+  $('subjectTitle').textContent='📚 '+name;
+  $('subjectDesc').textContent='Cours, leçons, exercices et évaluations de '+name+'.';
+  $('lessonSubjectLabel').textContent='Matière : '+name;
+  renderSubjectLessons();
+  show('subject');
 }
 
-  const a=getCurrentClient();
-  return String((a&&a.name)||'Client IA Africa').trim()||'Client IA Africa';
+function startSubjectLesson(){
+  $('lessonTitle').value='';
+  $('lessonLevel').value='';
+  $('lessonObjective').value='';
+  $('lessonContent').value='';
+  $('lessonMsg').innerHTML='';
+  $('lessonSubjectLabel').textContent='Matière : '+currentSubjectName;
+  show('createLesson');
 }
 
+function startSubjectExercise(){
+  $('exTitle').value='';
+  $('exSubject').value=currentSubjectName;
+  $('questionBuilder').innerHTML='';
+  addQuestionBlock();
+  show('createExercise');
+}
+
+function startSubjectEvaluation(){
+  $('evalTitle').value='';
+  $('evalSubject').value=currentSubjectName;
+  $('evalDate').value='';
+  $('evalInstruction').value='';
+  $('evalMsg').innerHTML='';
+  show('createEvaluation');
+}
+
+function startSubjectResource(){
+  $('resourceTitle').value='';
+  $('resourceDescription').value='';
+  $('resourceLink').value='';
+  $('resourceMsg').innerHTML='';
+  show('createResource');
+}
+
+function getLessons(){
+  return safeJSON('solutionAfricaLessons',[]);
+}
+
+function saveLesson(){
+  const title=String($('lessonTitle').value||'').trim();
+  const level=String($('lessonLevel').value||'').trim();
+  const objective=String($('lessonObjective').value||'').trim();
+  const content=String($('lessonContent').value||'').trim();
+
+  if(!title||!content){
+    $('lessonMsg').innerHTML='<div class="msg">Veuillez renseigner le titre et le contenu de la leçon.</div>';
+    return;
+  }
+
+  const lessons=getLessons();
+  lessons.push({
+    id:'lesson-'+Date.now(),
+    subject:currentSubjectName,
+    title:title,
+    level:level,
+    objective:objective,
+    content:content,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaLessons',lessons);
+  $('lessonMsg').innerHTML='<div class="msg">✅ Leçon enregistrée avec succès.</div>';
+
+  setTimeout(function(){
+    renderSubjectLessons();
+    show('subject');
+  },500);
+}
+
+function renderSubjectLessons(){
+  const box=$('subjectLessonList');
+  if(!box)return;
+
+  const lessons=getLessons().filter(function(l){
+    return l.subject===currentSubjectName;
+  });
+
+  if(!lessons.length){
+    box.innerHTML='<div class="msg">Aucune leçon enregistrée pour cette matière.</div>';
+    return;
+  }
+
+  box.innerHTML=lessons.map(function(l){
+    return '<button class="course" type="button" onclick="openLesson(\''+
+      String(l.id).replace(/'/g,"\\'")+
+      '\')"><b>📖 '+escapeHTML(l.title)+'</b><p>'+
+      escapeHTML(l.level||'Niveau non précisé')+
+      '</p></button>';
+  }).join('');
+}
+
+function openLesson(id){
+  const lesson=getLessons().find(function(l){
+    return l.id===id;
+  });
+
+  if(!lesson)return;
+
+  $('lessonDetailTitle').textContent='📖 '+lesson.title;
+  $('lessonDetailSubject').textContent=lesson.subject||'Matière';
+  $('lessonDetailLevel').textContent=lesson.level||'Niveau non précisé';
+  $('lessonDetailObjective').textContent=lesson.objective||'Aucun objectif renseigné.';
+  $('lessonDetailContent').textContent=lesson.content||'';
+
+  $('lessonDetailExample').textContent='';
+
+  $('lessonEditBtn').onclick=function(){
+    editLesson(id);
+  };
+
+  $('lessonDeleteBtn').onclick=function(){
+    deleteLesson(id);
+  };
+
+  show('lessonDetail');
+}
+
+function editLesson(id){
+  const lesson=getLessons().find(function(l){
+    return l.id===id;
+  });
+
+  if(!lesson)return;
+
+  $('lessonTitle').value=lesson.title||'';
+  $('lessonLevel').value=lesson.level||'';
+  $('lessonObjective').value=lesson.objective||'';
+  $('lessonContent').value=lesson.content||'';
+  $('lessonSubjectLabel').textContent='Matière : '+(lesson.subject||currentSubjectName);
+
+  currentSubjectName=lesson.subject||currentSubjectName;
+
+  $('lessonMsg').innerHTML='<div class="msg">Modification de la leçon.</div>';
+
+  window.editingLessonId=id;
+  show('createLesson');
+}
+
+function deleteLesson(id){
+  if(!confirm('Voulez-vous supprimer cette leçon ?'))return;
+
+  const lessons=getLessons().filter(function(l){
+    return l.id!==id;
+  });
+
+  saveJSON('solutionAfricaLessons',lessons);
+  renderSubjectLessons();
+  show('subject');
+}
+
+function escapeHTML(value){
+  return String(value??'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+function addQuestionBlock(){
+  const box=$('questionBuilder');
+  if(!box)return;
+
+  const index=box.children.length+1;
+
+  const div=document.createElement('div');
+  div.className='course';
+  div.dataset.question=index;
+
+  div.innerHTML=
+    '<b>Question '+index+'</b>'+
+    '<textarea class="input ex-question" rows="3" placeholder="Écrivez la question"></textarea>'+
+    '<input class="input ex-option" placeholder="Option A">'+
+    '<input class="input ex-option" placeholder="Option B">'+
+    '<input class="input ex-option" placeholder="Option C">'+
+    '<input class="input ex-option" placeholder="Option D">'+
+    '<select class="input ex-answer">'+
+    '<option value="0">Bonne réponse : A</option>'+
+    '<option value="1">Bonne réponse : B</option>'+
+    '<option value="2">Bonne réponse : C</option>'+
+    '<option value="3">Bonne réponse : D</option>'+
+    '</select>';
+
+  box.appendChild(div);
+}
+
+function saveExercise(){
+  const title=String($('exTitle').value||'').trim();
+  const subject=String($('exSubject').value||currentSubjectName||'').trim();
+  const chapter=String($('exChapter').value||'').trim();
+
+  if(!title){
+    alert('Veuillez donner un titre à l’exercice.');
+    return;
+  }
+
+  const questions=[];
+
+  document.querySelectorAll('#questionBuilder .course').forEach(function(block){
+    const q=block.querySelector('.ex-question');
+    const opts=[...block.querySelectorAll('.ex-option')].map(function(x){
+      return String(x.value||'').trim();
+    });
+    const answer=block.querySelector('.ex-answer');
+
+    if(q&&String(q.value||'').trim()){
+      questions.push({
+        question:String(q.value).trim(),
+        options:opts,
+        answer:answer?Number(answer.value):0
+      });
+    }
+  });
+
+  if(!questions.length){
+    alert('Ajoutez au moins une question.');
+    return;
+  }
+
+  const exercises=safeJSON('solutionAfricaExercises',[]);
+
+  exercises.push({
+    id:'exercise-'+Date.now(),
+    title:title,
+    subject:subject,
+    chapter:chapter,
+    questions:questions,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaExercises',exercises);
+
+  alert('Exercice enregistré avec succès.');
+  renderExercises();
+  show('pedExercises');
+}
+
+function renderExercises(){
+  const box=$('exerciseList');
+  if(!box)return;
+
+  const exercises=safeJSON('solutionAfricaExercises',[]);
+
+  const filtered=currentSubjectName
+    ? exercises.filter(function(e){return e.subject===currentSubjectName;})
+    : exercises;
+
+  if(!filtered.length){
+    box.innerHTML='<div class="msg">Aucun exercice enregistré.</div>';
+    return;
+  }
+
+  box.innerHTML=filtered.map(function(e){
+    return '<div class="course">'+
+      '<b>📝 '+escapeHTML(e.title)+'</b>'+
+      '<p>'+escapeHTML(e.subject||'')+'</p>'+
+      '<p>'+e.questions.length+' question(s)</p>'+
+      '<button class="btn" onclick="startStudentExercise(\''+
+      String(e.id).replace(/'/g,"\\'")+
+      '\')">🎓 Faire l’exercice</button>'+
+      '</div>';
+  }).join('');
+}
+
+function startCreateExercise(){
+  $('exTitle').value='';
+  $('exSubject').value=currentSubjectName||'Pédagogie générale';
+  $('questionBuilder').innerHTML='';
+  addQuestionBlock();
+  show('createExercise');
+}
+
+function startStudentExercise(id){
+  const exercises=safeJSON('solutionAfricaExercises',[]);
+  const exercise=exercises.find(function(e){return e.id===id;});
+
+  if(!exercise)return;
+
+  window.currentStudentExercise=exercise;
+
+  $('studentExerciseInfo').textContent=
+    exercise.title+' — '+(exercise.subject||'');
+
+  const box=$('studentQuestionBox');
+
+  box.innerHTML=exercise.questions.map(function(q,i){
+    return '<div class="course">'+
+      '<b>'+(i+1)+'. '+escapeHTML(q.question)+'</b>'+
+      '<div>'+
+      q.options.map(function(opt,j){
+        return '<label style="display:block;padding:8px">'+
+          '<input type="radio" name="studentQ'+i+'" value="'+j+'"> '+
+          escapeHTML(opt||('Option '+String.fromCharCode(65+j)))+
+          '</label>';
+      }).join('')+
+      '</div>'+
+      '</div>';
+  }).join('');
+
+  $('studentResult').innerHTML='';
+  show('studentExercise');
+}
+
+function submitStudentAnswer(){
+  const exercise=window.currentStudentExercise;
+
+  if(!exercise)return;
+
+  let score=0;
+
+  exercise.questions.forEach(function(q,i){
+    const checked=document.querySelector('input[name="studentQ'+i+'"]:checked');
+
+    if(checked&&Number(checked.value)===Number(q.answer)){
+      score++;
+    }
+  });
+
+  const total=exercise.questions.length;
+  const percent=total?Math.round(score*100/total):0;
+
+  $('studentResult').innerHTML=
+    '<div class="profile"><b>Résultat</b><br>'+
+    score+' / '+total+' bonne(s) réponse(s)<br>'+
+    'Score : '+percent+'%</div>';
+}
+
+function chapter(number){
+  const chapters={
+    1:{
+      title:'Chapitre 1 — Introduction à la pédagogie',
+      objective:'Comprendre les notions fondamentales de la pédagogie et leur rôle dans l’éducation.',
+      content:'La pédagogie regroupe les principes, méthodes et pratiques utilisés pour organiser et faciliter les apprentissages. Elle s’intéresse notamment à la relation entre l’enseignant, l’apprenant, les savoirs et le contexte éducatif.',
+      example:'L’enseignant prépare une activité adaptée au niveau des élèves, fixe un objectif clair et vérifie ensuite les apprentissages.',
+      questions:'1. Définissez la pédagogie.\\n2. Quels sont ses principaux acteurs ?\\n3. Pourquoi préparer une activité pédagogique ?'
+    },
+    2:{
+      title:'Chapitre 2 — Les théories de l’éducation',
+      objective:'Identifier quelques grandes conceptions de l’apprentissage.',
+      content:'Les théories de l’apprentissage cherchent à expliquer comment l’être humain acquiert des connaissances et développe des compétences. Elles permettent à l’enseignant de réfléchir à ses méthodes et à ses pratiques.',
+      example:'Une activité collaborative peut permettre aux élèves de construire des connaissances en échangeant entre eux.',
+      questions:'1. Qu’est-ce qu’une théorie de l’apprentissage ?\\n2. Pourquoi les connaître ?\\n3. Donnez un exemple de pratique pédagogique.'
+    },
+    3:{
+      title:'Chapitre 3 — Pédagogie active',
+      objective:'Comprendre les principes de la pédagogie active.',
+      content:'La pédagogie active place l’apprenant au centre de l’activité. L’élève participe, cherche, expérimente, échange et construit progressivement ses connaissances.',
+      example:'Au lieu de donner directement la réponse, l’enseignant propose une situation-problème et accompagne les élèves dans leur recherche.',
+      questions:'1. Définissez la pédagogie active.\\n2. Quel rôle joue l’élève ?\\n3. Donnez une activité active.'
+    },
+    4:{
+      title:'Chapitre 4 — Pédagogie par objectifs',
+      objective:'Comprendre la formulation et l’utilisation des objectifs pédagogiques.',
+      content:'La pédagogie par objectifs consiste à déterminer précisément les résultats attendus de l’apprentissage. Les objectifs doivent guider les activités et l’évaluation.',
+      example:'À la fin de la séance, l’élève doit être capable de conjuguer correctement cinq verbes au présent.',
+      questions:'1. Qu’est-ce qu’un objectif pédagogique ?\\n2. Pourquoi le formuler clairement ?\\n3. Donnez un exemple.'
+    },
+    5:{
+      title:'Chapitre 5 — Approche par compétences',
+      objective:'Comprendre la notion de compétence et son utilisation dans les situations d’apprentissage.',
+      content:'L’approche par compétences vise la mobilisation de plusieurs ressources pour résoudre une situation complexe. Elle met l’accent sur ce que l’apprenant est capable de faire dans une situation donnée.',
+      example:'L’élève mobilise ses connaissances en mathématiques pour résoudre un problème lié à une situation de la vie courante.',
+      questions:'1. Définissez une compétence.\\n2. Qu’est-ce qu’une situation complexe ?\\n3. Pourquoi mobiliser plusieurs ressources ?'
+    },
+    6:{
+      title:'Chapitre 6 — Évaluation des apprentissages',
+      objective:'Identifier les principales fonctions et formes de l’évaluation.',
+      content:'L’évaluation permet de recueillir des informations sur les apprentissages. Elle peut être diagnostique, formative ou sommative selon sa fonction et le moment où elle intervient.',
+      example:'Une courte activité au début d’une séquence peut permettre à l’enseignant d’identifier les prérequis des élèves.',
+      questions:'1. Définissez l’évaluation.\\n2. Citez trois formes d’évaluation.\\n3. Quelle est la fonction de l’évaluation formative ?'
+    }
+  };
+
+  const c=chapters[number];
+
+  if(!c)return;
+
+  $('chapterTitle').textContent=c.title;
+  $('chapterObjective').textContent=c.objective;
+  $('chapterContent').textContent=c.content;
+  $('chapterExample').textContent=c.example;
+  $('chapterQuestions').innerHTML=escapeHTML(c.questions).replace(/\n/g,'<br>');
+
+  show('chapterDetail');
+}function saveChapter(){
+  const title=String($('newChapterTitle').value||'').trim();
+  const objective=String($('newChapterObjective').value||'').trim();
+  const content=String($('newChapterContent').value||'').trim();
+  const example=String($('newChapterExample').value||'').trim();
+  const questions=String($('newChapterQuestions').value||'').trim();
+
+  if(!title||!content){
+    $('chapterMsg').innerHTML='<div class="msg">Veuillez renseigner le titre et le contenu.</div>';
+    return;
+  }
+
+  const chapters=safeJSON('solutionAfricaCustomChapters',[]);
+
+  chapters.push({
+    id:'chapter-'+Date.now(),
+    title:title,
+    objective:objective,
+    content:content,
+    example:example,
+    questions:questions,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaCustomChapters',chapters);
+
+  $('chapterMsg').innerHTML='<div class="msg">✅ Chapitre enregistré.</div>';
+
+  setTimeout(function(){
+    $('newChapterTitle').value='';
+    $('newChapterObjective').value='';
+    $('newChapterContent').value='';
+    $('newChapterExample').value='';
+    $('newChapterQuestions').value='';
+    renderCustomChapters();
+    show('chapters');
+  },500);
+}
+
+function renderCustomChapters(){
+  const box=$('chapters');
+  if(!box)return;
+
+  let container=box.querySelector('#customChapterList');
+
+  if(!container){
+    container=document.createElement('div');
+    container.id='customChapterList';
+    container.className='list';
+
+    const addButton=$('addChapterBtn');
+
+    if(addButton){
+      addButton.parentNode.insertBefore(container,addButton);
+    }else{
+      box.appendChild(container);
+    }
+  }
+
+  const chapters=safeJSON('solutionAfricaCustomChapters',[]);
+
+  if(!chapters.length){
+    container.innerHTML='';
+    return;
+  }
+
+  container.innerHTML=chapters.map(function(c){
+    return '<button class="course" type="button" onclick="openCustomChapter(\''+
+      String(c.id).replace(/'/g,"\\'")+
+      '\')"><b>📖 '+escapeHTML(c.title)+'</b>'+
+      '<p>'+escapeHTML(c.objective||'Chapitre personnalisé')+'</p></button>';
+  }).join('');
+}
+
+function openCustomChapter(id){
+  const chapters=safeJSON('solutionAfricaCustomChapters',[]);
+
+  const c=chapters.find(function(x){
+    return x.id===id;
+  });
+
+  if(!c)return;
+
+  $('chapterTitle').textContent=c.title;
+  $('chapterObjective').textContent=c.objective||'';
+  $('chapterContent').textContent=c.content||'';
+  $('chapterExample').textContent=c.example||'';
+  $('chapterQuestions').innerHTML=
+    escapeHTML(c.questions||'').replace(/\n/g,'<br>');
+
+  show('chapterDetail');
+}
+
+function saveCustomCourse(){
+  const name=String($('newCourseName').value||'').trim();
+  const desc=String($('newCourseDesc').value||'').trim();
+  const icon=String($('newCourseIcon').value||'📚');
+
+  if(!name){
+    $('courseMsg').innerHTML='<div class="msg">Veuillez indiquer le nom de la matière.</div>';
+    return;
+  }
+
+  const courses=safeJSON('solutionAfricaCustomCourses',[]);
+
+  courses.push({
+    id:'course-'+Date.now(),
+    name:name,
+    description:desc,
+    icon:icon,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaCustomCourses',courses);
+
+  $('courseMsg').innerHTML='<div class="msg">✅ Matière enregistrée.</div>';
+
+  setTimeout(function(){
+    $('newCourseName').value='';
+    $('newCourseDesc').value='';
+    renderCustomCourses();
+    show('courses');
+  },500);
+}
+
+function renderCustomCourses(){
+  const box=$('customCourseList');
+  if(!box)return;
+
+  const courses=safeJSON('solutionAfricaCustomCourses',[]);
+
+  if(!courses.length){
+    box.innerHTML='';
+    return;
+  }
+
+  box.innerHTML=courses.map(function(c){
+    return '<button class="course subject-btn" type="button" onclick="openSubject(\''+
+      String(c.name).replace(/'/g,"\\'")+
+      '\')"><b>'+escapeHTML(c.icon||'📚')+' '+escapeHTML(c.name)+'</b>'+
+      '<p>'+escapeHTML(c.description||'')+'</p></button>';
+  }).join('');
+}
+
+function saveStudent(){
+  const name=String($('studentName').value||'').trim();
+  const studentClass=String($('studentClass').value||'').trim();
+  const phone=String($('studentPhone').value||'').trim();
+
+  if(!name||!studentClass){
+    $('studentMsg').innerHTML='<div class="msg">Veuillez renseigner le nom et la classe.</div>';
+    return;
+  }
+
+  const students=safeJSON('solutionAfricaStudents',[]);
+
+  students.push({
+    id:'student-'+Date.now(),
+    name:name,
+    className:studentClass,
+    phone:phone,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaStudents',students);
+
+  $('studentMsg').innerHTML='<div class="msg">✅ Élève enregistré.</div>';
+
+  setTimeout(function(){
+    $('studentName').value='';
+    $('studentClass').value='';
+    $('studentPhone').value='';
+    renderStudents();
+    show('students');
+  },500);
+}
+
+function renderStudents(){
+  const box=$('studentList');
+  if(!box)return;
+
+  const students=safeJSON('solutionAfricaStudents',[]);
+
+  if(!students.length){
+    box.innerHTML='<div class="msg">Aucun élève enregistré.</div>';
+    return;
+  }
+
+  box.innerHTML=students.map(function(s){
+    return '<div class="course">'+
+      '<b>👨‍🎓 '+escapeHTML(s.name)+'</b>'+
+      '<p>Classe : '+escapeHTML(s.className||'')+'</p>'+
+      (s.phone?'<p>Téléphone : '+escapeHTML(s.phone)+'</p>':'')+
+      '</div>';
+  }).join('');
+}
+
+function saveEvaluation(){
+  const title=String($('evalTitle').value||'').trim();
+  const subject=String($('evalSubject').value||currentSubjectName||'').trim();
+  const date=String($('evalDate').value||'').trim();
+  const instruction=String($('evalInstruction').value||'').trim();
+
+  if(!title){
+    $('evalMsg').innerHTML='<div class="msg">Veuillez donner un titre à l’évaluation.</div>';
+    return;
+  }
+
+  const evaluations=getEvaluations();
+
+  evaluations.push({
+    id:'evaluation-'+Date.now(),
+    title:title,
+    subject:subject,
+    date:date,
+    instruction:instruction,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaEvaluations',evaluations);
+
+  $('evalMsg').innerHTML='<div class="msg">✅ Évaluation enregistrée.</div>';
+
+  setTimeout(function(){
+    renderEvaluations();
+    show(currentSubjectName?'subject':'evaluations');
+  },500);
+}
+
+function renderEvaluations(){
+  const box=$('evaluationList');
+  if(!box)return;
+
+  const evaluations=getEvaluations();
+
+  if(!evaluations.length){
+    box.innerHTML='<div class="msg">Aucune évaluation enregistrée.</div>';
+    return;
+  }
+
+  box.innerHTML=evaluations.map(function(e){
+    return '<div class="course">'+
+      '<b>📝 '+escapeHTML(e.title)+'</b>'+
+      '<p>Matière : '+escapeHTML(e.subject||'')+'</p>'+
+      (e.date?'<p>Date : '+escapeHTML(e.date)+'</p>':'')+
+      '<p>'+escapeHTML(e.instruction||'')+'</p>'+
+      '</div>';
+  }).join('');
+}
+
+function saveResource(){
+  const title=String($('resourceTitle').value||'').trim();
+  const type=String($('resourceType').value||'Document');
+  const description=String($('resourceDescription').value||'').trim();
+  const link=String($('resourceLink').value||'').trim();
+
+  if(!title){
+    $('resourceMsg').innerHTML='<div class="msg">Veuillez donner un titre.</div>';
+    return;
+  }
+
+  const resources=safeJSON('solutionAfricaResources',[]);
+
+  resources.push({
+    id:'resource-'+Date.now(),
+    title:title,
+    type:type,
+    description:description,
+    link:link,
+    subject:currentSubjectName||'',
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaResources',resources);
+
+  $('resourceMsg').innerHTML='<div class="msg">✅ Ressource enregistrée.</div>';
+
+  setTimeout(function(){
+    renderResources();
+    show(currentSubjectName?'subject':'resources');
+  },500);
+}
+
+function renderResources(){
+  const box=$('resourceList');
+  if(!box)return;
+
+  const resources=safeJSON('solutionAfricaResources',[]);
+
+  if(!resources.length){
+    box.innerHTML='<div class="msg">Aucune ressource enregistrée.</div>';
+    return;
+  }
+
+  box.innerHTML=resources.map(function(r){
+    return '<div class="course">'+
+      '<b>📄 '+escapeHTML(r.title)+'</b>'+
+      '<p>Type : '+escapeHTML(r.type||'Document')+'</p>'+
+      '<p>'+escapeHTML(r.description||'')+'</p>'+
+      (r.link?'<p><a href="'+escapeHTML(r.link)+'" target="_blank" rel="noopener">🔗 Ouvrirfunction sendMessage(){
+  const input=$('conversationInput');
+  if(!input)return;
+
+  const text=String(input.value||'').trim();
+
+  if(!text){
+    return;
+  }
+
+  const current=getCurrentUser();
+
+  const messages=getMessages();
+
+  messages.push({
+    id:'message-'+Date.now(),
+    senderId:current?current.id:'demo-client',
+    senderName:current?current.name:'Client',
+    receiverId:currentConversationProfessional?currentConversationProfessional.id:'',
+    receiverName:currentConversationProfessional?currentConversationProfessional.name:'',
+    text:text,
+    createdAt:new Date().toISOString()
+  });
+
+  saveJSON('solutionAfricaMessages',messages);
+
+  input.value='';
+  renderConversation();
+}
+
+function renderConversation(){
+  const box=$('conversationHistory');
+
+  if(!box)return;
+
+  const current=getCurrentUser();
+
+  const currentId=current?current.id:'demo-client';
+  const professionalId=currentConversationProfessional
+    ? currentConversationProfessional.id
+    : '';
+
+  const messages=getMessages().filter(function(m){
+    return (
+      (m.senderId===currentId && m.receiverId===professionalId) ||
+      (m.senderId===professionalId && m.receiverId===currentId)
+    );
+  });
+
+  if(!messages.length){
+    box.innerHTML='<div class="msg">Aucun message pour le moment. Commencez la conversation.</div>';
+    return;
+  }
+
+  box.innerHTML=messages.map(function(m){
+    const mine=m.senderId===currentId;
+
+    return '<div class="course" style="text-align:'+
+      (mine?'right':'left')+'">'+
+      '<b>'+escapeHTML(m.senderName||'Utilisateur')+'</b>'+
+      '<p>'+escapeHTML(m.text||'')+'</p>'+
+      '<small>'+formatDate(m.createdAt)+'</small>'+
+      '</div>';
+  }).join('');
+
+  box.scrollTop=box.scrollHeight;
+}
+
+function formatDate(value){
+  try{
+    return new Date(value).toLocaleString('fr-FR');
+  }catch(e){
+    return '';
+  }
+}
+
+function renderMessages(){
+  const box=$('messagesList');
+
+  if(!box)return;
+
+  const current=getCurrentUser();
+  const currentId=current?current.id:'demo-client';
+
+  const messages=getMessages().filter(function(m){
+    return m.senderId===currentId || m.receiverId===currentId;
+  });
+
+  if(!messages.length){
+    box.innerHTML='<div class="msg">Aucun échange pour le moment.</div>';
+    return;
+  }
+
+  const groups={};
+
+  messages.forEach(function(m){
+    const otherId=m.senderId===currentId?m.receiverId:m.senderId;
+
+    if(!groups[otherId]){
+      groups[otherId]={
+        name:m.senderId===currentId?m.receiverName:m.senderName,
+        last:m
+      };
+    }else{
+      groups[otherId].last=m;
+    }
+  });
+
+  box.innerHTML=Object.values(groups).map(function(g){
+    return '<button class="course" type="button" onclick="openConversationById(\''+
+      String(g.last.receiverId===currentId?g.last.senderId:g.last.receiverId).replace(/'/g,"\\'")+
+      '\')">'+
+      '<b>💬 '+escapeHTML(g.name||'Utilisateur')+'</b>'+
+      '<p>'+escapeHTML(g.last.text||'')+'</p>'+
+      '<small>'+formatDate(g.last.createdAt)+'</small>'+
+      '</button>';
+  }).join('');
+}
+
+function openConversationById(id){
+  const pro=getProfessionals().find(function(p){
+    return p.id===id;
+  });
+
+  if(pro){
+    currentConversationProfessional=pro;
+    $('conversationTitle').textContent='💬 Conversation avec '+pro.name;
+    renderConversation();
+    show('conversation');
+    return;
+  }
+
+  const messages=getMessages();
+
+  const message=messages.find(function(m){
+    return m.senderId===id || m.receiverId===id;
+  });
+
+  if(message){
+    currentConversationProfessional={
+      id:id,
+      name:message.senderId===id?message.senderName:message.receiverName
+    };
+
+    $('conversationTitle').textContent=
+      '💬 Conversation avec '+currentConversationProfessional.name;
+
+    renderConversation();
+    show('conversation');
+  }
+}
+
+function renderProfessionalRequests(){
+  const box=$('professionalRequests');
+
+  if(!box)return;
+
+  const pro=getCurrentProfessional();
+
+  if(!pro){
+    box.innerHTML='<div class="msg">Connectez-vous comme professionnel.</div>';
+    return;
+  }
+
+  const requests=getRequests().filter(function(r){
+    return !r.professionalId || r.professionalId===pro.id;
+  });
+
+  if(!requests.length){
+    box.innerHTML='<div class="msg">Aucune demande disponible.</div>';
+    return;
+  }
+
+  box.innerHTML=requests.map(function(r){
+    return '<div class="course">'+
+      '<b>📋 '+escapeHTML(r.title||'Demande')+'</b>'+
+      '<p>'+escapeHTML(r.description||'')+'</p>'+
+      '<p>Client : '+escapeHTML(r.clientName||'Client')+'</p>'+
+      '<p>État : <b>'+escapeHTML(r.status||'En attente')+'</b></p>'+
+      '<button class="btn" onclick="openRequest(\''+
+      String(r.id).replace(/'/g,"\\'")+
+      '\')">Voir la demande</button>'+
+      '</div>';
+  }).join('');
+}
+
+function openRequest(id){
+  const request=getRequests().find(function(r){
+    return r.id===id;
+  });
+
+  if(!request)return;
+
+  currentRequest=request;
+
+  $('requestDetailTitle').textContent='📋 '+(request.title||'Demande');
+
+  $('requestDetailContent').innerHTML=
+    '<b>Client :</b> '+escapeHTML(request.clientName||'Client')+
+    '<br><b>Description :</b><br>'+
+    escapeHTML(request.description||'')+
+    '<br><br><b>État :</b> '+
+    escapeHTML(request.status||'En attente')+
+    (request.budget?'<br><b>Budget :</b> '+escapeHTML(request.budget)+' FCFA':'')+
+    (request.date?'<br><b>Date souhaitée :</b> '+escapeHTML(request.date):'');
+
+  $('requestResponse').value=request.response||'';
+
+  show('requestDetail');
+}
+
+function respondToRequest(){
+  if(!currentRequest)return;
+
+  const response=String($('requestResponse').value||'').trim();
+
+  if(!response){
+    alert('Écrivez une réponse au client.');
+    return;
+  }
+
+  const requests=getRequests();
+
+  const index=requests.findIndex(function(r){
+    return r.id===currentRequest.id;
+  });
+
+  if(index<0)return;
+
+  const pro=getCurrentProfessional();
+
+  requests[index].response=response;
+  requests[index].status='Répondu';
+
+  if(pro){
+    requests[index].professionalId=pro.id;
+    requests[index].professionalName=pro.name;
+  }
+
+  saveJSON('solutionAfricaRequests',requests);
+
+  alert('Réponse envoyée au client.');
+
+  renderProfessionalRequests();
+  show('clientRequests');
+}
+
+function registerProfessional(){
+  const name=String($('regProName').value||'').trim();
+  const phone=String($('regProPhone').value||'').trim();
+  const email=String($('regProEmail').value||'').trim();
+  const role=String($('regProRole').value||'').trim();
+  const city=String($('regProCity').value||'').trim();
+  const password=String($('regProPass').value||'').trim();
+
+  if(!name||!phone||!password){
+    $('regProMsg').innerHTML=
+      '<div class="msg">Nom, numéro et mot de passe sont obligatoires.</div>';
+    return;
+  }
+
+  const professionals=getProfessionals();
+
+  if(professionals.some(function(p){
+    return String(p.phone)===phone;
+  })){
+    $('regProMsg').innerHTML=
+      '<div class="msg">Ce numéro est déjà utilisé.</div>';
+    return;
+  }
+
+  const pro={
+    id:'pro-'+Date.now(),
+    name:name,
+    phone:phone,
+    email:email,
+    role:role||'Professionnel',
+    city:city,
+    password:password,
+    bio:'',
+    approved:true,
+    rating:0,
+    ratingCount:0,
+    createdAt:new Date().toISOString()
+  };
+
+  professionals.push(pro);
+
+  saveJSON('solutionAfricaProfessionals',professionals);
+  saveJSON('solutionAfricaCurrentProfessional',pro);
+
+  localStorage.removeItem('solutionAfricaCurrentClient');
+
+  $('regProMsg').innerHTML=
+    '<div class="msg">✅ Compte professionnel créé avec succès.</div>';
+
+  setTimeout(function(){
+    loadDashboard();
+  },500);
+}
+
+function registerClient(){
+  const name=String($('regClientName').value||'').trim();
+  const phone=String($('regClientPhone').value||'').trim();
+  const email=String($('regClientEmail').value||'').trim();
+  const city=String($('regClientCity').value||'').trim();
+  const password=String($('regClientPass').value||'').trim();
+
+  if(!name||!phone||!password){
+    $('regClientMsg').innerHTML=
+      '<div class="msg">Nom, numéro et mot de passe sont obligatoires.</div>';
+    return;
+  }
+
+  const clients=getClients();
+
+  if(clients.some(function(c){
+    return String(c.phone)===phone;
+  })){
+    $('regClientMsg').innerHTML=
+      '<div class="msg">Ce numéro est déjà utilisé.</div>';
+    return;
+  }
+
+  const clientData={
+    id:'client-'+Date.now(),
+    name:name,
+    phone:phone,
+    email:email,
+    city:city,
+    password:password,
+    createdAt:new Date().toISOString()
+  };
+
+  clients.push(clientData);
+
+  saveJSON('solutionAfricaClients',clients);
+  saveJSON('solutionAfricaCurrentClient',clientData);
+
+  localStorage.removeItem('solutionAfricaCurrentProfessional');
+
+  $('regClientMsg').innerHTML=
+    '<div class="msg">✅ Compte Client créé avec succès.</div>';
+
+  setTimeout(function(){
+    show('client');
+  },500);
+}
 
 function openClientProfile(){
   const client=getCurrentClient();
 
   if(!client){
-    alert('Profil client introuvable.');
+    show('clientRegister');
     return;
   }
 
-  document.getElementById('clientProfileName').value=client.name||client.nom||'';
-  document.getElementById('clientProfilePhone').value=client.phone||'';
-  document.getElementById('clientProfileEmail').value=client.email||'';
-  document.getElementById('clientProfileCity').value=client.city||'';
-  document.getElementById('clientProfilePass').value='';
+  $('clientProfileName').value=client.name||'';
+  $('clientProfilePhone').value=client.phone||'';
+  $('clientProfileEmail').value=client.email||'';
+  $('clientProfileCity').value=client.city||'';
+  $('clientProfilePass').value='';
+  $('clientProfileMsg').innerHTML='';
 
   show('clientProfile');
 }
 
+function getCurrentClientName(){
+  const a=getCurrentClient();
+  return String((a&&a.name)||'Client IA Africa').trim()||'Client IA Africa';
+}
+
 function saveClientProfile(){
-  const name=document.getElementById('clientProfileName').value.trim();
-  const phone=document.getElementById('clientProfilePhone').value.trim();
-  const email=document.getElementById('clientProfileEmail').value.trim();
-  const city=document.getElementById('clientProfileCity').value.trim();
-  const newPass=document.getElementById('clientProfilePass').value;
-  const msg=document.getElementById('clientProfileMsg');
+  const current=getCurrentClient();
 
-  if(!name || !phone){
-    msg.innerHTML='<div class="msg">❌ Le nom et le numéro de téléphone sont obligatoires.</div>';
+  if(!current){
+    $('clientProfileMsg').innerHTML=
+      '<div class="msg">Aucun compte client connecté.</div>';
     return;
-  }
-
-  let current={};
-  try{
-    current=JSON.parse(localStorage.getItem('IA AfricaCurrentClient')||'{}');
-  }catch(e){
-    current={};
   }
 
   const updated={
     ...current,
-    name:name,
-    phone:phone,
-    email:email,
-    city:city,
-    role:'Client'
+    name:String($('clientProfileName').value||'').trim(),
+    phone:String($('clientProfilePhone').value||'').trim(),
+    email:String($('clientProfileEmail').value||'').trim(),
+    city:String($('clientProfileCity').value||'').trim()
   };
 
-  if(newPass.trim()){
-    updated.pass=newPass;
+  const newPass=String($('clientProfilePass').value||'').trim();
+
+  if(newPass){
+    updated.password=newPass;
   }
 
-  localStorage.setItem(
-    'solutionAfricaCurrentClient',
-    JSON.stringify(updated)
-  );
+  const clients=getClients();
 
-  let clients=[];
-  try{
-    clients=JSON.parse(localStorage.getItem('IA AfricaClients')||'[]');
-  }catch(e){
-    clients=[];
-  }
-
-  if(!Array.isArray(clients)) clients=[];
-
-  const index=clients.findIndex(
-    x=>String(x.phone||'').trim()===String(current.phone||'').trim()
-  );
+  const index=clients.findIndex(function(c){
+    return c.id===current.id;
+  });
 
   if(index>=0){
     clients[index]=updated;
@@ -665,1468 +1800,203 @@ function saveClientProfile(){
     clients.push(updated);
   }
 
-  localStorage.setItem(
-    'solutionAfricaClients',
-    JSON.stringify(clients)
-  );
-
-  const welcome=document.getElementById('welcome');
-  if(welcome){
-    welcome.textContent='Bienvenue, '+name+' 👋';
+  saveJSON('solutionAfricaClients',clients);function renderProWallet(){
+  const summary=$('proWalletSummary');
+  const history=$('function adminStatistics(){
+  if(!isAdmin()){
+    show('adminLogin');
+    return;
   }
 
-  msg.innerHTML='<div class="msg">✅ Profil Client enregistré avec succès.</div>';
- }
-function createClientDemo(){
- const phone=prompt('Numéro de téléphone du client :','90000000'); if(phone===null)return;
- const pass=prompt('Mot de passe du client :','1234'); if(pass===null)return;
- const name=prompt('Nom et prénom du client :','Client IA Africa'); if(name===null)return;
- let clients=[];try{clients=JSON.parse(localStorage.getItem('IA AfricaClients')||'[]')}catch(e){clients=[]}
- if(!Array.isArray(clients))clients=[];
- const idx=clients.findIndex(x=>x.phone===phone.trim());
- const c={phone:phone.trim(),pass,name:name.trim()||'Client IA Africa',role:'Client'};
- if(idx>=0)clients[idx]=c;else clients.push(c);
- localStorage.setItem('solutionAfricaClients',JSON.stringify(clients));
- currentRole='client'; openClientDashboard(c);
-}
-function getDemoProfessionalAccounts(){
- const list=demoProfessionals.map((p,i)=>({phone:'910000'+String(i+1).padStart(2,'0'),pass:'Demo@2026',name:p.name,role:p.job,city:p.city,job:p.job}));
- return list;
-}
-function ensureDemoProfessionalAccounts(){
- const demos=getDemoProfessionalAccounts();
- let arr=[]; try{arr=JSON.parse(localStorage.getItem('solutionAfricaProfessionalAccounts')||'[]')}catch(e){arr=[]}
- if(!Array.isArray(arr))arr=[];
- demos.forEach(d=>{
-   const idx=arr.findIndex(x=>String(x.phone||'').trim()===d.phone);
-   if(idx<0)arr.push(d); else arr[idx]={...arr[idx],...d};
- });
- localStorage.setItem('IA AfricaProfessionalAccounts',JSON.stringify(arr));
- return arr;
-}
-function proLogin(){
- const p=proPhone.value.trim(),pw=proPass.value;
- const a=getAccount();
- if(a&&a.phone===p&&a.pass===pw){currentRole='professional';openDashboard(a);return;}
- const demos=ensureDemoProfessionalAccounts();
- const d=demos.find(x=>String(x.phone||'').trim()===p&&String(x.pass||'')===pw);
- if(d){currentRole='professional';localStorage.setItem('solutionAfricaCurrentProfessional',JSON.stringify(d));openDashboard(d);return;}
- msg.innerHTML='<div class="msg">❌ Numéro ou mot de passe incorrect.</div>';
-}
-function showDemoProfessionalCodes(){
- ensureDemoProfessionalAccounts();
- const d=getDemoProfessionalAccounts();
- const halima=d.find(x=>x.name==='Halima Garba');
- const box=document.getElementById('msg');
- if(box)box.innerHTML='<div class="msg"><b>🔐 Comptes professionnels démo</b><br>Halima Garba — '+halima.phone+' — mot de passe : '+halima.pass+'<br><small>Les autres professionnels disposent aussi d’un compte démo.</small></div>';
-}
+  const clients=getClients();
+  const pros=getProfessionals();
+  const requests=getRequests();
+  const deposits=getDeposits();
+  const messages=getMessages();
+  const evaluations=getEvaluations();
 
-function openDashboard(a){
- welcome.textContent='Bienvenue, '+a.name+' 👋';dashName.textContent='Nom : '+a.name;dashRole.textContent='Rôle : '+a.role;dashPhone.textContent='Téléphone : '+a.phone;
- pname.textContent='Nom : '+a.name;prole.textContent='Rôle : '+a.role;pphone.textContent='Téléphone : '+a.phone;show('dashboard')
-}
-
-function getCustomChapters(){try{const a=JSON.parse(localStorage.getItem('solutionAfricaChapters')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
-function renderChapters(){
- const list=document.querySelector('#chapters .list'); if(!list)return;
- list.querySelectorAll('.custom-chapter').forEach(e=>e.remove());
- getCustomChapters().forEach((d,i)=>{
-  const b=document.createElement('button'); b.className='course custom-chapter'; b.type='button'; b.onclick=function(){chapter('custom-'+i)};
-  b.innerHTML='<b>'+escapeHtml(d.title)+'</b><p>'+escapeHtml(d.summary||d.objective)+'</p>';
-  list.appendChild(b);
- });
-}
-function saveChapter(){
- const title=document.getElementById('newChapterTitle').value.trim();
- const objective=document.getElementById('newChapterObjective').value.trim();
- const content=document.getElementById('newChapterContent').value.trim();
- const example=document.getElementById('newChapterExample').value.trim();
- const questions=document.getElementById('newChapterQuestions').value.trim();
- const msg=document.getElementById('chapterMsg');
- if(!title||!objective||!content||!example||!questions){msg.innerHTML='<div class="msg">Veuillez remplir tous les champs.</div>';return}
- const arr=getCustomChapters();
- arr.push({title,objective,content,example,questions,summary:objective});
- localStorage.setItem('solutionAfricaChapters',JSON.stringify(arr));
- document.getElementById('newChapterTitle').value='';document.getElementById('newChapterObjective').value='';document.getElementById('newChapterContent').value='';document.getElementById('newChapterExample').value='';document.getElementById('newChapterQuestions').value='';
- msg.innerHTML='<div class="msg">✅ Chapitre enregistré avec succès.</div>';
- renderChapters();
- setTimeout(function(){show('chapters')},400);
-}
-
-function chapter(n){
- const data={
- 1:["Chapitre 1 — Introduction à la pédagogie","Comprendre ce qu'est la pédagogie et son rôle dans l'éducation.","La pédagogie est l'ensemble des principes, méthodes et pratiques qui permettent d'organiser l'enseignement et de favoriser les apprentissages.","Un enseignant prépare une activité adaptée au niveau de ses élèves, fixe un objectif puis vérifie les acquis."],
- 2:["Chapitre 2 — Les théories de l'éducation","Identifier les principales conceptions qui expliquent comment on apprend.","Les théories de l'éducation proposent différentes façons de comprendre l'apprentissage, le rôle de l'enseignant et celui de l'élève.","Comparer une situation d'apprentissage dirigée par l'enseignant avec une activité où l'élève construit activement ses connaissances."],
- 3:["Chapitre 3 — Pédagogie active","Favoriser la participation et l'activité de l'élève dans les apprentissages.","La pédagogie active place l'élève au centre de l'activité : recherche, coopération, résolution de problèmes, expérimentation et discussion.","Faire travailler les élèves en groupes sur une situation-problème puis leur demander de présenter leurs solutions."],
- 4:["Chapitre 4 — Pédagogie par objectifs","Formuler des objectifs pédagogiques clairs et observables.","La pédagogie par objectifs organise l'enseignement autour de résultats attendus et vérifiables chez l'apprenant.","À la fin de la leçon, l'élève doit pouvoir définir, expliquer ou appliquer une notion donnée."],
- 5:["Chapitre 5 — Approche par compétences","Développer la capacité de mobiliser des connaissances dans des situations.","L'approche par compétences vise la mobilisation de ressources pour résoudre des situations complexes et authentiques.","Proposer une situation réelle dans laquelle l'élève doit utiliser plusieurs connaissances pour produire une solution."],
- 6:["Chapitre 6 — Évaluation des apprentissages","Choisir des méthodes d'évaluation adaptées aux objectifs d'apprentissage.","L'évaluation permet de recueillir des informations sur les apprentissages afin de diagnostiquer, accompagner ou certifier les acquis.","Utiliser une évaluation diagnostique avant une séquence et une évaluation formative pendant les apprentissages."]
- };
- const d=data[n];
- chapterTitle.textContent="📖 "+d[0];
- chapterObjective.textContent=d[1];
- chapterContent.textContent=d[2];
- chapterExample.textContent=d[3];
- show('chapterDetail');
-}
-
-
-let questionCount=0;
-function addQuestionBlock(data){
- questionCount++;
- const i=questionCount;
- const d=data||{};
- const box=document.createElement('div'); box.className='course'; box.id='qblock'+i;
- box.innerHTML='<h2>Question '+i+'</h2>'+
- '<textarea class="input qtext" rows="4" placeholder="Écrivez la question">'+escapeHtml(d.question||'')+'</textarea>'+ 
- '<input class="input qoptA" placeholder="Choix A" value="'+escapeAttr((d.options&&d.options.A)||'')+'">'+
- '<input class="input qoptB" placeholder="Choix B" value="'+escapeAttr((d.options&&d.options.B)||'')+'">'+
- '<input class="input qoptC" placeholder="Choix C" value="'+escapeAttr((d.options&&d.options.C)||'')+'">'+
- '<input class="input qoptD" placeholder="Choix D" value="'+escapeAttr((d.options&&d.options.D)||'')+'">'+
- '<select class="input qcorrect"><option value="A">Réponse correcte : A</option><option value="B">Réponse correcte : B</option><option value="C">Réponse correcte : C</option><option value="D">Réponse correcte : D</option></select>'+
- '<button type="button" class="btn outline" onclick="removeQuestion('+i+')">🗑️ Supprimer cette question</button>';
- document.getElementById('questionBuilder').appendChild(box);
- if(d.correct) box.querySelector('.qcorrect').value=d.correct;
-}
-function removeQuestion(i){const el=document.getElementById('qblock'+i);if(el)el.remove();}
-function resetQuestionBuilder(){questionCount=0;const b=document.getElementById('questionBuilder');b.innerHTML='';addQuestionBlock();}
-function saveExercise(){
- const title=document.getElementById('exTitle').value.trim();
- const chapter=document.getElementById('exChapter').value;
- const blocks=[...document.querySelectorAll('#questionBuilder .course')];
- if(!title||!blocks.length){alert('Veuillez indiquer un titre et au moins une question.');return;}
- const questions=[];
- for(let j=0;j<blocks.length;j++){
-   const q=blocks[j].querySelector('.qtext').value.trim();
-   const options={A:blocks[j].querySelector('.qoptA').value.trim(),B:blocks[j].querySelector('.qoptB').value.trim(),C:blocks[j].querySelector('.qoptC').value.trim(),D:blocks[j].querySelector('.qoptD').value.trim()};
-   const correct=blocks[j].querySelector('.qcorrect').value;
-   if(!q||!options.A||!options.B||!options.C||!options.D){alert('Veuillez remplir complètement la question '+(j+1)+'.');return;}
-   questions.push({question:q,options,correct});
- }
- let arr=[];try{arr=JSON.parse(localStorage.getItem('solutionAfricaExercises')||'[]');if(!Array.isArray(arr))arr=[];}catch(e){arr=[];}
- arr.push({title,chapter,subject:(document.getElementById('exSubject')?.value||currentSubjectName||'').trim(),questions});
- localStorage.setItem('solutionAfricaExercises',JSON.stringify(arr));
- renderExercises();
- document.getElementById('exTitle').value=''; resetQuestionBuilder(); show('pedExercises');
-}
-function normalizedQuestions(e){
- if(e&&Array.isArray(e.questions)) return e.questions;
- if(e&&e.options) return [{question:e.question||'',options:e.options,correct:e.correct}];
- return [];
-}
-function renderExercises(){
- const box=document.getElementById('exerciseList'); if(!box)return;
- let arr=[];try{arr=JSON.parse(localStorage.getItem('solutionAfricaExercises')||'[]');if(!Array.isArray(arr))arr=[];}catch(e){arr=[];}
- const subject=currentSubjectName||'';
- const filtered=subject ? arr.map((e,i)=>({...e,_index:i})).filter(e=>String(e.subject||'').trim()===String(subject).trim()) : arr.map((e,i)=>({...e,_index:i}));
- if(filtered.length===0){box.innerHTML='<div class="course"><b>📝 Aucun exercice pour '+escapeHtml(subject||'cette matière')+'</b><p>Appuyez sur « Créer un exercice » pour commencer.</p></div>';return;}
- box.innerHTML=filtered.map((e)=>{
-   const qs=normalizedQuestions(e);
-   const preview=qs.slice(0,2).map((q,n)=>'<p><b>Question '+(n+1)+' :</b> '+escapeHtml(q.question)+'</p>').join('');
-   return '<div class="course"><b>📝 '+escapeHtml(e.title||'Exercice')+'</b><p>📚 '+escapeHtml(e.subject||e.chapter||'')+'</p><p>📌 '+qs.length+' question(s)</p>'+preview+'<button class="btn" onclick="startStudentExercise('+e._index+')">🎓 Faire l\'exercice</button></div>';
- }).join('');
-}
-let currentStudentExercise=null;
-function startStudentExercise(i){
- let arr=[];try{arr=JSON.parse(localStorage.getItem('solutionAfricaExercises')||'[]');}catch(e){arr=[];}
- const e=arr[i]; const qs=normalizedQuestions(e);
- if(!e||!qs.length){alert('Cet exercice ne contient pas de question.');return;}
- currentStudentExercise=e;
- document.getElementById('studentExerciseInfo').textContent=(e.title||'Exercice')+' — '+(e.chapter||'');
- document.getElementById('studentQuestionBox').innerHTML=qs.map((q,n)=>'<div class="course"><h2>Question '+(n+1)+'</h2><h2>'+escapeHtml(q.question)+'</h2>'+['A','B','C','D'].map(k=>'<label style="display:block;border:1px solid #ddd;border-radius:14px;padding:15px;margin:10px 0;cursor:pointer"><input type="radio" name="studentAnswer'+n+'" value="'+k+'" style="margin-right:10px"> <b>'+k+'.</b> '+escapeHtml(q.options[k])+'</label>').join('')+'</div>').join('');
- document.getElementById('studentResult').innerHTML=''; document.getElementById('studentSubmit').style.display='block'; show('studentExercise');
-}
-function submitStudentAnswer(){
- if(!currentStudentExercise)return; const qs=normalizedQuestions(currentStudentExercise); let score=0, unanswered=0;
- qs.forEach((q,n)=>{const chosen=document.querySelector('input[name="studentAnswer'+n+'"]:checked');if(!chosen){unanswered++;return;}if(chosen.value===q.correct)score++;});
- if(unanswered){alert('Veuillez répondre à toutes les questions.');return;}
- const pct=Math.round(score/qs.length*100); let mention=pct>=90?'Excellent !':pct>=75?'Très bien !':pct>=50?'Bien.':'À revoir.';
- document.getElementById('studentResult').innerHTML='<div class="msg">🎓 <b>Résultat</b><br>Score : <b>'+score+'/'+qs.length+'</b><br>Pourcentage : <b>'+pct+' %</b><br>'+mention+'</div>';
- document.getElementById('studentSubmit').style.display='none';
-}
-function escapeAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-
-function page(id,arg){if(id==='subject'){openSubject(arg||'Matière');return;}show(id)}
-function demo(){show('client')}
-const demoProfessionals=[
- {name:'Moussa Abdou',job:'Électricien',city:'Niamey',rating:'4.8',phone:'Contact disponible'},
- {name:'Amina Issoufou',job:'Électricienne',city:'Zinder',rating:'4.7',phone:'Contact disponible'},
- {name:'Ibrahim Mahamadou',job:'Mécanicien',city:'Maradi',rating:'4.6',phone:'Contact disponible'},
- {name:'Fatou Oumarou',job:'Enseignante',city:'Gaya',rating:'4.9',phone:'Contact disponible'},
- {name:'Sani Adamou',job:'Informaticien',city:'Niamey',rating:'4.5',phone:'Contact disponible'},
- {name:'Abdou Karim',job:'Plombier',city:'Niamey',rating:'4.7',phone:'Contact disponible'},
- {name:'Hassana Ali',job:'Maçon',city:'Zinder',rating:'4.6',phone:'Contact disponible'},
- {name:'Oumarou Salifou',job:'Chauffeur',city:'Maradi',rating:'4.5',phone:'Contact disponible'},
- {name:'Mariam Issa',job:'Éleveuse',city:'Tahoua',rating:'4.8',phone:'Contact disponible'},
- {name:'Amadou Harouna',job:'Agriculteur',city:'Dosso',rating:'4.7',phone:'Contact disponible'},
- {name:'Halima Garba',job:'Infirmière',city:'Niamey',rating:'4.9',phone:'Contact disponible'},
- {name:'Dr Ibrahim Moussa',job:'Médecin',city:'Zinder',rating:'4.8',phone:'Contact disponible'},
- {name:'Yacouba Adam',job:'Menuisier',city:'Gaya',rating:'4.6',phone:'Contact disponible'},
- {name:'Aïchatou Sani',job:'Peintre',city:'Maradi',rating:'4.5',phone:'Contact disponible'},
- {name:'Zara Abdou',job:'Couturière',city:'Niamey',rating:'4.8',phone:'Contact disponible'},
- {name:'Malam Issouf',job:'Coiffeur',city:'Tahoua',rating:'4.6',phone:'Contact disponible'},
- {name:'Boubacar Ali',job:'Cuisinier',city:'Zinder',rating:'4.7',phone:'Contact disponible'},
- {name:'Moussa Hamidou',job:'Maraîcher',city:'Dosso',rating:'4.5',phone:'Contact disponible'},
- {name:'Issoufou Ousmane',job:'Pêcheur',city:'Tillabéri',rating:'4.4',phone:'Contact disponible'},
- {name:'Rabiatou Amadou',job:'Commerçante',city:'Niamey',rating:'4.7',phone:'Contact disponible'},
- {name:'Souleymane Harouna',job:'Réparateur de téléphones',city:'Maradi',rating:'4.6',phone:'Contact disponible'},
- {name:'Kader Adam',job:'Technicien froid et climatisation',city:'Niamey',rating:'4.8',phone:'Contact disponible'},
- {name:'Seyni Mahamadou',job:'Soudeur',city:'Zinder',rating:'4.5',phone:'Contact disponible'},
- {name:'Ousmane Bello',job:'Conducteur moto-taxi',city:'Gaya',rating:'4.6',phone:'Contact disponible'},
- {name:'Fati Moussa',job:'Agent d’entretien',city:'Niamey',rating:'4.7',phone:'Contact disponible'},
- {name:'Mahamadou Ali',job:'Photographe',city:'Maradi',rating:'4.8',phone:'Contact disponible'},
- {name:'Amina Abdou',job:'Vidéaste',city:'Niamey',rating:'4.6',phone:'Contact disponible'},
- {name:'Boubacar Issaka',job:'Formateur',city:'Tahoua',rating:'4.9',phone:'Contact disponible'},
- {name:'Salissou Oumar',job:'Juriste',city:'Niamey',rating:'4.7',phone:'Contact disponible'},
- {name:'Hadiza Abdou',job:'Comptable',city:'Zinder',rating:'4.8',phone:'Contact disponible'},
- {name:'Moussa Saley',job:'Architecte',city:'Niamey',rating:'4.7',phone:'Contact disponible'},
- {name:'Rahila Ibrahim',job:'Laborantine',city:'Maradi',rating:'4.6',phone:'Contact disponible'},
- {name:'Dr Mariama Oumar',job:'Pharmacienne',city:'Gaya',rating:'4.8',phone:'Contact disponible'},
- {name:'Dr Sani Abdou',job:'Dentiste',city:'Niamey',rating:'4.7',phone:'Contact disponible'},
- {name:'Malam Ousmane',job:'Aviculteur',city:'Dosso',rating:'4.5',phone:'Contact disponible'},
- {name:'Hassoumi Ali',job:'Apiculteur',city:'Tahoua',rating:'4.6',phone:'Contact disponible'},
- {name:'Adamou Seydou',job:'Ébéniste',city:'Zinder',rating:'4.7',phone:'Contact disponible'},
- {name:'Aïssata Harouna',job:'Artisane',city:'Maradi',rating:'4.8',phone:'Contact disponible'}
- ];
-function searchPro(){const q=document.getElementById('professionalSearch').value.trim().toLowerCase();const box=document.getElementById('searchResult');if(!q){box.innerHTML='<div class="msg">Veuillez saisir un métier ou un service.</div>';return;}const results=demoProfessionals.filter(p=>(p.job+' '+p.city+' '+p.name).toLowerCase().includes(q));if(!results.length){box.innerHTML='<div class="course"><b>Aucun professionnel trouvé</b><p>Essayez un autre métier ou service.</p></div>';return;}box.innerHTML='<div class="course"><b>Professionnels trouvés : '+results.length+'</b></div>'+results.map(p=>'<div class="course"><b>👤 '+escapeHtml(p.name)+'</b><p>🛠️ '+escapeHtml(p.job)+'<br>📍 '+escapeHtml(p.city)+'<br>⭐ '+p.rating+'/5</p><button type="button" class="btn contact-btn" data-professional="'+escapeAttr(p.name)+'">📞 Contacter</button></div>').join('');}
-function getConversations(){try{const a=JSON.parse(localStorage.getItem('solutionAfricaConversations')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
-function saveConversations(a){localStorage.setItem('solutionAfricaConversations',JSON.stringify(a))}
-let currentConversationName='';
-let currentConversationClient='Client';
-let currentRole='client';
-let currentConversationMode='client';
-function getProfessionalAccountName(){try{const c=JSON.parse(localStorage.getItem('solutionAfricaCurrentProfessional')||'null');if(c&&c.name)return c.name;}catch(e){} const a=getAccount();return (a&&a.name)?a.name:'Soafrica';}
-function conversationKey(professional,client){return String(professional||'').trim()+'::'+String(client||'Client').trim();}
-function migrateLegacyConversations(){
-  let arr=getConversations();
-  const requests=getClientRequests();
-  let changed=false;
-  // Ancien format : professional = "Client". On le rattache au professionnel
-  // indiqué dans une demande acceptée, puis on conserve les messages existants.
-  arr.filter(c=>c && c.professional==='Client').forEach(legacy=>{
-    let professional='';
-    const allText=(legacy.messages||[]).map(m=>String(m&&m.text||'')).join(' ').toLowerCase();
-    const known=['Halima Garba','Moussa Abdou','Amina Issoufou','Ibrahim Mahamadou','Fatou Oumarou','Sani Adamou'];
-    const hit=known.find(n=>allText.includes(n.toLowerCase()));
-    if(hit) professional=hit;
-    if(!professional){
-      const req=requests.find(r=>r && r.status==='Acceptée' && r.client==='Client' && r.professional);
-      if(req) professional=req.professional;
-    }
-    if(!professional) professional='Halima Garba';
-    const key=conversationKey(professional,legacy.client||'Client');
-    let target=arr.find(c=>c.conversationKey===key || (c.professional===professional && (c.client||'Client')===(legacy.client||'Client') && !c.conversationKey));
-    if(!target){target={conversationKey:key,professional:professional,client:legacy.client||'Client',messages:[]};arr.push(target);}
-    if(!Array.isArray(target.messages))target.messages=[];
-    (legacy.messages||[]).forEach(m=>{if(!target.messages.some(x=>x.text===m.text&&x.time===m.time&&x.sender===m.sender))target.messages.push(m)});
-    const idx=arr.indexOf(legacy); if(idx>=0){arr.splice(idx,1);changed=true;}
+  const approvedDeposits=deposits.filter(function(d){
+    return d.status==='Approuvé';
   });
-  arr.forEach(c=>{
-    if(c && !c.conversationKey){c.client=c.client||'Client';c.conversationKey=conversationKey(c.professional,c.client);changed=true;}
-  });
-  if(changed)saveConversations(arr);
-  return arr;
-}
-function repairLegacyMessageSenders(arr){
-  // Répare les anciens messages créés par le bug d'expéditeur.
-  // Le bug enregistrait parfois un message du client sous le nom du professionnel.
-  // On ne modifie que les formulations clairement identifiables comme réponse du client.
-  (arr||[]).forEach(c=>{
-    if(!c || !Array.isArray(c.messages)) return;
-    const pro=String(c.professional||'').trim();
-    const client=String(c.client||'Client Solution Africa').trim()||'Client Solution Africa';
-    c.messages.forEach(m=>{
-      if(!m || !m.sender || m.sender!==pro) return;
-      const t=String(m.text||'').trim().toLowerCase();
-      if(
-        t.startsWith('merci moussa') ||
-        t.startsWith('merci ') && t.includes('je suis disponible') ||
-        t.includes('nous pouvons convenir d’un rendez-vous') && t.includes('merci')
-      ){
-        m.sender=client;
-        m.senderRole='client';
-      }
-    });
-  });
-  return arr;
+
+  const totalDeposits=approvedDeposits.reduce(function(sum,d){
+    return sum+Number(d.amount||0);
+  },0);
+
+  $('statisticsContent').innerHTML=
+    '<div class="course"><b>👥 Clients</b><p>'+clients.length+'</p></div>'+
+    '<div class="course"><b>👨‍🏫 Professionnels</b><p>'+pros.length+'</p></div>'+
+    '<div class="course"><b>📋 Demandes</b><p>'+requests.length+'</p></div>'+
+    '<div class="course"><b>💬 Messages</b><p>'+messages.length+'</p></div>'+
+    '<div class="course"><b>⭐ Évaluations</b><p>'+evaluations.length+'</p></div>'+
+    '<div class="course"><b>💰 Dépôts approuvés</b><p>'+totalDeposits+' FCFA</p></div>';
+
+  show('adminStatistics');
 }
 
-function getConversation(professional,client){
-  const arr=repairLegacyMessageSenders(migrateLegacyConversations());
-  saveConversations(arr);
-  const key=conversationKey(professional,client);
-  return arr.find(x=>x.conversationKey===key || (x.professional===professional && (x.client||'Client')===client));
-}
-function openClientConversation(professional){
-  professional=String(professional||'').trim();
-  if(!professional){alert('Professionnel introuvable.');return false;}
-  currentRole='client';
-  currentConversationMode='client';
-  currentConversationName=professional;
-  currentConversationClient=getCurrentClientName();
-
-  let arr=migrateLegacyConversations();
-  const key=conversationKey(professional,currentConversationClient);
-  let c=arr.find(x=>x.conversationKey===key ||
-    (x.professional===professional && ((x.client||'')===currentConversationClient || (x.client||'')==='Client')));
-
-  // Compatibilité avec les anciennes conversations enregistrées avec le client générique.
-  if(c && (c.client||'')==='Client' && currentConversationClient!=='Client'){
-    c.client=currentConversationClient;
-    c.conversationKey=key;
-    saveConversations(arr);
+function adminSettings(){
+  if(!isAdmin()){
+    show('adminLogin');
+    return;
   }
 
-  if(!c){
-    c={conversationKey:key,professional:professional,client:currentConversationClient,messages:[]};
-    arr.push(c);
-    saveConversations(arr);
-  }
-
-  const title=document.getElementById('conversationTitle');
-  const input=document.getElementById('conversationInput');
-  if(title) title.textContent='💬 Conversation avec '+professional;
-  if(input) input.value='';
-  show('conversation');
-  setTimeout(renderConversation,0);
-  return false;
+  show('adminSettings');
 }
 
-function contactPro(name){
-  name=String(name||'').trim();
-  if(!name){alert('Professionnel introuvable.');return false;}
-  currentConversationName=name;
-  currentConversationClient=getCurrentClientName();
-  currentRole='client';
-  currentConversationMode='client';
-  let arr=getConversations();
-  let key=conversationKey(name,currentConversationClient);
-  let c=arr.find(x=>x.conversationKey===key ||
-    (x.professional===name && ((x.client||'')===currentConversationClient || (x.client||'')==='Client')));
-  if(c && (c.client||'')==='Client' && currentConversationClient!=='Client'){
-    c.client=currentConversationClient;c.conversationKey=key;saveConversations(arr);
-  }
-  if(!c){c={conversationKey:key,professional:name,client:currentConversationClient,messages:[]};arr.push(c);saveConversations(arr);}
-  const title=document.getElementById('conversationTitle');
-  const input=document.getElementById('conversationInput');
-  if(title) title.textContent='💬 Conversation avec '+name;
-  if(input) input.value='';
-  // Ouvrir d'abord la page, puis afficher l'historique.
-  show('conversation');
-  setTimeout(renderConversation,0);
-  return false;
-}
+async function adminAIAsk(){
+  const question=String($('adminAIQuestion').value||'').trim();
+  const box=$('adminAIAnswer');
 
-function openProfessionalConversation(professional,client){
-  currentConversationName=String(professional||getProfessionalAccountName()).trim();
-  currentConversationClient=String(client||'Client').trim()||'Client';
-  currentRole='professional';
-  currentConversationMode='professional';
-  let arr=migrateLegacyConversations();
-  let c=getConversation(currentConversationName,currentConversationClient);
-  if(!c){
-    // Si une ancienne conversation du professionnel existe avec un client générique,
-    // la rattacher au client affiché plutôt que de perdre l'historique.
-    c=arr.find(x=>x && x.professional===currentConversationName && (!x.client || x.client==='Client'));
-    if(c){c.client=currentConversationClient;c.conversationKey=conversationKey(currentConversationName,currentConversationClient);saveConversations(arr);}
-  }
-  if(!c){c={conversationKey:conversationKey(currentConversationName,currentConversationClient),professional:currentConversationName,client:currentConversationClient,messages:[]};arr.push(c);saveConversations(arr);}
-  const title=document.getElementById('conversationTitle');
-  const input=document.getElementById('conversationInput');
-  if(title)title.textContent='💬 Conversation avec '+currentConversationClient;
-  if(input)input.value='';
-  show('conversation');
-  setTimeout(renderConversation,0);
-}
-
-function senderLabel(){
-  // L'expéditeur est déterminé par le mode de la conversation,
-  // afin d'éviter qu'un message du client soit enregistré au nom du professionnel.
-  if(currentConversationMode==='professional') return currentConversationName || getProfessionalAccountName();
-  return currentConversationClient || 'Client';
-}
-function renderConversation(){
-  const box=document.getElementById('conversationHistory');
   if(!box)return;
-  const c=getConversation(currentConversationName,currentConversationClient);
-  if(!c||!c.messages.length){box.innerHTML='<div class="course"><b>Aucun message</b><p>Commencez la conversation avec '+escapeHtml(currentRole==='professional'?currentConversationClient:currentConversationName)+'.</p></div>';return;}
-  box.innerHTML=c.messages.map(m=>{
-    let label=m.sender||'';
-    // Les nouveaux messages portent leur rôle ; les anciens restent compatibles.
-    if(m.senderRole==='client') label='Vous';
-    else if(m.senderRole==='professional') label=c.professional||label;
-    else if(currentConversationMode==='client' && (label==='Client' || label==='Client Solution Africa')) label='Vous';
-    else if(currentConversationMode==='professional' && (label==='Client' || label==='Client Solution Africa')) label=c.client||'Client';
-    return '<div class="course"><b>'+escapeHtml(label)+'</b><p>'+escapeHtml(m.text)+'</p><small>'+escapeHtml(m.time)+'</small></div>';
-  }).join('');
-}
-function sendMessage(){
-  const input=document.getElementById('conversationInput');
-  const text=input.value.trim();
-  if(!text){alert('Veuillez saisir un message.');return;}
-  let arr=migrateLegacyConversations();
-  const key=conversationKey(currentConversationName,currentConversationClient);
-  let c=arr.find(x=>x.conversationKey===key);
-  if(!c){c={conversationKey:key,professional:currentConversationName,client:currentConversationClient,messages:[]};arr.push(c);}
-  c.messages.push({
-    sender:senderLabel(),
-    senderRole:currentConversationMode,
-    text,
-    time:new Date().toLocaleString('fr-FR')
-  });
-  saveConversations(arr);
-  input.value='';
-  renderConversation();
-}
-function renderMessages(){
-  const box=document.getElementById('messagesList');
-  if(!box)return;
-  let arr=migrateLegacyConversations().filter(c=>c && c.professional && c.professional!=='Client');
-  if(currentRole==='professional'){
-    const me=getProfessionalAccountName();
-    // Un professionnel ne voit que ses propres conversations.
-    arr=arr.filter(c=>String(c.professional||'').trim()===String(me||'').trim());
-    if(!arr.length){box.innerHTML='<div class="course"><b>Aucun échange reçu</b><p>Les messages des clients apparaîtront ici.</p></div>';return;}
-    box.innerHTML=arr.map((c,i)=>{
-      const last=c.messages&&c.messages[c.messages.length-1];
-      const client=c.client||'Client';
-      return '<button type="button" class="course pro-message-open" data-index="'+i+'" style="text-align:left;width:100%"><b>👤 '+escapeHtml(client)+'</b><p>'+(last?escapeHtml(last.text):'Nouvelle conversation')+'</p>'+(last?'<small>'+escapeHtml(last.time)+'</small>':'')+'</button>';
-    }).join('');
-    box.querySelectorAll('.pro-message-open').forEach((btn,i)=>btn.addEventListener('click',function(e){e.preventDefault();const c=arr[i];if(c)openProfessionalConversation(c.professional,c.client||'Client');}));
-  }else{
-    // Côté Client : afficher le nom du professionnel, jamais l'expéditeur du dernier message.
-    if(!arr.length){box.innerHTML='<div class="course"><b>Aucun échange</b><p>Vos conversations apparaîtront ici.</p></div>';return;}
-    box.innerHTML=arr.map((c)=>{const last=c.messages&&c.messages[c.messages.length-1];const pro=c.professional||'Professionnel';return '<button type="button" class="course message-pro-btn" data-professional="'+escapeAttr(pro)+'" style="text-align:left"><b>👨‍🏫 '+escapeHtml(pro)+'</b><p>'+(last?escapeHtml(last.text):'Nouvelle conversation')+'</p>'+(last?'<small>'+escapeHtml(last.time)+'</small>':'')+'</button>';}).join('');
-    box.querySelectorAll('.message-pro-btn').forEach(btn=>btn.addEventListener('click',function(e){e.preventDefault();openClientConversation(btn.getAttribute('data-professional'));}));
-  }
-}
-const oldShow=show;
-show=function(id){oldShow(id);if(id==='myMessages')renderMessages();if(id==='proWallet')renderProWallet();if(id==='conversation')renderConversation();if(id==='clientRequests')renderClientRequests();if(id==='myRequests')renderMyRequests();if(id==='professionalRatings')renderProfessionalRatings();if(id==='rateProfessional')renderRatingProfessional();}
-function getClientRequests(){try{const a=JSON.parse(localStorage.getItem('solutionAfricaClientRequests')||'[]');return Array.isArray(a)?a:[]}catch(e){return []}}
-function saveClientRequests(a){localStorage.setItem('solutionAfricaClientRequests',JSON.stringify(a))}
-function publishNeed(){
-  const t=document.getElementById('needTitle').value.trim(),d=document.getElementById('needDescription').value.trim(),m=document.getElementById('needMsg');
-  if(!t||!d){m.innerHTML='<div class="msg">Veuillez remplir le titre et la description.</div>';return}
-  const a=getClientRequests();
-  a.push({id:Date.now(),client:'Client',title:t,description:d,status:'Nouveau',time:new Date().toLocaleString('fr-FR')});
-  saveClientRequests(a);
-  m.innerHTML='<div class="msg">✅ Votre besoin a été publié et transmis aux professionnels.</div>';
-  document.getElementById('needTitle').value='';document.getElementById('needDescription').value='';
-}
-function renderClientRequests(){
-  const box=document.getElementById('clientRequestsList'); if(!box)return;
-  const a=getClientRequests();
-  if(!a.length){box.innerHTML='<div class="course"><b>Aucune demande reçue</b><p>Les besoins publiés par les clients apparaîtront ici.</p></div>';return;}
-  box.innerHTML=a.map(r=>{
-    const st=r.status||'Nouveau';
-    const icon=st==='Acceptée'?'✅':st==='Refusée'?'❌':st==='Répondu'?'💬':st==='Consultée'?'👀':'🆕';
-    let actions='';
-    if(st==='Acceptée'){
-      actions='<div class="msg">✅ <b>Demande acceptée</b><br>Cette demande a déjà été acceptée.</div>'+
-        (r.professional?'<div class="profile">👨‍🔧 <b>'+escapeHtml(r.professional)+'</b><br>🛠️ '+escapeHtml(r.professionalJob||'Professionnel')+'</div>':'')+
-        (r.appointment?'<div class="msg">📅 <b>Rendez-vous</b><br>'+escapeHtml(r.appointment.date)+' à '+escapeHtml(r.appointment.time)+'<br>État : <b>'+escapeHtml(r.appointment.status)+'</b>'+
-        (r.appointment.status==='Accepté'?'<br><button class="btn" onclick="completeIntervention('+r.id+')">✅ Marquer l’intervention terminée</button>':'')+
-        (r.appointment.status==='Terminée'?'<br>🏁 <b>Intervention terminée</b>':'')+
-        '</div>':
-        '<div class="course"><b>📅 Proposer une intervention</b><input id="apptDate_'+r.id+'" type="date"><input id="apptTime_'+r.id+'" type="time"><button class="btn" onclick="proposeAppointment('+r.id+')">📅 Envoyer le rendez-vous</button></div>')+
-        '<button class="btn" onclick="respondToRequest('+r.id+')">💬 Ouvrir la conversation</button>';
-    } else if(st==='Refusée'){
-      actions='<div class="msg">❌ <b>Demande refusée</b><br>Cette demande a déjà été refusée.</div>';
-    } else {
-      actions='<button class="btn" onclick="markRequest('+r.id+',\'Consultée\')">👀 Marquer consultée</button>'+
-        '<button class="btn" onclick="respondToRequest('+r.id+')">💬 Répondre au client</button>'+
-        '<button class="btn" onclick="markRequest('+r.id+',\'Acceptée\')">✅ Accepter</button>'+
-        '<button class="btn outline" onclick="markRequest('+r.id+',\'Refusée\')">❌ Refuser</button>';
-    }
-    return '<div class="course"><b>'+icon+' '+escapeHtml(r.title)+'</b><p>👤 '+escapeHtml(r.client)+'<br>📝 '+escapeHtml(r.description)+'<br>📅 '+escapeHtml(r.time)+'<br>📌 <b>'+escapeHtml(st)+'</b></p>'+actions+'</div>';
-  }).join('');
-}
-function markRequest(id,status){
-  const a=getClientRequests(); const r=a.find(x=>x.id===id); if(!r)return;
-  r.status=status;
-  if(status==='Acceptée'){
-    const match=demoProfessionals.find(p=>(p.job+' '+p.name).toLowerCase().includes('électricien'));
-    r.professional=match?match.name:'Professionnel';
-    r.professionalJob=match?match.job:'Professionnel';
-    r.professionalPhone=match?match.phone:'Contact disponible';
-  }
-  saveClientRequests(a); renderClientRequests(); renderMyRequests();
-}
-function proposeAppointment(id){
-  const date=document.getElementById('apptDate_'+id)?.value;
-  const time=document.getElementById('apptTime_'+id)?.value;
-  if(!date||!time){alert('Veuillez choisir une date et une heure.');return;}
-  const a=getClientRequests(), r=a.find(x=>x.id===id); if(!r)return;
-  r.appointment={date,time,status:'Proposée'};
-  saveClientRequests(a); renderClientRequests(); renderMyRequests();
-}
-function clientAppointment(id,status){
-  const a=getClientRequests(), r=a.find(x=>x.id===id); if(!r||!r.appointment)return;
-  r.appointment.status=status; saveClientRequests(a); renderMyRequests();
-}
-function completeIntervention(id){
-  const a=getClientRequests(), r=a.find(x=>x.id===id); if(!r)return;
-  if(!r.appointment || r.appointment.status!=='Accepté') return;
-  r.appointment.status='Terminée';
-  r.interventionStatus='Terminée';
-  saveClientRequests(a); renderClientRequests(); renderMyRequests();
-}
-function rateIntervention(id,rating){
-  const a=getClientRequests(), r=a.find(x=>x.id===id); if(!r)return;
-  if(r.interventionStatus!=='Terminée') return;
-  r.rating=Number(rating);
-  saveClientRequests(a); renderMyRequests();
-}
-function renderProfessionalRatings(){
-  const box=document.getElementById('professionalRatingsList'); if(!box)return;
-  const account=JSON.parse(localStorage.getItem('solutionAfricaAccount')||'{}');
-  const professionalName=account.name||'Professionnel';
-  const a=getClientRequests().filter(r=>r.rating);
-  if(!a.length){
-    box.innerHTML='<div class="course"><b>Aucune évaluation</b><p>Les notes des clients apparaîtront ici après les interventions terminées.</p></div>';
+
+  box.classList.remove('hidden');
+
+  if(!question){
+    box.innerHTML='<b>Assistant :</b><br>Écrivez votre question.';
     return;
   }
-  const avg=(a.reduce((s,r)=>s+Number(r.rating),0)/a.length).toFixed(1);
-  box.innerHTML='<div class="profile"><b>⭐ Note moyenne : '+avg+'/5</b><br>📊 '+a.length+' évaluation(s)</div>'+
-    a.map(r=>'<div class="course"><b>⭐ '+escapeHtml(r.rating)+'/5</b><p>🔧 '+escapeHtml(r.title)+'<br>👤 Client : '+escapeHtml(r.client)+'<br>🛠️ Professionnel : '+escapeHtml(r.professional||professionalName)+'<br>🏁 Intervention terminée'+(r.ratingComment?'<br>💬 « '+escapeHtml(r.ratingComment)+' »':'')+'</p></div>').join('');
-}
-function renderRatingProfessional(){
-  const box=document.getElementById('ratingRequestList'); if(!box)return;
-  const requests=getClientRequests().filter(r=>r.interventionStatus==='Terminée' && !r.clientRatingSubmitted);
-  if(!requests.length){
-    box.innerHTML='<div class="course"><b>Aucune intervention à évaluer</b><p>Les évaluations seront disponibles après une intervention terminée.</p></div>';
-    return;
-  }
-  box.innerHTML=requests.map(r=>`
-    <div class="course">
-      <b>🔧 ${escapeHtml(r.title)}</b>
-      <p>👨‍🔧 Professionnel : <b>${escapeHtml(r.professional||'Professionnel')}</b></p>
-      <select id="rating_${r.id}" class="input">
-        <option value="5">5 étoiles — Excellent</option>
-        <option value="4">4 étoiles — Très bien</option>
-        <option value="3">3 étoiles — Bien</option>
-        <option value="2">2 étoiles — À améliorer</option>
-        <option value="1">1 étoile — Insatisfaisant</option>
-      </select>
-      <textarea id="comment_${r.id}" class="input" rows="4" placeholder="Votre commentaire"></textarea>
-      <button class="btn" onclick="submitProfessionalEvaluation(${r.id})">⭐ aiAskl'évaluation</button>
-    </div>`).join('');
-}
-function submitProfessionalEvaluation(id){
-  const a=getClientRequests(), r=a.find(x=>x.id===id); if(!r)return;
-  if(r.interventionStatus!=='Terminée')return;
-  const rating=Number(document.getElementById('rating_'+id)?.value||5);
-  const comment=(document.getElementById('comment_'+id)?.value||'').trim();
-  r.rating=rating;
-  r.ratingComment=comment;
-  r.clientRatingSubmitted=true;
-  r.professional=r.professional||'Moussa Abdou';
-  saveClientRequests(a);
-  alert('Merci pour votre évaluation.');
-  renderRatingProfessional();
-  renderMyRequests();
-}
-function renderMyRequests(){
-  const box=document.getElementById('myRequestsList'); if(!box)return;
-  const a=getClientRequests();
-  if(!a.length){box.innerHTML='<div class="course"><b>Aucune demande pour le moment</b><p>Vos demandes publiées apparaîtront ici.</p></div>';return;}
-  box.innerHTML=a.map(r=>{
-    const st=r.status||'Nouveau';
-    const icon=st==='Acceptée'?'✅':st==='Refusée'?'❌':st==='Répondu'?'💬':st==='Consultée'?'👀':'🆕';
-    return '<div class="course"><b>'+icon+' '+escapeHtml(r.title)+'</b><p>📝 '+escapeHtml(r.description)+'<br>📌 État : <b>'+escapeHtml(st)+'</b></p>'+
-      (st==='Acceptée'&&r.professional?'<div class="msg">👨‍🔧 <b>Professionnel : '+escapeHtml(r.professional)+'</b><br>🛠️ '+escapeHtml(r.professionalJob||'Professionnel')+'<br>📞 '+escapeHtml(r.professionalPhone||'Contact disponible')+'</div>':'')+
-      (r.appointment?'<div class="msg">📅 <b>Rendez-vous</b><br>'+escapeHtml(r.appointment.date)+' à '+escapeHtml(r.appointment.time)+'<br>État : <b>'+escapeHtml(r.appointment.status)+'</b>'+
-        (r.appointment.status==='Proposée'?'<br><button class="btn" onclick="clientAppointment('+r.id+',\'Accepté\')">✅ Accepter le rendez-vous</button><button class="btn outline" onclick="clientAppointment('+r.id+',\'Refusé\')">❌ Refuser</button>':'')+
-        (r.appointment.status==='Terminée'&&!r.rating?'<br><b>⭐ Évaluez l’intervention</b><br><button class="btn" onclick="rateIntervention('+r.id+',5)">⭐ 5/5</button><button class="btn" onclick="rateIntervention('+r.id+',4)">⭐ 4/5</button><button class="btn" onclick="rateIntervention('+r.id+',3)">⭐ 3/5</button><button class="btn" onclick="rateIntervention('+r.id+',2)">⭐ 2/5</button><button class="btn outline" onclick="rateIntervention('+r.id+',1)">⭐ 1/5</button>':'')+
-        (r.rating?'<br>⭐ <b>Note donnée : '+escapeHtml(String(r.rating))+'/5</b>':'')+
-        '</div>':'')+
-      '</div>';
-  }).join('');
-}
-function respondToRequest(id){
-  const a=getClientRequests(); const r=a.find(x=>x.id===id); if(!r)return;
-  r.status='Répondu'; saveClientRequests(a);
-  const professionalName=r.professional||getProfessionalAccountName();
-  openProfessionalConversation(professionalName,r.client||'Client');
-}
 
-function getLocalArray(key){
-  try{const a=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}
-}
-function saveLocalArray(key,a){localStorage.setItem(key,JSON.stringify(a));}
+  box.innerHTML='<b>Assistant :</b><br>Je réfléchis...';
 
-(function seedSolutionAfricaLessons(){
-  const seedKey='solutionAfricaV32Seeded';
-  if(localStorage.getItem(seedKey)==='1') return;
-  const lessons=[
-    {subject:'Pédagogie générale',title:'La pédagogie active',level:'Collège',objective:'Comprendre les principes de la pédagogie active et savoir les utiliser en classe.',content:'Définition : la pédagogie active place l’élève au centre de l’apprentissage.\\n\\nPrincipes : participation, recherche, coopération, manipulation, résolution de problèmes et autonomie.\\n\\nRôle de l’enseignant : guider, questionner, organiser les activités et accompagner les élèves.\\n\\nExemple : proposer un problème, laisser les élèves chercher en groupes, puis faire une mise en commun et une synthèse.',date:'01/09/2026'},
-    {subject:'Anglais',title:'The simple present tense',level:'Collège',objective:'Employer le présent simple pour parler des habitudes et des faits généraux.',content:'Forme affirmative : I/You/We/They work. He/She/It works.\\n\\nForme négative : do not (don’t) et does not (doesn’t).\\n\\nQuestion : Do you work? Does he work?\\n\\nExemples : I go to school every day. She speaks English. They play football on Sundays.',date:'01/09/2026'},
-    {subject:'Instruction civique',title:'La citoyenneté et les valeurs civiques',level:'Collège',objective:'Identifier les droits, devoirs et comportements d’un bon citoyen.',content:'La citoyenneté désigne l’appartenance à une communauté politique et la participation à sa vie.\\n\\nValeurs : respect, solidarité, responsabilité, justice, tolérance et amour de la patrie.\\n\\nDevoirs : respecter les lois, protéger les biens publics, respecter autrui et participer positivement à la vie de la communauté.',date:'01/09/2026'},
-    {subject:'Français',title:'Les classes grammaticales',level:'Collège',objective:'Reconnaître les principales classes grammaticales dans une phrase.',content:'Les principales classes sont : nom, déterminant, adjectif, pronom, verbe, adverbe, préposition, conjonction et interjection.\\n\\nExemple : « Le petit garçon marche rapidement vers l’école. »\\nLe = déterminant ; garçon = nom ; petit = adjectif ; marche = verbe ; rapidement = adverbe ; vers = préposition.',date:'01/09/2026'},
-    {subject:'Français',title:'Le présent de l’indicatif',level:'Collège',objective:'Conjuguer correctement les verbes usuels au présent de l’indicatif.',content:'Pour les verbes du premier groupe : je parle, tu parles, il parle, nous parlons, vous parlez, ils parlent.\\n\\nExemple : « Les élèves travaillent en classe. »\\n\\nAttention aux accords entre le sujet et le verbe.',date:'01/09/2026'},
-    {subject:'Mathématiques',title:'Les nombres entiers et les opérations',level:'Collège',objective:'Lire, comparer et effectuer des opérations sur les nombres entiers.',content:'Un nombre entier peut être positif, négatif ou nul.\\n\\nPour comparer deux nombres sur une droite graduée, le nombre placé le plus à droite est le plus grand.\\n\\nRègles : respecter les priorités de calcul, effectuer d’abord les parenthèses puis les multiplications/divisions et enfin les additions/soustractions.',date:'01/09/2026'},
-    {subject:'Sciences',title:'Les êtres vivants et leur milieu',level:'Collège',objective:'Décrire les relations entre les êtres vivants et leur environnement.',content:'Un être vivant naît, grandit, se nourrit, se reproduit et meurt.\\n\\nLe milieu de vie comprend les éléments vivants et non vivants.\\n\\nLes êtres vivants dépendent de leur milieu pour l’eau, la nourriture, l’air et les conditions nécessaires à leur survie.',date:'01/09/2026'},
-    {subject:'Histoire-Géographie',title:'Les repères géographiques',level:'Collège',objective:'Utiliser les principaux repères pour se situer sur la Terre.',content:'La Terre est représentée par un globe ou une carte.\\n\\nLes principaux repères sont l’équateur, les pôles, les méridiens et les parallèles.\\n\\nLes points cardinaux sont : nord, sud, est et ouest. La latitude et la longitude permettent de localiser précisément un lieu.',date:'01/09/2026'},
-    {subject:'Physique-Chimie',title:'Les états de la matière',level:'Collège',objective:'Identifier les trois états courants de la matière et leurs transformations.',content:'Les trois états courants sont solide, liquide et gaz.\\n\\nUn solide possède une forme propre. Un liquide prend la forme du récipient. Un gaz occupe tout l’espace disponible.\\n\\nChangements d’état : fusion, solidification, vaporisation et liquéfaction.',date:'01/09/2026'},
-    {subject:'Informatique',title:'Les bases de l’informatique',level:'Collège',objective:'Identifier les principaux composants d’un système informatique.',content:'Un système informatique comprend du matériel et des logiciels.\\n\\nMatériel : ordinateur, clavier, souris, écran, imprimante et unités de stockage.\\n\\nLogiciels : système d’exploitation et applications.\\n\\nBonnes pratiques : protéger ses mots de passe, sauvegarder ses fichiers et respecter les règles de sécurité numérique.',date:'01/09/2026'}
-  ];
-  const existing=getLocalArray('solutionAfricaLessons');
-  lessons.forEach(item=>{
-    const exists=existing.some(x=>x.subject===item.subject && x.title===item.title);
-    if(!exists) existing.push(item);
-  });
-  saveLocalArray('solutionAfricaLessons',existing);
-  localStorage.setItem(seedKey,'1');
-})();
-
-
-
-let currentSubjectName='';
-
-function openSubject(name){
-  currentSubjectName=name||'Matière';
-  const desc={
-    'Français':'Grammaire, conjugaison, vocabulaire et expression.',
-    'Mathématiques':'Nombres, calcul, géométrie et problèmes.',
-    'Sciences':'Sciences de la vie, de la terre et sciences physiques.',
-    'SVT':'Sciences de la Vie et de la Terre.',
-    'Histoire-Géographie':'Repères historiques, territoires et sociétés.',
-    'Physique-Chimie':'Matière, énergie, mesures et transformations.',
-    'Informatique':'Numérique, bureautique, algorithmique et technologie.',
-    'Pédagogie générale':'Leçons, activités et ressources pédagogiques.',
-    'Anglais':"Cours et exercices d'anglais.",
-    'Instruction civique':'Citoyenneté, valeurs et éducation civique.'
-  };
-  document.getElementById('subjectTitle').textContent='📚 '+currentSubjectName;
-  document.getElementById('subjectDesc').textContent=desc[currentSubjectName]||'Cours et activités pour vos élèves.';
-  renderSubjectLessons();
-  show('subject');
-}
-
-function startSubjectLesson(){
-  currentLessonIndex=-1;
-  document.getElementById('lessonSubjectLabel').textContent='Matière : '+currentSubjectName;
-  document.getElementById('lessonTitle').value='';
-  document.getElementById('lessonLevel').value='';
-  document.getElementById('lessonObjective').value='';
-  document.getElementById('lessonContent').value='';
-  document.getElementById('lessonMsg').innerHTML='';
-  show('createLesson');
-}
-
-function saveLesson(){
-  const title=document.getElementById('lessonTitle').value.trim();
-  const level=document.getElementById('lessonLevel').value.trim();
-  const objective=document.getElementById('lessonObjective').value.trim();
-  const content=document.getElementById('lessonContent').value.trim();
-  const msg=document.getElementById('lessonMsg');
-  if(!title||!content){
-    msg.innerHTML='<div class="msg">Veuillez saisir le titre et le contenu de la leçon.</div>';
-    return;
-  }
-  const a=getLocalArray('solutionAfricaLessons');
-  const item={subject:currentSubjectName,title,level,objective,content,date:new Date().toLocaleDateString('fr-FR')};
-  if(currentLessonIndex>=0 && a[currentLessonIndex]){
-    a[currentLessonIndex]=item;
-    msg.innerHTML='<div class="msg">✅ Leçon modifiée avec succès.</div>';
-  }else{
-    a.push(item);
-    currentLessonIndex=a.length-1;
-    msg.innerHTML='<div class="msg">✅ Leçon enregistrée avec succès.</div>';
-  }
-  saveLocalArray('solutionAfricaLessons',a);
-  renderSubjectLessons();
-  setTimeout(function(){ show('subject'); },350);
-}
-
-function renderSubjectLessons(){
-  const box=document.getElementById('subjectLessonList');
-  if(!box)return;
-  const all=getLocalArray('solutionAfricaLessons');
-  const a=all.map((x,i)=>({...x,_index:i})).filter(x=>x.subject===currentSubjectName);
-  if(!a.length){
-    box.innerHTML='<div class="course"><b>📖 Aucune leçon</b><p>Ajoutez votre première leçon pour cette matière.</p></div>';
-    return;
-  }
-  box.innerHTML='<h2>📖 Leçons enregistrées ('+a.length+')</h2>'+a.map(x=>
-    '<button class="course" type="button" onclick="openLesson('+x._index+')"><b>📖 '+escapeHtml(x.title)+'</b><p>🏫 '+escapeHtml(x.level||'Niveau non précisé')+
-    (x.objective?'<br>🎯 '+escapeHtml(x.objective):'')+
-    '<br>📅 '+escapeHtml(x.date||'')+
-    '<br>'+escapeHtml(x.content).slice(0,240)+(x.content.length>240?'…':'')+
-    '<br><strong>Appuyer pour consulter →</strong></p></button>'
-  ).join('');
-}
-
-let currentLessonIndex=-1;
-
-function openLesson(index){
-  const a=getLocalArray('solutionAfricaLessons');
-  const x=a[index];
-  if(!x)return;
-  currentLessonIndex=index;
-  currentSubjectName=x.subject||currentSubjectName;
-  document.getElementById('lessonDetailTitle').textContent='📖 '+x.title;
-  document.getElementById('lessonDetailSubject').textContent='📚 Matière : '+(x.subject||'');
-  document.getElementById('lessonDetailLevel').textContent='🏫 Niveau / classe : '+(x.level||'Non précisé');
-  document.getElementById('lessonDetailObjective').textContent=x.objective||'Aucun objectif renseigné.';
-  document.getElementById('lessonDetailContent').textContent=x.content||'';
-  show('lessonDetail');
-}
-
-function editLesson(){
-  const a=getLocalArray('solutionAfricaLessons');
-  const x=a[currentLessonIndex];
-  if(!x)return;
-  document.getElementById('lessonSubjectLabel').textContent='Matière : '+(x.subject||currentSubjectName);
-  document.getElementById('lessonTitle').value=x.title||'';
-  document.getElementById('lessonLevel').value=x.level||'';
-  document.getElementById('lessonObjective').value=x.objective||'';
-  document.getElementById('lessonContent').value=x.content||'';
-  document.getElementById('lessonMsg').innerHTML='✏️ Modification de la leçon.';
-  show('createLesson');
-}
-
-function deleteLesson(){
-  if(currentLessonIndex<0)return;
-  if(!confirm('Supprimer cette leçon ?'))return;
-  const a=getLocalArray('solutionAfricaLessons');
-  a.splice(currentLessonIndex,1);
-  saveLocalArray('solutionAfricaLessons',a);
-  currentLessonIndex=-1;
-  renderSubjectLessons();
-  show('subject');
-}
-
-function startSubjectExercise(){
-  const n=document.getElementById('exerciseSubjectNotice');
-  const t=document.getElementById('exercisePageTitle');
-  if(n){n.style.display='block';n.innerHTML='📚 Matière sélectionnée : <b>'+escapeHtml(currentSubjectName)+'</b>';}
-  if(t)t.textContent='📝 Exercices — '+currentSubjectName;
-  renderExercises();
-  show('pedExercises');
-}
-function startCreateExercise(){
-  const subject=document.getElementById('exSubject');
-  if(subject) subject.value=currentSubjectName||'Matière';
-  const chapter=document.getElementById('exChapter');
-  if(chapter){
-    const defaults={
-      'Pédagogie générale':['Chapitre 1 — Introduction à la pédagogie',"Chapitre 2 — Les théories de l’éducation",'Chapitre 3 — Pédagogie active','Chapitre 4 — Pédagogie par objectifs','Chapitre 5 — Approche par compétences','Chapitre 6 — Évaluation des apprentissages'],
-      'Français':['Les types et les formes de phrases','Le nom : définition, types et fonctionnement','Le déterminant : types, rôle et emploi'],
-      'Mathématiques':['Nombres et opérations','Fractions','Géométrie'],
-      'Sciences':['La matière','Les êtres vivants','Le corps humain'],
-      'SVT':['La matière','Les êtres vivants','Le corps humain'],
-      'Anglais':['Grammar','Vocabulary','Communication'],
-      'Histoire-Géographie':['Histoire','Géographie'],
-      'Physique-Chimie':['Matière et transformations','Énergie','Mesures'],
-      'Informatique':["Bases de l’informatique",'Sécurité numérique'],
-      'Instruction civique':['Citoyenneté','Valeurs et droits']
-    };
-    const opts=defaults[currentSubjectName]||['Exercice 1'];
-    chapter.innerHTML=opts.map(x=>'<option>'+escapeHtml(x)+'</option>').join('');
-  }
-  resetQuestionBuilder();
-  show('createExercise');
-}
-
-function startEvaluation(){
-  const title=document.getElementById('evalTitle');
-  const subject=document.getElementById('evalSubject');
-  const date=document.getElementById('evalDate');
-  const instruction=document.getElementById('evalInstruction');
-  const msg=document.getElementById('evalMsg');
-  if(title) title.value='';
-  if(subject) subject.value=currentSubjectName||'';
-  if(date) date.value='';
-  if(instruction) instruction.value='';
-  if(msg) msg.innerHTML=currentSubjectName ? '📚 Matière : <b>'+escapeHtml(currentSubjectName)+'</b>' : '';
-  show('createEvaluation');
-}
-
-function startSubjectEvaluation(){
-  const field=document.getElementById('evalSubject');
-  if(field)field.value=currentSubjectName;
-  const msg=document.getElementById('evalMsg');
-  if(msg)msg.innerHTML='📚 Matière : <b>'+escapeHtml(currentSubjectName)+'</b>';
-  show('createEvaluation');
-}
-
-function startSubjectResource(){
-  const field=document.getElementById('resourceType');
-  if(field)field.value=currentSubjectName+' — support pédagogique';
-  const msg=document.getElementById('resourceMsg');
-  if(msg)msg.innerHTML='📚 Matière : <b>'+escapeHtml(currentSubjectName)+'</b>';
-  show('createResource');
-}
-
-
-function saveCustomCourse(){
-  const name=document.getElementById('newCourseName').value.trim();
-  const desc=document.getElementById('newCourseDesc').value.trim();
-  const icon=document.getElementById('newCourseIcon').value;
-  const msg=document.getElementById('courseMsg');
-  if(!name){msg.innerHTML='<div class="msg">Veuillez saisir le nom de la matière.</div>';return;}
-  const a=getLocalArray('solutionAfricaCustomCourses');
-  a.push({name,desc:desc||'Cours et activités pour vos élèves.',icon});
-  saveLocalArray('solutionAfricaCustomCourses',a);
-  document.getElementById('newCourseName').value='';
-  document.getElementById('newCourseDesc').value='';
-  msg.innerHTML='<div class="msg">✅ Matière ajoutée avec succès.</div>';
-  renderCustomCourses();
-}
-function renderCustomCourses(){
-  const box=document.getElementById('customCourseList'); if(!box)return;
-  const a=getLocalArray('solutionAfricaCustomCourses');
-  box.innerHTML=a.map((c,i)=>'<button class="course" type="button" onclick="openSubject('+JSON.stringify(c.name)+')"><b>'+escapeHtml(c.icon+' '+c.name)+'</b><p>'+escapeHtml(c.desc)+'</p></button>').join('');
-}
-
-function saveStudent(){
-  const name=document.getElementById('studentName').value.trim();
-  const cls=document.getElementById('studentClass').value.trim();
-  const phone=document.getElementById('studentPhone').value.trim();
-  const msg=document.getElementById('studentMsg');
-  if(!name||!cls){msg.innerHTML='<div class="msg">Veuillez remplir le nom et la classe.</div>';return;}
-  const a=getLocalArray('solutionAfricaStudents');
-  a.push({name,cls,phone});
-  saveLocalArray('solutionAfricaStudents',a);
-  document.getElementById('studentName').value='';
-  document.getElementById('studentClass').value='';
-  document.getElementById('studentPhone').value='';
-  msg.innerHTML='<div class="msg">✅ Élève enregistré.</div>';
-  renderStudents();
-}
-function renderStudents(){
-  const box=document.getElementById('studentList'); if(!box)return;
-  const a=getLocalArray('solutionAfricaStudents');
-  if(!a.length){box.innerHTML='<div class="course"><b>Aucun élève enregistré</b><p>Ajoutez vos élèves pour commencer.</p></div>';return;}
-  box.innerHTML=a.map((s,i)=>'<div class="course"><b>👨‍🎓 '+escapeHtml(s.name)+'</b><p>🏫 Classe : '+escapeHtml(s.cls)+(s.phone?'<br>📞 '+escapeHtml(s.phone):'')+'</p></div>').join('');
-}
-
-function saveEvaluation(){
-  const title=document.getElementById('evalTitle').value.trim();
-  const subject=document.getElementById('evalSubject').value.trim();
-  const date=document.getElementById('evalDate').value;
-  const instruction=document.getElementById('evalInstruction').value.trim();
-  const msg=document.getElementById('evalMsg');
-  if(!title||!subject){msg.innerHTML='<div class="msg">Veuillez saisir le titre et la matière.</div>';return;}
-  const a=getLocalArray('solutionAfricaEvaluations');
-  a.push({title,subject:subject||currentSubjectName,date,instruction});
-  saveLocalArray('solutionAfricaEvaluations',a);
-  document.getElementById('evalTitle').value='';
-  document.getElementById('evalSubject').value='';
-  document.getElementById('evalDate').value='';
-  document.getElementById('evalInstruction').value='';
-  msg.innerHTML='<div class="msg">✅ Évaluation enregistrée.</div>';
-  renderEvaluations();
-}
-function renderEvaluations(){
-  const box=document.getElementById('evaluationList'); if(!box)return;
-  const a=getLocalArray('solutionAfricaEvaluations');
-  if(!a.length){box.innerHTML='<div class="course"><b>📝 Aucune évaluation</b><p>Créez votre première évaluation.</p></div>';return;}
-  box.innerHTML=a.map((e,i)=>'<div class="course"><b>📝 '+escapeHtml(e.title)+'</b><p>📚 Matière : '+escapeHtml(e.subject)+(e.date?'<br>📅 Date : '+escapeHtml(e.date):'')+(e.instruction?'<br>📌 '+escapeHtml(e.instruction):'')+'</p></div>').join('');
-}
-
-function saveResource(){
-  const title=document.getElementById('resourceTitle').value.trim();
-  const type=document.getElementById('resourceType').value.trim();
-  const desc=document.getElementById('resourceDesc').value.trim();
-  const msg=document.getElementById('resourceMsg');
-  if(!title){msg.innerHTML='<div class="msg">Veuillez saisir le titre du document.</div>';return;}
-  const a=getLocalArray('solutionAfricaResources');
-  a.push({title,type:type||'Support pédagogique',desc,subject:currentSubjectName||''});
-  saveLocalArray('solutionAfricaResources',a);
-  document.getElementById('resourceTitle').value='';
-  document.getElementById('resourceType').value='';
-  document.getElementById('resourceDesc').value='';
-  msg.innerHTML='<div class="msg">✅ Ressource enregistrée.</div>';
-  renderResources();
-}
-function renderResources(){
-  const box=document.getElementById('resourceList'); if(!box)return;
-  const a=getLocalArray('solutionAfricaResources');
-  if(!a.length){box.innerHTML='<div class="course"><b>📄 Aucun document enregistré</b><p>Ajoutez vos supports pédagogiques.</p></div>';return;}
-  box.innerHTML=a.map(r=>'<div class="course"><b>📄 '+escapeHtml(r.title)+'</b><p>📌 '+escapeHtml(r.type||'Support pédagogique')+(r.desc?'<br>'+escapeHtml(r.desc):'')+'</p></div>').join('');
-}
-
-
-document.addEventListener('DOMContentLoaded',function(){alert('Script IA Africa chargé');
-  const neb=document.getElementById('newEvaluationBtn');
-  if(neb) neb.addEventListener('click', startEvaluation);
-  const eb=document.getElementById('lessonEditBtn');
-  const db=document.getElementById('lessonDeleteBtn');
-  if(eb) eb.addEventListener('click',editLesson);
-  if(db) db.addEventListener('click',deleteLesson);
-  renderExercises();renderChapters();resetQuestionBuilder();renderCustomCourses();renderStudents();renderEvaluations();renderResources();renderSubjectLessons();show('home'); const b=document.getElementById('addChapterBtn'); if(b){b.addEventListener('click',function(e){e.preventDefault();show('createChapter');});}});
-document.addEventListener('click',function(e){
-  const btn=e.target.closest('.contact-btn');
-  if(btn){e.preventDefault();e.stopPropagation();contactPro(btn.getAttribute('data-professional'));}
-});
-
-document.addEventListener('click',function(e){
-  const btn=e.target.closest('.message-pro-btn');
-  if(btn){
-    e.preventDefault();e.stopPropagation();
-    const name=btn.getAttribute('data-professional')||'';
-    if(name) openClientConversation(name);
-  }
-});
-
-// ===== Administration V52 =====
-// ===== Récupération administrateur V65 =====
-function openAdminRecovery(){
-  const p=document.getElementById('recoveryPhone');
-  const e=document.getElementById('recoveryEmail');
-  if(p)p.value=document.getElementById('adminPhone')?.value?.trim()||'';
-  if(e)e.value='';
-  const m=document.getElementById('recoveryMsg'); if(m)m.innerHTML='';
-  show('adminRecovery');
-}
-function getAdminPassword(){return localStorage.getItem('solutionAfricaAdminPassword')||'Admin@2026';}
-function requestAdminRecovery(){
-  const phone=(document.getElementById('recoveryPhone')||{}).value?.trim()||'';
-  const email=(document.getElementById('recoveryEmail')||{}).value?.trim().toLowerCase()||'';
-  const m=document.getElementById('recoveryMsg');
-  if(!phone||!email){if(m)m.innerHTML='<div class="msg">⚠️ Indiquez le numéro et l’e-mail administrateur.</div>';return;}
-  if(phone!=='99424366' && phone!=='99999999'){if(m)m.innerHTML='<div class="msg">❌ Numéro administrateur non reconnu.</div>';return;}
-  const code=String(Math.floor(100000+Math.random()*900000));
-  sessionStorage.setItem('solutionAfricaAdminRecovery',JSON.stringify({phone,email,code,expires:Date.now()+10*60*1000}));
-  const box=document.getElementById('recoveryVerify'); if(box)box.classList.remove('hidden');
-  const btn=document.getElementById('requestRecoveryBtn'); if(btn)btn.classList.add('hidden');
-  if(m)m.innerHTML='<div class="msg">✅ Code de vérification généré pour cette version de démonstration. <b>Code : '+code+'</b><br>En production, ce code sera envoyé uniquement par le serveur à l’e-mail ou au téléphone vérifié.</div>';
-}
-function resetAdminPassword(){
-  const m=document.getElementById('recoveryMsg');
-  let r=null;try{r=JSON.parse(sessionStorage.getItem('solutionAfricaAdminRecovery')||'null')}catch(e){}
-  const code=(document.getElementById('recoveryCode')||{}).value?.trim()||'';
-  const np=(document.getElementById('newAdminPass')||{}).value||'';
-  const cp=(document.getElementById('confirmAdminPass')||{}).value||'';
-  if(!r||Date.now()>Number(r.expires||0)){if(m)m.innerHTML='<div class="msg">❌ Le code est expiré. Recommencez la récupération.</div>';return;}
-  if(code!==String(r.code)){if(m)m.innerHTML='<div class="msg">❌ Code de vérification incorrect.</div>';return;}
-  if(np.length<8){if(m)m.innerHTML='<div class="msg">⚠️ Le nouveau mot de passe doit contenir au moins 8 caractères.</div>';return;}
-  if(np!==cp){if(m)m.innerHTML='<div class="msg">⚠️ Les deux mots de passe ne correspondent pas.</div>';return;}
-  localStorage.setItem('solutionAfricaAdminPassword',np);
-  sessionStorage.removeItem('solutionAfricaAdminRecovery');
-  if(m)m.innerHTML='<div class="msg">✅ Nouveau mot de passe enregistré avec succès. Vous pouvez maintenant vous connecter avec ce nouveau mot de passe.</div>';
-  const box=document.getElementById('recoveryVerify'); if(box)box.classList.add('hidden');
-}
-function adminLogin(){const p=(document.getElementById('adminPhone')||{}).value?.trim()||'',pw=(document.getElementById('adminPass')||{}).value||'';if((p==='99424366'||p==='99999999')&&pw===getAdminPassword()){show('adminDashboard');return;}const m=document.getElementById('adminMsg');if(m)m.innerHTML='<div class="msg">❌ Identifiants administrateur incorrects.</div>';}
-function adminArr(key){try{const a=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(a)?a:[];}catch(e){return []}}
-function renderAdminUsers(){const b=document.getElementById('adminUsersList');if(!b)return;const a=[];const pro=getAccount();if(pro)a.push({name:pro.name||'Professionnel',phone:pro.phone||'',role:pro.role||'Professionnel'});adminArr('solutionAfricaClients').forEach(x=>a.push({name:x.name||'Client',phone:x.phone||'',role:'Client'}));b.innerHTML=a.length?a.map(x=>'<div class="course"><b>👤 '+escapeHtml(x.name)+'</b><p>📞 '+escapeHtml(x.phone)+'<br>🎭 '+escapeHtml(x.role)+'</p></div>').join(''):'<div class="course">Aucun utilisateur.</div>';}
-function renderAdminRequests(){const b=document.getElementById('adminRequestsList');if(!b)return;const a=adminArr('solutionAfricaClientRequests');b.innerHTML=a.length?a.map(x=>'<div class="course"><b>📋 '+escapeHtml(x.title||'Demande')+'</b><p>👤 Client : '+escapeHtml(x.client||'Client')+'<br>📌 État : '+escapeHtml(x.status||'Nouveau')+'<br>👨‍🔧 Professionnel : '+escapeHtml(x.professional||'Non attribué')+'</p></div>').join(''):'<div class="course">Aucune demande.</div>';}
-function renderAdminEvaluations(){const b=document.getElementById('adminEvaluationsList');if(!b)return;const a=adminArr('solutionAfricaEvaluations');b.innerHTML=a.length?a.map(x=>'<div class="course"><b>📝 '+escapeHtml(x.title||'Évaluation')+'</b><p>📚 '+escapeHtml(x.subject||'')+'<br>📅 '+escapeHtml(x.date||'')+'</p></div>').join(''):'<div class="course">Aucune évaluation enregistrée.</div>';}
-function getProfessionalDeposits(){return adminArr('solutionAfricaProfessionalDeposits');}
-function ensureDemoApprovedDeposit(){
   try{
-    const arr=getProfessionalDeposits();
-    const a=getAccount()||{};
-    const phone=String(a.phone||'');
-    // Le navigateur peut isoler le stockage local entre les fichiers HTML téléchargés.
-    // Pour conserver le test réalisé précédemment, on réimporte ici le dépôt de démonstration approuvé de 1 000 FCFA.
-    if(phone==='99424366' && !arr.some(x=>String(x.professionalPhone||x.phone||'')==='99424366' && Number(x.amount||0)===1000 && String(x.status||'').toLowerCase()==='approuvé')){
-      arr.push({id:'migration-demo-1000',professional:a.name||'Soafrica',professionalPhone:phone,amount:1000,method:'Dépôt de démonstration',payer:'',reference:'APPROVED-1000',status:'Approuvé',approvedAt:new Date().toLocaleString('fr-FR'),time:new Date().toLocaleString('fr-FR')});
-      localStorage.setItem('solutionAfricaProfessionalDeposits',JSON.stringify(arr));
-    }
-  }catch(e){}
-}
-function renderProWallet(){ensureDemoApprovedDeposit();const summary=document.getElementById('proWalletSummary'),history=document.getElementById('proDepositHistory'),inst=document.getElementById('depositInstructions');if(!summary||!history)return;const a=getAccount()||{};const phone=String(a.phone||'');const name=String(a.name||'Soafrica');const deposits=getProfessionalDeposits().filter(x=>String(x.professionalPhone||x.phone||'')===phone || String(x.professional||'')===name);const approved=deposits.filter(x=>String(x.status||'').toLowerCase()==='approuvé'||String(x.status||'').toLowerCase()==='approved').reduce((s,x)=>s+Number(x.amount||0),0);const pending=deposits.filter(x=>String(x.status||'En attente').toLowerCase()==='en attente').reduce((s,x)=>s+Number(x.amount||0),0);summary.innerHTML='<b>Solde disponible</b><br><strong>'+approved.toLocaleString('fr-FR')+' FCFA</strong><br>⏳ Dépôts en attente : '+pending.toLocaleString('fr-FR')+' FCFA';const settings=JSON.parse(localStorage.getItem('solutionAfricaAdminPaymentSettings')||'{}');if(inst)inst.innerHTML='<b>Instructions de paiement</b><br>'+escapeHtml(settings.note||'Effectuez le dépôt sur le compte indiqué puis renseignez la référence.')+'<br>📱 Compte bénéficiaire : <b>'+escapeHtml(settings.recipient||'99424366')+'</b><br>👤 Bénéficiaire : <b>'+escapeHtml(settings.beneficiary||'Issaka Abdou')+'</b>';history.innerHTML=deposits.length?deposits.map(x=>'<div class="course"><b>'+escapeHtml(x.amount||'0')+' FCFA</b><p>📱 '+escapeHtml(x.method||'')+'<br>🔖 '+escapeHtml(x.reference||'')+'<br>📌 '+escapeHtml(x.status||'En attente')+'</p></div>').join(''):'<div class="course">Aucun dépôt pour le moment.</div>'; }
-function saveProfessionalDeposit(){const a=getAccount()||{};const amount=Number(document.getElementById('depositAmount').value||0),method=document.getElementById('depositMethod').value,payer=document.getElementById('depositPayer').value.trim(),reference=document.getElementById('depositReference').value.trim(),m=document.getElementById('depositMsg');if(!amount||amount<100||!reference){if(m)m.innerHTML='<div class="msg">⚠️ Indiquez un montant d’au moins 100 FCFA et une référence.</div>';return;}const arr=getProfessionalDeposits();arr.push({id:Date.now(),professional:a.name||'Soafrica',professionalPhone:a.phone||'',amount,method,payer,reference,status:'En attente',time:new Date().toLocaleString('fr-FR')});localStorage.setItem('solutionAfricaProfessionalDeposits',JSON.stringify(arr));if(m)m.innerHTML='<div class="msg">✅ Dépôt enregistré. En attente de validation par l’administrateur.</div>';document.getElementById('depositAmount').value='';document.getElementById('depositPayer').value='';document.getElementById('depositReference').value='';renderProWallet();}
-function approveDeposit(index){const arr=getProfessionalDeposits();if(!arr[index])return;arr[index].status='Approuvé';arr[index].approvedAt=new Date().toLocaleString('fr-FR');localStorage.setItem('solutionAfricaProfessionalDeposits',JSON.stringify(arr));renderAdminPayments();alert('✅ Dépôt approuvé. Le solde du professionnel est mis à jour.');}
-function renderAdminPayments(){const b=document.getElementById('adminPaymentsList');if(!b)return;const a=adminArr('solutionAfricaProfessionalDeposits');b.innerHTML=a.length?a.map((x,i)=>'<div class="course"><b>💰 Dépôt : '+escapeHtml(x.amount||'0')+' FCFA</b><p>👤 '+escapeHtml(x.professional||x.name||'Professionnel')+'<br>📱 '+escapeHtml(x.method||'')+'<br>🔖 Référence : '+escapeHtml(x.reference||'')+'<br>📌 Statut : <b>'+escapeHtml(x.status||'En attente')+'</b></p>'+((x.status||'En attente')==='En attente'?'<button class="btn" onclick="approveDeposit('+i+')">✅ Approuver</button>':'')+'</div>').join(''):'<div class="course">Aucun paiement enregistré.</div>'; }
-function renderAdminPaymentSettings(){const x=JSON.parse(localStorage.getItem('solutionAfricaAdminPaymentSettings')||'{"recipient":"99424366","beneficiary":"Issaka Abdou","note":"Effectuez le dépôt sur ce compte puis indiquez la référence de transaction."}');document.getElementById('adminRecipient').value=x.recipient||'';document.getElementById('adminBeneficiary').value=x.beneficiary||'';document.getElementById('adminPaymentNote').value=x.note||'';}
-function saveAdminPaymentSettings(){const x={recipient:document.getElementById('adminRecipient').value.trim(),beneficiary:document.getElementById('adminBeneficiary').value.trim(),note:document.getElementById('adminPaymentNote').value.trim()};localStorage.setItem('solutionAfricaAdminPaymentSettings',JSON.stringify(x));document.getElementById('adminSettingsMsg').innerHTML='<div class="msg">✅ Paramètres enregistrés.</div>';}
-  
-
-
-
-window.aiAsk = async function aiAsk(question){
-    const q = String(question || '').trim();
-    const box = document.getElementById('aiAnswer');
-
-    if(!box) return;
-
-    box.classList.remove('hidden');
-
-    if(!q){
-        box.innerHTML = '<b>Assistant :</b><br>Écrivez votre question pour commencer.';
-        return;
-    }
-
-    box.innerHTML = '<b>Assistant :</b><br>Je réfléchis...';
-
-    try{
-        const response = await fetch('/api/chat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+    const response=await fetch(
+      'https://solutionafrica.abdousouleyissaka6.workers.dev/api/chat',
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          messages:[
+            {
+              role:'system',
+              content:
+                "Tu es l'assistant IA administratif de IA Africa. "+
+                "Tu aides l'administrateur à comprendre les fonctions de la plateforme. "+
+                "Tu n'es pas l'administrateur. Ne prétends jamais être l'administrateur. "+
+                "Réponds en français, clairement et brièvement. "+
+                "N'invente aucune donnée réelle concernant les utilisateurs."
             },
-            body: JSON.stringify({
-                messages: [
-                    {
-                        role: 'system',
-                        content: "Tu es l’Assistant IA de IA Africa. Réponds en français, clairement et utilement. Aide les clients et les professionnels à utiliser la plateforme."
-                    },
-                    {
-                        role: 'user',
-                        content: q
-                    }
-                ]
-            })
-        });
-
-        if(!response.ok){
-            throw new Error('Serveur : ' + response.status);
-        }
-
-        const raw = await response.text();
-
-        let answer = '';
-
-        const events = raw.split(/\n\n+/);
-
-        for(const event of events){
-
-            const lines = event.split('\n');
-
-            for(const line of lines){
-
-                if(!line.startsWith('data:')) continue;
-
-                const data = line.slice(5).trim();
-
-                if(!data || data === '[DONE]') continue;
-
-                try{
-                    const obj = JSON.parse(data);
-
-                    const part =
-                        typeof obj.response === 'string'
-                            ? obj.response
-                            : (
-                                obj.choices?.[0]?.delta?.content ||
-                                obj.choices?.[0]?.message?.content ||
-                                obj.content ||
-                                obj.text ||
-                                ''
-                            );
-
-                    if(part){
-                        answer += part;
-                    }
-
-                }catch(e){
-                    // Ignore les morceaux non JSON
-                }
+            {
+              role:'user',
+              content:question
             }
-        }
+          ]
+        })
+      }
+    );
 
-        if(!answer){
-            answer = raw.trim();
-        }
+    if(!response.ok){
+      throw new Error('Serveur : '+response.status);
+    }
 
-        if(!answer){
-            answer = "Je n’ai pas reçu de réponse du serveur.";
-        }
+    const raw=await response.text();
+    let answer='';
 
-        box.innerHTML =
-            '<b>Assistant :</b><br>' +
-            answer.replace(/\n/g, '<br>');
+    raw.split(/\n\n+/).forEach(function(event){
+      event.split('\n').forEach(function(line){
+        if(!line.startsWith('data:'))return;
 
-    }catch(error){
+        const data=line.slice(5).trim();
 
-        box.innerHTML =
-            '<b>Assistant :</b><br>' +
-            'Désolé, une erreur est survenue.<br>' +
-            '<small>' + error.message + '</small>';
- }} </script>
+        if(!data||data==='[DONE]')return;
 
-    
-      
-       
-        
-         
-          
-           
-               
-                   
-                 
-                      
-                        
-                        
-                 
-                    
-                           
-                            
-                                   
-                                               
-                                                                  
-                                                                     
-                                                                                   
-                                                                                                  
-                                                                                                     
-                                                                                                                     
-                                                                                                                  
-                                                                                                        
-                                                                                                                                
-                                                                                                                            
-                                                                                                                         
-                                                                                                                                        
-                                                                                                                                    
-                                                                                                                                            
-                                                                                                                                              
-                                                                                                                                                  
-                                                                                                                                                        
-                                                                                                                                                     
-                                                                                                                                                          
-                                                                                                                                                             
-                                                                                                                                                                       
-                                                                                                                                                                        
-                                                                                                                                                                                  
-                                                                                                                                                                      
-                                                                                                                                                                                                    
-                                                                                                                                                                                                    
-                                                                                                                                                                                                       
-                                                                                                                                                                                                             
-                                                                                                                                                                                                                  
-                                                                                                                                                                                                                     
-                                                                                                                                                                                                                          
-                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                      
-                                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                      
-                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                               
-                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                                     
-                                                                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
- 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-<script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               }function lireVocal(texte) {if (!('speechSynthesis' in window)) {
-  alert("La lecture vocale n'est pas disponible sur cet appareil.");
-  return;
+        try{
+          const obj=JSON.parse(data);
+
+          const part=
+            typeof obj.response==='string'
+              ? obj.response
+              : (
+                  obj.choices?.[0]?.delta?.content ||
+                  obj.choices?.[0]?.message?.content ||
+                  obj.content ||
+                  obj.text ||
+                  ''
+                );
+
+          if(part)answer+=part;
+        }catch(e){}
+      });
+    });
+
+    if(!answer)answer=raw.trim();
+
+    if(!answer){
+      answer='Je n’ai pas reçu de réponse du serveur.';
+    }
+
+    box.innerHTML=
+      '<b>Assistant :</b><br>'+
+      escapeHTML(answer).replace(/\n/g,'<br>');
+
+  }catch(error){
+    box.innerHTML=
+      '<b>Assistant :</b><br>'+
+      'Désolé, une erreur est survenue.<br>'+
+      '<small>'+escapeHTML(String(error?.message||error))+'</small>';
+  }
 }
 
-window.speechSynthesis.cancel();
+function requestPasswordReset(){
+  const phone=String($('forgotPhone').value||'').trim();
+  const email=String($('forgotEmail').value||'').trim();
 
-const voix = new SpeechSynthesisUtterance(String(texte || ''));
-voix.lang = 'fr-FR';
-voix.rate = 0.9;
-voix.pitch = 1;
-
-window.speechSynthesis.speak(voix);
- }
-</script>
- 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   }</script>
-<script>
-(function(){
-  function nav(id){
-    const target=document.getElementById(id);
-    if(!target) return false;
-
-    document.querySelectorAll('section').forEach(function(s){
-      s.classList.add('hidden');
-    });
-
-    target.classList.remove('hidden');
-    window.scrollTo(0,0);
-    return true;
+  if(!phone&&!email){
+    $('forgotMsg').innerHTML=
+      '<div class="msg">Indiquez au moins un numéro ou une adresse e-mail.</div>';
+    return;
   }
 
-  document.addEventListener('click',function(e){
-    const b=e.target.closest('button');
-    if(!b) return;
+  const requests=safeJSON('solutionAfricaPasswordRequests',[]);
 
-    const text=(b.textContent||'').trim();
-
-    if(text.includes('Assistant IA Solution Africa')){
-      if(nav('aiAssistant')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Rechercher un professionnel')){
-      if(nav('searchProfessional') || nav('searchProfessionnel')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Publier un besoin')){
-      if(nav('publishNeed')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Mes demandes')){
-      if(nav('myRequests')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Mes échanges')){
-      if(nav('myMessages')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Évaluer un professionnel')){
-      if(nav('rateProfessional') || nav('rateProfessionnal')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Mon profil')){
-      if(typeof openClientProfile==='function'){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        openClientProfile();
-        return;
-      }
-
-      if(nav('clientProfile')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-
-    if(text.includes('Mon portefeuille')){
-      if(nav('wallet')){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        return;
-      }
-    }
-  },true);
-})();
-</script><script>
-document.addEventListener('click', function(e) {
-  const b = e.target.closest('button');
-  if (!b) return;
-
-  const t = (b.textContent || '').trim();
-
-  function ouvrir(id) {
-    const cible = document.getElementById(id);
-    if (!cible) return false;
-
-    document.querySelectorAll('section').forEach(function(s) {
-      s.classList.add('hidden');
-    });
-
-    cible.classList.remove('hidden');
-    window.scrollTo(0, 0);
-    return true;
-  }
-
-  if (t.includes('Client')) {
-    if (ouvrir('client')) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-
-  else if (t.includes('Professionnel')) {
-    if (ouvrir('pro')) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-
-  else if (t.includes('Accéder au mode démo')) {
-    if (ouvrir('client')) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-
-  else if (t.includes('Assistant IA')) {
-    if (ouvrir('aiAssistant')) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-
-  else if (t.includes('Espace Administrateur')) {
-    if (ouvrir('adminLogin')) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-}, true);
-</script><script>
-document.addEventListener('click', function(e) {
-  const b = e.target.closest('button');
-  if (!b) return;
-
-  const texte = (b.textContent || '').trim();
-
-  if (texte === '← Retour') {
-    const client = document.getElementById('client');
-
-    if (client) {
-      document.querySelectorAll('section').forEach(function(s) {
-        s.classList.add('hidden');
-      });
-
-      client.classList.remove('hidden');
-      window.scrollTo(0, 0);
-
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-}, true);
-</script><script>
-document.addEventListener('click', function(e) {
-  const b = e.target.closest('button');
-  if (!b) return;
-
-  const texte = (b.textContent || '').trim();
-
-  if (texte.includes('Retour')) {
-    const home = document.getElementById('home');
-
-    if (home) {
-      document.querySelectorAll('section').forEach(function(s) {
-        s.classList.add('hidden');
-      });
-
-      home.classList.remove('hidden');
-      window.scrollTo(0, 0);
-
-      e.preventDefault();
-      e.stopImmediatePropagation();
-    }
-  }
-}, true);
-</script><script>
-document.addEventListener('click', function(e) {
-  const b = e.target.closest('button');
-  if (!b) return;
-
-  const texte = (b.textContent || '').trim();
-
-  function ouvrir(id) {
-    const page = document.getElementById(id);
-    if (!page) return;
-
-    document.querySelectorAll('section').forEach(function(s) {
-      s.classList.add('hidden');
-    });
-
-    page.classList.remove('hidden');
-    window.scrollTo(0, 0);
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
-
-  if (texte === 'Retour à l’accueil' || texte === "Retour à l'accueil") {
-    ouvrir('home');
-  }
-}, true);
-</script><script>
-(function () {
-  function ajouterAudio() {
-    const messages = document.querySelectorAll('.msg');
-
-    messages.forEach(function (message) {
-      if (message.querySelector('.bouton-audio')) return;
-
-      const bouton = document.createElement('button');
-      bouton.className = 'bouton-audio';
-      bouton.type = 'button';
-      bouton.textContent = '🔊 Écouter';
-
-      bouton.style.marginTop = '8px';
-      bouton.style.padding = '8px 14px';
-      bouton.style.borderRadius = '10px';
-      bouton.style.border = '1px solid #087443';
-      bouton.style.background = '#fff';
-      bouton.style.color = '#087443';
-      bouton.style.fontWeight = 'bold';
-
-      bouton.addEventListener('click', function () {
-        window.speechSynthesis.cancel();
-
-        const texte = message.innerText
-          .replace('🔊 Écouter', '')
-          .trim();
-
-        if (!texte) return;
-
-        const voix = new SpeechSynthesisUtterance(texte);
-        voix.lang = 'fr-FR';
-        voix.rate = 0.9;
-        voix.pitch = 1;
-
-        window.speechSynthesis.speak(voix);
-      });
-
-      message.appendChild(bouton);
-    });
-  }
-
-  ajouterAudio();
-
-  const observer = new MutationObserver(ajouterAudio);
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true
+  requests.push({
+    id:'reset-'+Date.now(),
+    phone:phone,
+    email:email,
+    status:'En attente',
+    createdAt:new Date().toISOString()
   });
-})();
-</script>
-</body></body>
-</html>
+
+  saveJSON('solutionAfricaPasswordRequests',requests);
+
+  $('forgotMsg').innerHTML=
+    '<div class="msg">✅ Votre demande a été enregistrée. Un administrateur pourra la traiter.</div>';
+}
+
+function adminMessages(){
+  if(!isAdmin()){
+    show('adminLogin');
+    return;
+  }
+
+  const box=$('adminMessagesList');
+
+  if(!box)return;
+
+  const messages=getMessages();
+
+  if(!messages.length){
+    box.innerHTML='<div class="msg">Aucun message enregistré.</div>';
+  }else{
+    box.innerHTML=messages.map(function(m){
+      return '<div class="course">'+
+        '<b>💬 '+escapeHTML(m.senderName||'Utilisateur')+'</b>'+
+        '<p>Destinataire : '+escapeHTML(m.receiverName||'')+'</p>'+
+        '<p>'+escapeHTML(m.text||'')+'</p>'+
+        '<small>'+formatDate(m.createdAt)+'</small>'+
+        '</div>';
+    }).join('');
+  }
+
+  show('adminMessages');
+}
+
+function renderRatingRequests(){
+  const box=$('ratingRequestList');
+
+  if(!box)return;
+
+  const client=getCurrentClient();
+
+  if(!
