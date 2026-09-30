@@ -85,7 +85,7 @@ comprendre les étapes de la plateforme et vous orienter vers le bon service.
 
 <textarea id="aiQuestion" class="input" rows="4"
 placeholder="Écrivez votre question ici..."></textarea>
-<button class="btn" onclick="alert(typeof window.aiAsk)"><button class="btn" onclick="window.aiAsk(document.getElementById('aiQuestion').value)">Envoyer</button>
+<button class="btn" type="button" onclick="window.aiAsk(document.getElementById('aiQuestion').value)">Envoyer</button>
 <div id="aiAnswer" class="profile hidden"></div>
 
 <button class="btn outline back" onclick="show('client')">← Retour à l'espace Client</button>
