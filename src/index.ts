@@ -206,7 +206,7 @@ async function handleChatRequest(
 
     const inputs = {
       messages,
-      max_tokens: 512,
+      max_tokens: 1024,
       stream: true,
       temperature: 0.4,
     } satisfies AiTextGenerationInput & { stream: true };
