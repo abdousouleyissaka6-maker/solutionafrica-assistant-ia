@@ -44,7 +44,7 @@ h1{font-size:28px;margin:24px 0 10px} h2{font-size:23px}
 <button class="btn outline" onclick="demo()">Accéder au mode démo</button>
 <button class="btn outline" onclick="createClientDemo()">➕ Créer mon compte Client</button>
 <button class="btn outline" onclick="show('adminLogin')">👨‍💼 Espace Administrateur</button>
-<button class="btn" onclick="document.getElementById('home').classList.add('hidden');document.getElementById('aiAssistant').classList.remove('hidden')">🤖 IA Africa</button>
+<button class="btn" onclick="document.getElementById('home').classList.add('hidden');document.getElementById('IA').classList.remove('hidden')">🤖 IA Africa</button>
 </section>
 
 <section id="client" class="hidden">
@@ -59,14 +59,14 @@ h1{font-size:28px;margin:24px 0 10px} h2{font-size:23px}
 <button onclick="show('rateProfessional')">⭐ Évaluer un professionnel</button>
 <button onclick="openClientProfile()">👤 Mon profil</button>
 <button onclick="show('wallet')">💰 Mon portefeuille</button>
-<button onclick="show('aiAssistant')">🤖 Assistant IA Solution Africa</button>
+<button onclick="show('IA')">🤖 IA Africa</button>
 </div>
 <button class="btn outline back" onclick="show('home')">← Retour à l'accueil</button>
 <button class="btn" onclick="show('home')">🚪 Se déconnecter</button>
 </section>
 
-<section id="aiAssistant" class="hidden">
-<h1>🤖 Assistant IA Solution Africa</h1>
+<section id="IA" class="hidden">
+<h1>🤖 IA Africa</h1>
 <p class="muted">Votre assistant pour utiliser la plateforme plus facilement.</p>
 
 <div class="profile">
@@ -163,7 +163,7 @@ placeholder="Écrivez votre question ici..."></textarea>
 <p class="muted">Créez votre compte enseignant ou connectez-vous.</p>
 <input id="proPhone" class="input" placeholder="Numéro de téléphone" value="99424366">
 <input id="proPass" class="input" type="password" placeholder="Mot de passe" value="2026issa">
-<input id="proName" class="input" placeholder="Nom affiché" value="Soafrica">
+<input id="proName" class="input" placeholder="Nom affiché" value="IAafrica">
 <input id="proRole" class="input" placeholder="Rôle" value="Enseignant">
 <div id="msg"></div>
 <button class="btn" onclick="createAccount()">Créer mon compte</button>
@@ -770,7 +770,7 @@ function saveLesson(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaLessons',lessons);
+  saveJSON('IA AfricaLessons',lessons);
   $('lessonMsg').innerHTML='<div class="msg">✅ Leçon enregistrée avec succès.</div>';
 
   setTimeout(function(){
@@ -1169,7 +1169,7 @@ function renderCustomChapters(){
 }
 
 function openCustomChapter(id){
-  const chapters=safeJSON('solutionAfricaCustomChapters',[]);
+  const chapters=safeJSON('IA AfricaCustomChapters',[]);
 
   const c=chapters.find(function(x){
     return x.id===id;
@@ -1197,7 +1197,7 @@ function saveCustomCourse(){
     return;
   }
 
-  const courses=safeJSON('solutionAfricaCustomCourses',[]);
+  const courses=safeJSON('IA AfricaCustomCourses',[]);
 
   courses.push({
     id:'course-'+Date.now(),
@@ -1207,7 +1207,7 @@ function saveCustomCourse(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaCustomCourses',courses);
+  saveJSON('IA AfricaCustomCourses',courses);
 
   $('courseMsg').innerHTML='<div class="msg">✅ Matière enregistrée.</div>';
 
@@ -1223,7 +1223,7 @@ function renderCustomCourses(){
   const box=$('customCourseList');
   if(!box)return;
 
-  const courses=safeJSON('solutionAfricaCustomCourses',[]);
+  const courses=safeJSON('IA AfricaCustomCourses',[]);
 
   if(!courses.length){
     box.innerHTML='';
@@ -1248,7 +1248,7 @@ function saveStudent(){
     return;
   }
 
-  const students=safeJSON('solutionAfricaStudents',[]);
+  const students=safeJSON('IA AfricaStudents',[]);
 
   students.push({
     id:'student-'+Date.now(),
@@ -1258,7 +1258,7 @@ function saveStudent(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaStudents',students);
+  saveJSON('IA AfricaStudents',students);
 
   $('studentMsg').innerHTML='<div class="msg">✅ Élève enregistré.</div>';
 
@@ -1275,7 +1275,7 @@ function renderStudents(){
   const box=$('studentList');
   if(!box)return;
 
-  const students=safeJSON('solutionAfricaStudents',[]);
+  const students=safeJSON('IA AfricaStudents',[]);
 
   if(!students.length){
     box.innerHTML='<div class="msg">Aucun élève enregistré.</div>';
@@ -1313,7 +1313,7 @@ function saveEvaluation(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaEvaluations',evaluations);
+  saveJSON('IA AfricaEvaluations',evaluations);
 
   $('evalMsg').innerHTML='<div class="msg">✅ Évaluation enregistrée.</div>';
 
@@ -1355,7 +1355,7 @@ function saveResource(){
     return;
   }
 
-  const resources=safeJSON('solutionAfricaResources',[]);
+  const resources=safeJSON('ia AfricaResources',[]);
 
   resources.push({
     id:'resource-'+Date.now(),
@@ -1367,7 +1367,7 @@ function saveResource(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaResources',resources);
+  saveJSON('IA AfricaResources',resources);
 
   $('resourceMsg').innerHTML='<div class="msg">✅ Ressource enregistrée.</div>';
 
@@ -1381,7 +1381,7 @@ function renderResources(){
   const box=$('resourceList');
   if(!box)return;
 
-  const resources=safeJSON('solutionAfricaResources',[]);
+  const resources=safeJSON('IA AfricaResources',[]);
 
   if(!resources.length){
     box.innerHTML='<div class="msg">Aucune ressource enregistrée.</div>';
@@ -1417,7 +1417,7 @@ function renderResources(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaMessages',messages);
+  saveJSON('IA AfricaMessages',messages);
 
   input.value='';
   renderConversation();
@@ -1681,10 +1681,10 @@ function registerProfessional(){
 
   professionals.push(pro);
 
-  saveJSON('solutionAfricaProfessionals',professionals);
-  saveJSON('solutionAfricaCurrentProfessional',pro);
+  saveJSON('IA AfricaProfessionals',professionals);
+  saveJSON('IA AfricaCurrentProfessional',pro);
 
-  localStorage.removeItem('solutionAfricaCurrentClient');
+  localStorage.removeItem('IA AfricaCurrentClient');
 
   $('regProMsg').innerHTML=
     '<div class="msg">✅ Compte professionnel créé avec succès.</div>';
@@ -1729,10 +1729,10 @@ function registerClient(){
 
   clients.push(clientData);
 
-  saveJSON('solutionAfricaClients',clients);
-  saveJSON('solutionAfricaCurrentClient',clientData);
+  saveJSON('IA AfricaClients',clients);
+  saveJSON('IA AfricaCurrentClient',clientData);
 
-  localStorage.removeItem('solutionAfricaCurrentProfessional');
+  localStorage.removeItem('IA AfricaCurrentProfessional');
 
   $('regClientMsg').innerHTML=
     '<div class="msg">✅ Compte Client créé avec succès.</div>';
@@ -1800,7 +1800,7 @@ function saveClientProfile(){
     clients.push(updated);
   }
 
-  saveJSON('solutionAfricaClients',clients);function renderProWallet(){
+  saveJSON('IA AfricaClients',clients);function renderProWallet(){
   const summary=$('proWalletSummary');
   const history=$('function adminStatistics(){
   if(!isAdmin()){
@@ -1852,15 +1852,15 @@ async function adminAIAsk(){
   box.classList.remove('hidden');
 
   if(!question){
-    box.innerHTML='<b>Assistant :</b><br>Écrivez votre question.';
+    box.innerHTML='<b>IA:</b><br>Écrivez votre question.';
     return;
   }
 
-  box.innerHTML='<b>Assistant :</b><br>Je réfléchis...';
+  box.innerHTML='<b>IA :</b><br>Je réfléchis...';
 
   try{
     const response=await fetch(
-      'https://solutionafrica.abdousouleyissaka6.workers.dev/api/chat',
+      'https://IA africa.abdousouleyissaka6.workers.dev/api/chat',
       {
         method:'POST',
         headers:{
@@ -1871,7 +1871,7 @@ async function adminAIAsk(){
             {
               role:'system',
               content:
-                "Tu es l'assistant IA administratif de IA Africa. "+
+                "Tu es l' IA administratif de IA Africa. "+
                 "Tu aides l'administrateur à comprendre les fonctions de la plateforme. "+
                 "Tu n'es pas l'administrateur. Ne prétends jamais être l'administrateur. "+
                 "Réponds en français, clairement et brièvement. "+
@@ -1948,7 +1948,7 @@ function requestPasswordReset(){
     return;
   }
 
-  const requests=safeJSON('solutionAfricaPasswordRequests',[]);
+  const requests=safeJSON('IA AfricaPasswordRequests',[]);
 
   requests.push({
     id:'reset-'+Date.now(),
@@ -1958,7 +1958,7 @@ function requestPasswordReset(){
     createdAt:new Date().toISOString()
   });
 
-  saveJSON('solutionAfricaPasswordRequests',requests);
+  saveJSON('IA AfricaPasswordRequests',requests);
 
   $('forgotMsg').innerHTML=
     '<div class="msg">✅ Votre demande a été enregistrée. Un administrateur pourra la traiter.</div>';
