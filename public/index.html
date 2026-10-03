@@ -2091,9 +2091,33 @@ function renderRatingRequests(){
    ASSISTANT IA AFRICA
    ================================ */
 
+const IA_MEMORY_KEY='iaAfricaConversationMemory_v1';
+
+function loadAIMemory(){
+  try{
+    const raw=localStorage.getItem(IA_MEMORY_KEY);
+    const data=raw?JSON.parse(raw):[];
+    return Array.isArray(data)?data:[];
+  }catch(e){
+    return [];
+  }
+}
+
+function saveAIMemory(messages){
+  try{
+    localStorage.setItem(
+      IA_MEMORY_KEY,
+      JSON.stringify(messages.slice(-20))
+    );
+  }catch(e){}
+}
+
 async function aiAsk(question){
 
-  const q=String(question||'').trim();document.getElementById('aiQuestion').value='';
+  const q=String(question||'').trim();
+  const input=document.getElementById('aiQuestion');
+
+  if(input)input.value='';
 
   const box=document.getElementById('aiAnswer');
   const button=document.getElementById('aiSendButton');
@@ -2120,30 +2144,22 @@ async function aiAsk(question){
 
   try{
 
+    const history=loadAIMemory();
+
+    const messages=history.concat([
+      {
+        role:'user',
+        content:q
+      }
+    ]).slice(-20);
+
     const response=await fetch('/api/chat',{
       method:'POST',
       headers:{
         'Content-Type':'application/json'
       },
       body:JSON.stringify({
-        messages:[
-          
-            
-            
-             
-              
-              
-              
-             
-
-
-              
-          
-          {
-            role:'user',
-            content:q
-          }
-        ]
+        messages:messages
       })
     });
 
@@ -2196,6 +2212,15 @@ async function aiAsk(question){
       answer='Je n’ai pas reçu de réponse du serveur.';
     }
 
+    const updatedHistory=messages.concat([
+      {
+        role:'assistant',
+        content:answer
+      }
+    ]);
+
+    saveAIMemory(updatedHistory);
+
     box.innerHTML=
       '<b>Assistant :</b><br>'+
       escapeHTML(answer).replace(/\n/g,'<br>');
@@ -2218,6 +2243,17 @@ async function aiAsk(question){
 
   }
 }
+      
+      
+      
+      
+
+  
+
+    
+     
+      
+
 
 </script>
 </body>
