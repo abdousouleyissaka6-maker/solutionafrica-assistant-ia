@@ -1800,9 +1800,53 @@ function saveClientProfile(){
     clients.push(updated);
   }
 
-  saveJSON('IA AfricaClients',clients);function renderProWallet(){
+  
+  saveJSON('IA AfricaClients',clients);
+}
+
+function renderProWallet(){
   const summary=$('proWalletSummary');
-  const history=$('function adminStatistics(){
+  const history=$('proWalletHistory');
+
+  if(!summary||!history)return;
+
+  const deposits=safeJSON('solutionAfricaProfessionalDeposits',[]);
+
+  const approved=deposits
+    .filter(function(x){
+      return String(x.status||'').toLowerCase()==='approuvé' ||
+             String(x.status||'').toLowerCase()==='approved';
+    })
+    .reduce(function(sum,x){
+      return sum+Number(x.amount||0);
+    },0);
+
+  const pending=deposits
+    .filter(function(x){
+      return String(x.status||'').toLowerCase()==='en attente';
+    })
+    .reduce(function(sum,x){
+      return sum+Number(x.amount||0);
+    },0);
+
+  summary.innerHTML=
+    '<b>Solde disponible</b><br>'+
+    '<strong>'+approved.toLocaleString('fr-FR')+' FCFA</strong><br>'+
+    '⏳ Dépôts en attente : '+
+    pending.toLocaleString('fr-FR')+' FCFA';
+
+  history.innerHTML=deposits.length
+    ? deposits.map(function(x){
+        return '<div class="course">'+
+          '<b>'+Number(x.amount||0).toLocaleString('fr-FR')+' FCFA</b>'+
+          '<p>📌 '+escapeHTML(x.status||'En attente')+'</p>'+
+          '</div>';
+      }).join('')
+    : '<div class="msg">Aucun dépôt pour le moment.</div>';
+}
+
+function adminStatistics(){
+  function adminStatistics(){
   if(!isAdmin()){
     show('adminLogin');
     return;
