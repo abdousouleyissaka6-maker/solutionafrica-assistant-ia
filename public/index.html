@@ -700,7 +700,11 @@ Plateforme de mise en relation entre clients et professionnels.
 <section id="paymentConfirm" class="hidden">
 <h1>✅ Confirmation du paiement</h1>
 <div id="paymentConfirmContent" class="profile"></div>
-<input id="paymentAmount" class="input" type="number" placeholderfunction openSubject(name){
+<input id="paymentAmount" class="input" type="number" <input id="paymentAmount" class="input" type="number" placeholder="Montant">
+</section>
+
+<script>
+function openSubject(name){
   currentSubjectName=name;
   $('subjectTitle').textContent='📚 '+name;
   $('subjectDesc').textContent='Cours, leçons, exercices et évaluations de '+name+'.';
