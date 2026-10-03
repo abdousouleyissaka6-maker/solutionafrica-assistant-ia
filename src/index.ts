@@ -160,10 +160,10 @@ export default {
       });
     }
 
-    // Frontend
-    if (url.pathname === "/" || !url.pathname.startsWith("/api/")) {
-      return env.ASSETS.fetch(request);
-    }
+    
+    
+      
+    
 
     // Chat API
     if (url.pathname === "/api/chat") {
