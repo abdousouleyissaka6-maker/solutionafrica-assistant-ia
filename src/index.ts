@@ -1452,8 +1452,11 @@ async function handleChatRequest(
           }
         }
       } catch (error) {
-        webContext = "";
-      }
+  console.error("ERREUR RECHERCHE WEB IA AFRICA :", error);
+  webContext = "";
+	  }
+        
+      
     }
 
     if (webContext) {
