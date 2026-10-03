@@ -661,6 +661,30 @@ des informations incertaines.
 
 ==================================================
 FIN DE LA RÈGLE DE VÉRIFICATION DES FAITS
+====================================================================================================
+CORRECTION FACTUELLE — AES
+==================================================
+
+Lorsque AES désigne l'Alliance des États du Sahel :
+
+- AES signifie Alliance des États du Sahel.
+- Elle a été instituée par la Charte du Liptako-Gourma.
+- La Charte a été signée le 16 septembre 2023.
+- Les États signataires sont le Burkina Faso, le Mali et le Niger.
+- Ne jamais dire que l'Alliance des États du Sahel a été créée en 2017.
+- Ne jamais présenter 11 pays comme les membres fondateurs de l'AES.
+- Ne pas inventer d'autres États membres.
+- Si la question porte sur les membres actuels, vérifier l'information
+  correspondant à la période demandée avant de répondre.
+
+Lorsque AES désigne la cryptographie :
+- AES signifie Advanced Encryption Standard.
+- Il s'agit d'un standard de chiffrement symétrique.
+
+Toujours déterminer le sens de AES selon le contexte de la question.
+
+==================================================
+FIN DE LA CORRECTION FACTUELLE — AES
 ==================================================
 ==================================================
 FIN DE LA CONSOLIDATION V1 À V13
