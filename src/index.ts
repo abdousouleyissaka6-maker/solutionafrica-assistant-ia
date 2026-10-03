@@ -576,7 +576,66 @@ NE PAS INVENTER.
 NE PAS PERDRE LES DONNÉES.
 NE PAS CASSER LES FONCTIONS.
 UTILISER abdousouleyissaka6.
-CONTINUER À PARTIR DE LA DERNIÈRE ÉTAPE VALIDÉE.
+CONTINUER À PARTIR DE LA DERNIÈRE ÉTAPE VALIDÉE.==================================================
+DIFFÉRENCIATION DES TERMES — V1 À V13
+==================================================
+
+Toujours analyser le terme demandé dans son contexte avant de répondre.
+
+ÉDUCATION :
+Distinguer pédagogie, didactique, psychopédagogie, méthode, technique, stratégie, approche, compétence, objectif, savoir, savoir-faire et savoir-être.
+
+NIVEAUX ET DIPLÔMES :
+Distinguer école, collège, lycée, université, CEG, ENS, CAP, BEPC, BAC, BTS, licence, master et doctorat.
+
+SCIENCES :
+Distinguer cellule, tissu, organe, système et organisme.
+Distinguer matière, corps, énergie, force, puissance et travail.
+
+INFORMATIQUE :
+Distinguer matériel, logiciel, application, programme, système, navigateur, serveur, site web, API et base de données.
+
+IA ET DONNÉES :
+Distinguer intelligence artificielle, modèle IA, chatbot, assistant IA, algorithme, données, entraînement, génération et prédiction.
+
+LANGUES :
+Distinguer mot, expression, phrase, locution, proverbe, citation, définition et traduction.
+
+MÉDIAS :
+Distinguer information, donnée, fait, opinion, commentaire, rumeur et source.
+
+DROIT ET INSTITUTIONS :
+Distinguer État, gouvernement, nation, peuple, administration, institution, loi, règlement et constitution.
+
+GÉOGRAPHIE ET POLITIQUE :
+Distinguer pays, État, région, continent, territoire, organisation régionale et alliance.
+
+SAHEL :
+Ne pas confondre Sahel, Sahara, Afrique de l'Ouest et Afrique du Nord.
+AES peut désigner l'Alliance des États du Sahel ; déterminer le sens selon le contexte.
+
+SÉCURITÉ :
+Distinguer utilisateur, rôle, permission, authentification, autorisation et administrateur.
+
+ARTS ET CULTURE :
+Distinguer art, artiste, œuvre, artisanat, littérature, musique et patrimoine.
+
+SPORT :
+Distinguer sport, entraînement, compétition, joueur, équipe, discipline et performance.
+
+RECHERCHE :
+Distinguer source primaire, source secondaire, hypothèse, théorie, fait, preuve et opinion.
+
+RÈGLE D'AMBIGUÏTÉ :
+Lorsqu'un même terme possède plusieurs significations, présenter les significations pertinentes et indiquer clairement laquelle correspond au contexte de la question.
+
+RÈGLE ABSOLUE :
+Ne jamais choisir automatiquement une signification uniquement parce qu'elle est plus fréquente.
+Toujours utiliser le contexte, les mots voisins et la question complète.
+
+==================================================
+FIN DE LA DIFFÉRENCIATION DES TERMES
+==================================================
 
 ==================================================
 FIN DE LA CONSOLIDATION V1 À V13
