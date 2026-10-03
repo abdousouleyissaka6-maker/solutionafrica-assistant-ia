@@ -1409,7 +1409,62 @@ async function handleChatRequest(
         role: "system",
         content: SYSTEM_PROMPT,
       });
+    }    // Recherche Web pour vérifier les informations actuelles
+    let webContext = "";
+
+    const lastUserMessage = [...messages]
+      .reverse()
+      .find((msg) => msg.role === "user");
+
+    if (lastUserMessage?.content) {
+      try {
+        const searchResponse = await env.AI.websearch({
+          gatewayId: "default",
+          query: lastUserMessage.content.slice(0, 1024),
+          provider: "ceramic",
+          limit: 5,
+        });
+
+        if (searchResponse.ok) {
+          const searchData = (await searchResponse.json()) as {
+            items?: Array<{
+              title?: string;
+              url?: string;
+              description?: string;
+            }>;
+          };
+
+          const items = Array.isArray(searchData.items)
+            ? searchData.items
+            : [];
+
+          if (items.length > 0) {
+            webContext =
+              "\n\nINFORMATIONS WEB À VÉRIFIER :\n" +
+              items
+                .map(
+                  (item, index) =>
+                    `[${index + 1}] ${item.title || "Source"}\n` +
+                    `URL: ${item.url || ""}\n` +
+                    `${item.description || ""}`,
+                )
+                .join("\n\n");
+          }
+        }
+      } catch (error) {
+        webContext = "";
+      }
     }
+
+    if (webContext) {
+      messages.push({
+        role: "system",
+        content:
+          "Utilise les informations Web ci-dessous pour vérifier les faits. " +
+          "Ne présente pas comme certain un fait que les sources ne permettent pas d'établir." +
+          webContext,
+      });
+	}
 
     const inputs = {
       messages,
