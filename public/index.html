@@ -1392,12 +1392,22 @@ function renderResources(){
     return;
   }
 
-  box.innerHTML=resources.map(function(r){
+    box.innerHTML=resources.map(function(r){
     return '<div class="course">'+
       '<b>📄 '+escapeHTML(r.title)+'</b>'+
       '<p>Type : '+escapeHTML(r.type||'Document')+'</p>'+
       '<p>'+escapeHTML(r.description||'')+'</p>'+
-      (r.link?'<p><a href="'+escapeHTML(r.link)+'" target="_blank" rel="noopener">🔗 Ouvrirfunction sendMessage(){
+      (r.link?'<p><a href="'+escapeHTML(r.link)+'" target="_blank" rel="noopener">🔗 Ouvrir</a></p>':'')+
+      '</div>';
+  }).join('');
+}
+
+function sendMessage(){
+   
+      
+      
+      
+      
   const input=$('conversationInput');
   if(!input)return;
 
