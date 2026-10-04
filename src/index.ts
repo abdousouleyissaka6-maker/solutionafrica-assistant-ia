@@ -1557,13 +1557,24 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
 }
 
 if (webContext) {
-  messages.push({
-    role: "system",
-    content:
-      "Utilise les informations Web Exa ci-dessous pour vérifier les faits. " +
-      "Ne présente pas comme certain un fait que les sources ne permettent pas d'établir." +
-      webContext,
-  });
+  const userIndex = messages.findLastIndex(
+    (msg) => msg.role === "user",
+  );
+
+  if (userIndex >= 0) {
+    messages[userIndex] = {
+      ...messages[userIndex],
+      content:
+        `${messages[userIndex].content}\n\n` +
+        `SOURCES WEB EXA À UTILISER POUR VÉRIFIER LA RÉPONSE :\n` +
+        webContext +
+        `\n\n` +
+        `RÈGLE : utilise ces sources pour vérifier les faits. ` +
+        `Ne présente pas comme certain un fait que les sources ` +
+        `ne permettent pas d'établir. Si les sources sont contradictoires ` +
+        `ou insuffisantes, indique clairement l'incertitude.`,
+    };
+  }
 }
 
     const inputs = {
