@@ -3,15 +3,11 @@
  */
 
 export interface Env {
-	/**
-	 * Binding for the Workers AI API.
-	 */
-	AI: Ai;
+  AI: Ai;
 
-	/**
-	 * Binding for static assets.
-	 */
-	ASSETS: { fetch: (request: Request) => Promise<Response> };
+  EXA_API_KEY?: string;
+
+  ASSETS: { fetch: (request: Request) => Promise<Response> };
 }
 
 /**
