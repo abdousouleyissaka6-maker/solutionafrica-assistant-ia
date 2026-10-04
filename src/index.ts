@@ -1409,65 +1409,82 @@ async function handleChatRequest(
         role: "system",
         content: SYSTEM_PROMPT,
       });
-    }    // Recherche Web pour vérifier les informations actuelles
-    let webContext = "";
+    // Recherche Web Exa pour vérifier les informations actuelles
+let webContext = "";
 
-    const lastUserMessage = [...messages]
-      .reverse()
-      .find((msg) => msg.role === "user");
+const lastUserMessage = [...messages]
+  .reverse()
+  .find((msg) => msg.role === "user");
 
-    if (lastUserMessage?.content) {
-      try {
-        const searchResponse = await env.AI.websearch({
-          gatewayId: "default",
-          query: lastUserMessage.content.slice(0, 1024),
-          provider: "ceramic",
-          limit: 5,
-        });
+if (lastUserMessage?.content && env.EXA_API_KEY) {
+  try {
+    const exaResponse = await fetch("https://api.exa.ai/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": env.EXA_API_KEY,
+      },
+      body: JSON.stringify({
+        query: lastUserMessage.content.slice(0, 1000),
+        numResults: 5,
+        contents: {
+          highlights: {
+            maxCharacters: 1200,
+          },
+        },
+      }),
+    });
 
-        if (searchResponse.ok) {
-          const searchData = (await searchResponse.json()) as {
-            items?: Array<{
-              title?: string;
-              url?: string;
-              description?: string;
-            }>;
-          };
+    if (!exaResponse.ok) {
+      const errorText = await exaResponse.text();
+      console.error(
+        "ERREUR RECHERCHE EXA IA AFRICA :",
+        exaResponse.status,
+        errorText,
+      );
+    } else {
+      const exaData = (await exaResponse.json()) as {
+        results?: Array<{
+          title?: string;
+          url?: string;
+          highlights?: string[];
+          text?: string;
+        }>;
+      };
 
-          const items = Array.isArray(searchData.items)
-            ? searchData.items
-            : [];
+      const results = Array.isArray(exaData.results)
+        ? exaData.results
+        : [];
 
-          if (items.length > 0) {
-            webContext =
-              "\n\nINFORMATIONS WEB À VÉRIFIER :\n" +
-              items
-                .map(
-                  (item, index) =>
-                    `[${index + 1}] ${item.title || "Source"}\n` +
-                    `URL: ${item.url || ""}\n` +
-                    `${item.description || ""}`,
-                )
-                .join("\n\n");
-          }
-        }
-      } catch (error) {
-  console.error("ERREUR RECHERCHE WEB IA AFRICA :", error);
-  webContext = "";
-	  }
-        
-      
+      if (results.length > 0) {
+        webContext =
+          "\n\nINFORMATIONS WEB EXA À VÉRIFIER :\n" +
+          results
+            .map(
+              (item, index) =>
+                `[${index + 1}] ${item.title || "Source"}\n` +
+                `URL: ${item.url || ""}\n` +
+                `${Array.isArray(item.highlights)
+                  ? item.highlights.join("\n")
+                  : item.text || ""}`,
+            )
+            .join("\n\n");
+      }
     }
+  } catch (error) {
+    console.error("ERREUR RECHERCHE EXA IA AFRICA :", error);
+  }
+}
 
-    if (webContext) {
-      messages.push({
-        role: "system",
-        content:
-          "Utilise les informations Web ci-dessous pour vérifier les faits. " +
-          "Ne présente pas comme certain un fait que les sources ne permettent pas d'établir." +
-          webContext,
-      });
-	}
+if (webContext) {
+  messages.push({
+    role: "system",
+    content:
+      "Utilise les informations Web Exa ci-dessous pour vérifier les faits. " +
+      "Ne présente pas comme certain un fait que les sources ne permettent pas d'établir." +
+      webContext,
+  });
+}
 
     const inputs = {
       messages,
