@@ -1433,7 +1433,7 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
           },
         },
       }),
-    });
+    });console.log("EXA IA AFRICA STATUT :", exaResponse.status);
 
     if (!exaResponse.ok) {
       const errorText = await exaResponse.text();
@@ -1454,7 +1454,7 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
 
       const results = Array.isArray(exaData.results)
         ? exaData.results
-        : [];
+        : [];console.log("EXA RESULTATS IA AFRICA :", results.length);
 
       if (results.length > 0) {
         webContext =
