@@ -1,5 +1,5 @@
 /**
- * IA Africa - Worker API optimisé
+ * IA Africa - Worker API optimisé// Redéploiement pour prise en compte du secret EXA_API_KEY
  * Chat avec Cloudflare Workers AI
  */
 
