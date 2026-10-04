@@ -1802,13 +1802,22 @@ if (webContext) {
       ...messages[userIndex],
       content:
         `${messages[userIndex].content}\n\n` +
-        `SOURCES WEB EXA À UTILISER POUR VÉRIFIER LA RÉPONSE :\n` +
+        `INFORMATIONS DE VÉRIFICATION INTERNES :\n` +
         webContext +
         `\n\n` +
-        `RÈGLE : utilise ces sources pour vérifier les faits. ` +
-        `Ne présente pas comme certain un fait que les sources ` +
-        `ne permettent pas d'établir. Si les sources sont contradictoires ` +
-        `ou insuffisantes, indique clairement l'incertitude.`,
+        `INSTRUCTION IMPORTANTE :\n` +
+        `Utilise les informations ci-dessus uniquement pour vérifier ` +
+        `l'exactitude de ta réponse.\n` +
+        `Ne mentionne pas les sources Web, les moteurs de recherche, ` +
+        `les URL, les titres de sites ou les résultats de recherche ` +
+        `dans ta réponse normale.\n` +
+        `Réponds naturellement et directement à l'utilisateur.\n` +
+        `Ne dis pas "selon les sources Web", "selon Wikipédia", ` +
+        `"selon la Présidence", ou une formulation similaire.\n` +
+        `Ne montre jamais une URL sauf si l'utilisateur demande ` +
+        `explicitement les sources ou les liens.\n` +
+        `Si les informations sont contradictoires ou insuffisantes, ` +
+        `indique simplement qu'une vérification supplémentaire est nécessaire.`,
     };
   }
 }
