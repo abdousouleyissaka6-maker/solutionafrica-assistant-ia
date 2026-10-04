@@ -1617,7 +1617,7 @@ async function handleChatRequest(
         role: "system",
         content: SYSTEM_PROMPT,
       });
-	} // Recherche Web Exa pour vérifier les informations actuelles
+	// Recherche Web Exa pour vérifier les informations actuelles
 let webContext = "";
 
 const lastUserMessage = [...messages]
@@ -1626,6 +1626,19 @@ const lastUserMessage = [...messages]
 
 if (lastUserMessage?.content && env.EXA_API_KEY) {
   try {
+    const question = lastUserMessage.content.trim();
+
+    const questionLower = question.toLowerCase();
+
+    const politicalQuery =
+      /président|présidente|chef d.?état|gouvernement|ministre|premier ministre|élu|élection|politique|fonction officielle|actuel|actuelle|aujourd'hui|aujourd’hui/.test(
+        questionLower,
+      );
+
+    const searchQuery = politicalQuery
+      ? `${question} fonction actuelle information officielle récente`
+      : question;
+
     const exaResponse = await fetch("https://api.exa.ai/search", {
       method: "POST",
       headers: {
@@ -1633,18 +1646,25 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
         "x-api-key": env.EXA_API_KEY,
       },
       body: JSON.stringify({
-        query: lastUserMessage.content.slice(0, 1000),
-        numResults: 3,
+        query: searchQuery.slice(0, 1200),
+        type: "fast",
+        numResults: 8,
         contents: {
           highlights: {
-            maxCharacters: 600,
+            maxCharacters: 800,
           },
         },
       }),
-    });console.log("EXA IA AFRICA STATUT :", exaResponse.status);
+    });
+
+    console.log(
+      "EXA IA AFRICA STATUT :",
+      exaResponse.status,
+    );
 
     if (!exaResponse.ok) {
       const errorText = await exaResponse.text();
+
       console.error(
         "ERREUR RECHERCHE EXA IA AFRICA :",
         exaResponse.status,
@@ -1655,6 +1675,7 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
         results?: Array<{
           title?: string;
           url?: string;
+          publishedDate?: string;
           highlights?: string[];
           text?: string;
         }>;
@@ -1662,27 +1683,114 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
 
       const results = Array.isArray(exaData.results)
         ? exaData.results
-        : [];console.log("EXA RESULTATS IA AFRICA :", results.length);
+        : [];
 
-      if (results.length > 0) {
+      console.log(
+        "EXA RESULTATS IA AFRICA :",
+        results.length,
+      );
+
+      const rankedResults = results
+        .map((item) => {
+          const url = item.url || "";
+          const title = item.title || "";
+
+          const urlLower = url.toLowerCase();
+          const titleLower = title.toLowerCase();
+
+          let score = 0;
+
+          // Priorité aux sources institutionnelles
+          if (
+            urlLower.includes(".gov") ||
+            urlLower.includes(".gouv") ||
+            urlLower.includes(".org")
+          ) {
+            score += 5;
+          }
+
+          // Priorité aux sites officiels liés aux institutions
+          if (
+            urlLower.includes("presidence") ||
+            urlLower.includes("presidency") ||
+            urlLower.includes("gouvernement") ||
+            urlLower.includes("government") ||
+            urlLower.includes("assemblee") ||
+            urlLower.includes("parlement") ||
+            urlLower.includes("senat")
+          ) {
+            score += 8;
+          }
+
+          // Priorité aux résultats parlant de l'actualité de la fonction
+          if (
+            titleLower.includes("actuel") ||
+            titleLower.includes("président") ||
+            titleLower.includes("president") ||
+            titleLower.includes("chef de l'état") ||
+            titleLower.includes("chef d'état") ||
+            titleLower.includes("current")
+          ) {
+            score += 4;
+          }
+
+          // Priorité aux résultats récents
+          if (item.publishedDate) {
+            const publishedTime = Date.parse(
+              item.publishedDate,
+            );
+
+            if (!Number.isNaN(publishedTime)) {
+              const ageDays =
+                (Date.now() - publishedTime) /
+                (1000 * 60 * 60 * 24);
+
+              if (ageDays <= 30) {
+                score += 6;
+              } else if (ageDays <= 180) {
+                score += 4;
+              } else if (ageDays <= 365) {
+                score += 2;
+              }
+            }
+          }
+
+          return {
+            item,
+            score,
+          };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6)
+        .map((entry) => entry.item);
+
+      if (rankedResults.length > 0) {
         webContext =
           "\n\nINFORMATIONS WEB EXA À VÉRIFIER :\n" +
-          results
+          rankedResults
             .map(
               (item, index) =>
-                `[${index + 1}] ${item.title || "Source"}\n` +
-                `URL: ${item.url || ""}\n` +
-                `${Array.isArray(item.highlights)
-                  ? item.highlights.join("\n")
-                  : item.text || ""}`,
+                `[${index + 1}]\n` +
+                `Titre : ${item.title || "Source"}\n` +
+                `Date : ${item.publishedDate || "Date inconnue"}\n` +
+                `URL : ${item.url || ""}\n` +
+                `${
+                  Array.isArray(item.highlights)
+                    ? item.highlights.join("\n")
+                    : item.text || ""
+                }`,
             )
             .join("\n\n");
       }
     }
   } catch (error) {
-    console.error("ERREUR RECHERCHE EXA IA AFRICA :", error);
+    console.error(
+      "ERREUR RECHERCHE EXA IA AFRICA :",
+      error,
+    );
   }
 }
+          
 
 if (webContext) {
   const userIndex = messages.findLastIndex(
