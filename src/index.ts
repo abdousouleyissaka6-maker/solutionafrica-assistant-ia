@@ -1765,24 +1765,20 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
         .map((entry) => entry.item);
 
       if (rankedResults.length > 0) {
-        webContext =
-          "\n\nINFORMATIONS WEB EXA À VÉRIFIER :\n" +
-          rankedResults
-            .map(
-              (item, index) =>
-                `[${index + 1}]\n` +
-                `Titre : ${item.title || "Source"}\n` +
-                `Date : ${item.publishedDate || "Date inconnue"}\n` +
-                `URL : ${item.url || ""}\n` +
-                `${
-                  Array.isArray(item.highlights)
-                    ? item.highlights.join("\n")
-                    : item.text || ""
-                }`,
-            )
-            .join("\n\n");
-      }
-    }
+  webContext =
+    "\n\nINFORMATIONS WEB INTERNES POUR VÉRIFICATION :\n" +
+    rankedResults
+      .map(
+        (item, index) =>
+          `[Information ${index + 1}]\n` +
+          `${
+            Array.isArray(item.highlights)
+              ? item.highlights.join("\n")
+              : item.text || ""
+          }`,
+      )
+      .join("\n\n");
+	  }
   } catch (error) {
     console.error(
       "ERREUR RECHERCHE EXA IA AFRICA :",
