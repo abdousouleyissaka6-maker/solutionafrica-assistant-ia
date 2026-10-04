@@ -1642,7 +1642,14 @@ async function handleChatRequest(
       messages.unshift({
         role: "system",
         content: SYSTEM_PROMPT,
-      });
+      });messages.unshift({
+  role: "system",
+  content: SYSTEM_PROMPT,
+});
+
+}
+
+// Recherche Web Exa pour vérifier les informations actuelles
 	// Recherche Web Exa pour vérifier les informations actuelles
 let webContext = "";
 
