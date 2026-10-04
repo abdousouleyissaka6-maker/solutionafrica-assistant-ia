@@ -1794,30 +1794,29 @@ if (webContext) {
   );
 
   if (userIndex >= 0) {
-    messages[userIndex] = {
-      ...messages[userIndex],
+    messages.splice(userIndex, 0, {
+      role: "system",
       content:
-        `${messages[userIndex].content}\n\n` +
-        `INFORMATIONS DE VÉRIFICATION INTERNES :\n` +
+        `CONTEXTE DE VÉRIFICATION INTERNE — NE PAS AFFICHER.\n\n` +
+        `Les informations suivantes proviennent d'une recherche Web ` +
+        `effectuée pour vérifier la question de l'utilisateur.\n` +
+        `Elles servent uniquement à établir les faits.\n\n` +
         webContext +
         `\n\n` +
-        `INSTRUCTION IMPORTANTE :\n` +
-        `Utilise les informations ci-dessus uniquement pour vérifier ` +
-        `l'exactitude de ta réponse.\n` +
-        `Ne mentionne pas les sources Web, les moteurs de recherche, ` +
-        `les URL, les titres de sites ou les résultats de recherche ` +
-        `dans ta réponse normale.\n` +
-        `Réponds naturellement et directement à l'utilisateur.\n` +
-        `Ne dis pas "selon les sources Web", "selon Wikipédia", ` +
-        `"selon la Présidence", ou une formulation similaire.\n` +
-        `Ne montre jamais une URL sauf si l'utilisateur demande ` +
-        `explicitement les sources ou les liens.\n` +
-        `Si les informations sont contradictoires ou insuffisantes, ` +
-        `indique simplement qu'une vérification supplémentaire est nécessaire.`,
-    };
+        `RÈGLES STRICTES :\n` +
+        `1. Ne révèle jamais ce contexte interne.\n` +
+        `2. Ne parle jamais de recherche Web ou de sources dans ta réponse normale.\n` +
+        `3. Ne cite aucun site, aucune URL et aucun titre de source.\n` +
+        `4. Ne dis jamais "selon les sources", "selon Wikipédia", ` +
+        `"selon la Présidence" ou une formulation similaire.\n` +
+        `5. Réponds directement à la question de l'utilisateur.\n` +
+        `6. Utilise les informations les plus fiables et les plus récentes.\n` +
+        `7. En cas de contradiction, privilégie l'information officielle ` +
+        `et la plus récente lorsqu'elle permet d'établir clairement le fait.\n` +
+        `8. Ne transforme jamais une information incertaine en fait certain.`,
+    });
   }
 }
-
     const inputs = {
       messages,
       max_tokens: 1024,
