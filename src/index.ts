@@ -1843,19 +1843,99 @@ if (webContext) {
     });
   }
 }
-    const inputs = {
+        const inputs = {
       messages,
       max_tokens: 1024,
-      stream: true,
-      temperature: 0.4,
-    } satisfies AiTextGenerationInput & { stream: true };
+      stream: false,
+      temperature: 0.3,
+    };
 
-    const stream = await env.AI.run<typeof MODEL_ID>(
+    const result = await env.AI.run<typeof MODEL_ID>(
       MODEL_ID,
       inputs,
     );
 
-    return new Response(stream, {
+    let answer =
+      typeof result === "object" &&
+      result !== null &&
+      "response" in result &&
+      typeof result.response === "string"
+        ? result.response
+        : String(result || "");
+
+    function cleanAssistantResponse(text: string): string {
+      let cleaned = text;
+
+      // Supprimer les URL
+      cleaned = cleaned.replace(
+        /https?:\/\/\S+/gi,
+        "",
+      );
+
+      // Supprimer les références [1], [2], [3]...
+      cleaned = cleaned.replace(
+        /\[\d+\]/g,
+        "",
+      );
+
+      // Supprimer les formulations faisant référence aux sources
+      cleaned = cleaned.replace(
+        /(?:Selon|D'après|D’apr[eè]s)\s+(?:les\s+)?sources(?:\s+web)?[^.!?\n]*[.!?]?/gi,
+        "",
+      );
+
+      cleaned = cleaned.replace(
+        /(?:Selon|D'après|D’apr[eè]s)\s+(?:Wikip[eé]dia|la Présidence|le site|la page)[^.!?\n]*[.!?]?/gi,
+        "",
+      );
+
+      // Supprimer les phrases qui racontent la recherche
+      cleaned = cleaned.replace(
+        /[^.!?\n]*(?:sources?\s+(?:web\s+)?(?:fournies|consultées|indiquées)|sources?\s+sont\s+contradictoires|résultats\s+de\s+recherche)[^.!?\n]*[.!?]?/gi,
+        "",
+      );
+
+      // Supprimer les phrases du type
+      // "Je vais prendre la décision de répondre..."
+      cleaned = cleaned.replace(
+        /[^.!?\n]*Je vais (?:prendre la décision|répondre|vous dire)[^.!?\n]*[.!?]?/gi,
+        "",
+      );
+
+      // Supprimer les remerciements automatiques inutiles
+      cleaned = cleaned.replace(
+        /Merci de m'avoir donné[^.!?\n]*[.!?]?/gi,
+        "",
+      );
+
+      cleaned = cleaned.replace(
+        /Je vous remercie[^.!?\n]*[.!?]?/gi,
+        "",
+      );
+
+      // Supprimer les lignes devenues vides
+      cleaned = cleaned
+        .replace(/\n{3,}/g, "\n\n")
+        .replace(/[ \t]{2,}/g, " ")
+        .trim();
+
+      return cleaned;
+    }
+
+    answer = cleanAssistantResponse(answer);
+
+    if (!answer) {
+      answer =
+        "Je ne dispose pas d'une réponse suffisamment fiable.";
+    }
+
+    const sseResponse =
+      `data: ${JSON.stringify({
+        response: answer,
+      })}\n\n` +
+      `data: [DONE]\n\n`;
+
+    return new Response(sseResponse, {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "POST, OPTIONS",
