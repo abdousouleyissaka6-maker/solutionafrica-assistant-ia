@@ -1426,10 +1426,10 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
       },
       body: JSON.stringify({
         query: lastUserMessage.content.slice(0, 1000),
-        numResults: 5,
+        numResults: 3,
         contents: {
           highlights: {
-            maxCharacters: 1200,
+            maxCharacters: 600,
           },
         },
       }),
