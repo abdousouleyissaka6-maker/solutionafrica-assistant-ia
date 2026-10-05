@@ -1811,7 +1811,8 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
           }`,
       )
             .join("\n\n");
-      }
+          }
+    }
     }
   } catch (error) {
     console.error(
