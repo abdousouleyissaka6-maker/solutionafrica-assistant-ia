@@ -1810,9 +1810,8 @@ if (lastUserMessage?.content && env.EXA_API_KEY) {
               : item.text || ""
           }`,
       )
-            .join("\n\n");
+                        .join("\n\n");
           }
-    }
     }
   } catch (error) {
     console.error(
