@@ -1693,7 +1693,7 @@ if (url.pathname === "/" || !url.pathname.startsWith("/api/")) {
           }
         );
       }
-		  }if (url.pathname === "/api/chat") {
+    }if (url.pathname === "/api/chat") {
       if (request.method === "POST") {
         return handleChatRequest(request, env);
       }
