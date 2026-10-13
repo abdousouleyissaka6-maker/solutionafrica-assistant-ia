@@ -1595,7 +1595,7 @@ export default {
         },
       });
     }
-
+if (url.pathname === "/api/whatsapp/webhook") return handleWhatsAppWebhook(request, env);
     // Frontend
 if (url.pathname === "/" || !url.pathname.startsWith("/api/")) {
   return env.ASSETS.fetch(request);
