@@ -1709,7 +1709,103 @@ if (url.pathname === "/" || !url.pathname.startsWith("/api/")) {
       headers: { "Access-Control-Allow-Origin": "*" },
     });
   },
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<Env>;async function handleWhatsAppWebhook(
+request: Request,
+env: Env,
+): Promise<Response> {
+const url = new URL(request.url);
+
+if (request.method === "GET") {
+const mode = url.searchParams.get("hub.mode");
+const token = url.searchParams.get("hub.verify_token");
+const challenge = url.searchParams.get("hub.challenge");
+
+if (
+  mode === "subscribe" &&
+  env.WHATSAPP_VERIFY_TOKEN &&
+  token === env.WHATSAPP_VERIFY_TOKEN &&
+  challenge
+) {
+  return new Response(challenge, { status: 200 });
+}
+
+return new Response("Vérification refusée", { status: 403 });
+
+}
+
+if (request.method !== "POST") {
+return new Response("Méthode non autorisée", { status: 405 });
+}
+
+if (!env.WHATSAPP_ACCESS_TOKEN || !env.WHATSAPP_PHONE_NUMBER_ID) {
+return new Response("Configuration WhatsApp manquante", {
+status: 500,
+});
+}
+
+let payload: any;
+
+try {
+payload = await request.json();
+} catch {
+return new Response("JSON invalide", { status: 400 });
+}
+
+for (const entry of payload?.entry ?? []) {
+for (const change of entry?.changes ?? []) {
+for (const message of change?.value?.messages ?? []) {
+if (
+message?.type !== "text" ||
+!message?.from ||
+!message?.text?.body
+) {
+continue;
+}
+
+    try {
+      const result: any = await env.AI.run(MODEL_ID, {
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          {
+            role: "user",
+            content: String(message.text.body).slice(0, 6000),
+          },
+        ],
+        max_tokens: 700,
+        temperature: 0.3,
+      } as any);
+
+      const answer =
+        typeof result?.response === "string"
+          ? result.response.trim()
+          : "Je n’ai pas pu répondre. Réessaie.";
+
+      await fetch(
+        `https://graph.facebook.com/v23.0/${env.WHATSAPP_PHONE_NUMBER_ID}/messages`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${env.WHATSAPP_ACCESS_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            messaging_product: "whatsapp",
+            to: String(message.from),
+            type: "text",
+            text: { body: answer.slice(0, 4000) },
+          }),
+        },
+      );
+    } catch (error) {
+      console.error("Erreur WhatsApp :", error);
+    }
+  }
+}
+
+}
+
+return new Response("EVENT_RECEIVED", { status: 200 });
+		  }
 
 async function handleChatRequest(
   request: Request,
