@@ -1,19 +1,27 @@
 /**
- * Type definitions for the LLM chat application.
- */
+
+* Variables de configuration de IA Africa Core
+  */
 
 export interface Env {
-  AI: Ai;
+AI: Ai;
 
-  EXA_API_KEY?: string;
+EXA_API_KEY?: string;
 
-  ASSETS: { fetch: (request: Request) => Promise<Response> };
+WHATSAPP_VERIFY_TOKEN?: string;
+WHATSAPP_ACCESS_TOKEN?: string;
+WHATSAPP_PHONE_NUMBER_ID?: string;
+
+ASSETS: {
+fetch: (request: Request) => Promise<Response>;
+};
 }
 
 /**
- * Represents a chat message.
- */
-export interface ChatMessage {
-	role: "system" | "user" | "assistant";
-	content: string;
-}
+
+* Message de conversation
+  */
+  export interface ChatMessage {
+  role: "system" | "user" | "assistant";
+  content: string;
+  }
