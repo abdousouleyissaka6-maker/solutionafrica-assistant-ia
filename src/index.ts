@@ -1595,6 +1595,67 @@ export default {
         },
       });
     }
+    // API DE GÉNÉRATION D'IMAGES IA AFRICA
+    if (url.pathname === "/api/generate-image") {
+      if (request.method !== "POST") {
+        return new Response(
+          JSON.stringify({ error: "Utilisez la méthode POST." }),
+          {
+            status: 405,
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          },
+        );
+      }
+
+      try {
+        const body = await request.json() as {
+          prompt?: string;
+          style?: string;
+        };
+
+        const prompt = String(body.prompt || "").trim();
+        const style = String(body.style || "photoréaliste");
+
+        if (!prompt) {
+          return Response.json(
+            { error: "Décrivez l'image à créer." },
+            { status: 400 },
+          );
+        }
+
+        const result = await (env.AI as any).run(
+          "@cf/black-forest-labs/flux-1-schnell",
+          {
+            prompt: `${style}: ${prompt}`,
+            num_steps: 4,
+          },
+        );
+
+        return new Response(result as BodyInit, {
+          headers: {
+            "Content-Type": "image/png",
+            "Access-Control-Allow-Origin": "*",
+            "Cache-Control": "no-store",
+          },
+        });
+      } catch (error) {
+        console.error("Erreur de génération d'image :", error);
+
+        return Response.json(
+          { error: "La génération a échoué. Réessayez." },
+          {
+            status: 500,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          },
+        );
+      }
+	}
+	  
     if (url.pathname === "/api/whatsapp/webhook") {
       return handleWhatsAppWebhook(request, env);
 	}
