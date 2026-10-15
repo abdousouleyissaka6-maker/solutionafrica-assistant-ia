@@ -1624,6 +1624,68 @@ export default {
       "@cf/black-forest-labs/flux-1-schnell",
       {
         prompt: `${style}: ${prompt}`,
+        steps: 4,
+      },
+    );
+
+    if (!result || typeof result.image !== "string" || !result.image) {
+      throw new Error("Le moteur n'a pas renvoyé d'image Base64.");
+    }
+
+    const base64 = result.image.replace(
+      /^data:image\/[^;]+;base64,/,
+      "",
+    );
+
+    const binary = atob(base64);
+    const imageBytes = Uint8Array.from(
+      binary,
+      (character) => character.charCodeAt(0),
+    );
+
+    return new Response(imageBytes, {
+      headers: {
+        "Content-Type": "image/png",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store",
+      },
+    });
+  } catch (error) {
+    console.error("Erreur de génération d'image :", error);
+
+    return Response.json(
+      { error: "La génération a échoué. Vérifiez le moteur IA et réessayez." },
+      { status: 500 },
+    );
+  }
+}
+  if (request.method !== "POST") {
+    return Response.json(
+      { error: "Utilisez la méthode POST." },
+      { status: 405 },
+    );
+  }
+
+  try {
+    const body = await request.json() as {
+      prompt?: string;
+      style?: string;
+    };
+
+    const prompt = String(body.prompt || "").trim();
+    const style = String(body.style || "photoréaliste").trim();
+
+    if (!prompt) {
+      return Response.json(
+        { error: "Décrivez l'image à créer." },
+        { status: 400 },
+      );
+    }
+
+    const result = await (env.AI as any).run(
+      "@cf/black-forest-labs/flux-1-schnell",
+      {
+        prompt: `${style}: ${prompt}`,
         num_steps: 4,
       },
     );
