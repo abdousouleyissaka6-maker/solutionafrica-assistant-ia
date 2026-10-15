@@ -1596,15 +1596,22 @@ export default {
       });
     }
     // API DE GÉNÉRATION D'IMAGES IA AFRICA
-   if (url.pathname === "/api/generate-image") {
+if (url.pathname === "/api/generate-image") {
   if (request.method !== "POST") {
     return Response.json(
       { error: "Utilisez la méthode POST." },
-      { status: 405 },
+      { status: 405 }
     );
   }
 
   try {
+    if (!env.AI) {
+      return Response.json(
+        { error: "Le moteur IA Cloudflare n'est pas connecté." },
+        { status: 503 }
+      );
+    }
+
     const body = await request.json() as {
       prompt?: string;
       style?: string;
@@ -1616,45 +1623,55 @@ export default {
     if (!prompt) {
       return Response.json(
         { error: "Décrivez l'image à créer." },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
-    const result = await (env.AI as any).run(
+    const result: any = await env.AI.run(
       "@cf/black-forest-labs/flux-1-schnell",
       {
         prompt: `${style}: ${prompt}`,
-        num_steps: 4,
-      },
+        num_steps: 4
+      }
     );
 
-    if (!result || typeof result.image !== "string") {
-      throw new Error("Le moteur n'a pas renvoyé d'image.");
+    let imageBytes: Uint8Array;
+
+    if (result instanceof ArrayBuffer) {
+      imageBytes = new Uint8Array(result);
+    } else if (ArrayBuffer.isView(result)) {
+      imageBytes = new Uint8Array(
+        result.buffer,
+        result.byteOffset,
+        result.byteLength
+      );
+    } else if (result && typeof result.image === "string") {
+      const base64 = result.image.replace(
+        /^data:image\/[^;]+;base64,/,
+        ""
+      );
+      const binary = atob(base64);
+      imageBytes = Uint8Array.from(
+        binary,
+        c => c.charCodeAt(0)
+      );
+    } else if (result && result.image instanceof ArrayBuffer) {
+      imageBytes = new Uint8Array(result.image);
+    } else {
+      throw new Error("Format d'image non reconnu.");
     }
-
-    const base64 = result.image.replace(
-      /^data:image\/[^;]+;base64,/,
-      "",
-    );
-
-    const binary = atob(base64);
-    const imageBytes = Uint8Array.from(
-      binary,
-      (character) => character.charCodeAt(0),
-    );
 
     return new Response(imageBytes, {
       headers: {
         "Content-Type": "image/png",
-        "Cache-Control": "no-store",
-      },
+        "Cache-Control": "no-store"
+      }
     });
   } catch (error) {
-    console.error("Erreur de génération d'image :", error);
-
+    console.error("Erreur génération image :", error);
     return Response.json(
-      { error: "La génération a échoué. Vérifiez la configuration du moteur IA." },
-      { status: 500 },
+      { error: "Échec de génération. Vérifiez le moteur IA Cloudflare." },
+      { status: 500 }
     );
   }
 }
