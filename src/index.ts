@@ -1624,12 +1624,12 @@ export default {
       "@cf/black-forest-labs/flux-1-schnell",
       {
         prompt: `${style}: ${prompt}`,
-        steps: 4,
+        num_steps: 4,
       },
     );
 
-    if (!result || typeof result.image !== "string" || !result.image) {
-      throw new Error("Le moteur n'a pas renvoyé d'image Base64.");
+    if (!result || typeof result.image !== "string") {
+      throw new Error("Le moteur n'a pas renvoyé d'image.");
     }
 
     const base64 = result.image.replace(
@@ -1646,7 +1646,6 @@ export default {
     return new Response(imageBytes, {
       headers: {
         "Content-Type": "image/png",
-        "Access-Control-Allow-Origin": "*",
         "Cache-Control": "no-store",
       },
     });
@@ -1654,78 +1653,11 @@ export default {
     console.error("Erreur de génération d'image :", error);
 
     return Response.json(
-      { error: "La génération a échoué. Vérifiez le moteur IA et réessayez." },
+      { error: "La génération a échoué. Vérifiez la configuration du moteur IA." },
       { status: 500 },
     );
   }
 }
-  if (request.method !== "POST") {
-    return Response.json(
-      { error: "Utilisez la méthode POST." },
-      { status: 405 },
-    );
-  }
-
-  try {
-    const body = await request.json() as {
-      prompt?: string;
-      style?: string;
-    };
-
-    const prompt = String(body.prompt || "").trim();
-    const style = String(body.style || "photoréaliste").trim();
-
-    if (!prompt) {
-      return Response.json(
-        { error: "Décrivez l'image à créer." },
-        { status: 400 },
-      );
-    }
-
-    const result = await (env.AI as any).run(
-      "@cf/black-forest-labs/flux-1-schnell",
-      {
-        prompt: `${style}: ${prompt}`,
-        num_steps: 4,
-      },
-    );
-
-    let imageBytes: Uint8Array;
-
-    if (result?.image && typeof result.image === "string") {
-      const base64 = result.image.replace(
-        /^data:image\/[^;]+;base64,/,
-        "",
-      );
-
-      imageBytes = Uint8Array.from(
-        atob(base64),
-        (character) => character.charCodeAt(0),
-      );
-    } else if (result instanceof ArrayBuffer) {
-      imageBytes = new Uint8Array(result);
-    } else if (result instanceof Uint8Array) {
-      imageBytes = result;
-    } else {
-      throw new Error("Format de réponse image non reconnu.");
-    }
-
-    return new Response(imageBytes, {
-      headers: {
-        "Content-Type": "image/png",
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "no-store",
-      },
-    });
-  } catch (error) {
-    console.error("Erreur de génération d'image :", error);
-
-    return Response.json(
-      { error: "La génération a échoué. Vérifiez la configuration IA et réessayez." },
-      { status: 500 },
-    );
-  }
-} 
 	  
     if (url.pathname === "/api/whatsapp/webhook") {
       return handleWhatsAppWebhook(request, env);
