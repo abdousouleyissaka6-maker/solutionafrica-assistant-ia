@@ -2293,7 +2293,103 @@ async function aiAsk(question){
 
 
 </script>
-</body>
+<section id="ia-image-generator" style="max-width:700px;margin:24px auto;padding:20px;border-radius:16px;background:#101827;color:white;font-family:Arial,sans-serif;">
+  <h2 style="margin-top:0;">🎨 Générateur d’images IA Africa</h2>
+  <p>Décris l’image que tu veux créer.</p>
+
+  <textarea
+    id="ia-image-prompt"
+    placeholder="Exemple : un enseignant nigérien dans une salle de classe moderne..."
+    style="width:100%;min-height:110px;padding:12px;box-sizing:border-box;border-radius:10px;"
+  ></textarea>
+
+  <label for="ia-image-style" style="display:block;margin-top:12px;">Style de l’image</label>
+  <select id="ia-image-style" style="width:100%;padding:12px;border-radius:10px;">
+    <option value="photoréaliste">Photoréaliste</option>
+    <option value="illustration numérique">Illustration numérique</option>
+    <option value="dessin animé">Dessin animé</option>
+    <option value="peinture artistique">Peinture artistique</option>
+  </select>
+
+  <button
+    id="ia-image-generate"
+    type="button"
+    style="margin-top:16px;width:100%;padding:14px;background:#16a34a;color:white;border:0;border-radius:10px;font-weight:bold;"
+  >Générer l’image</button>
+
+  <p id="ia-image-status" role="status" aria-live="polite"></p>
+  <img id="ia-image-result" alt="Image générée par IA Africa"
+       style="display:none;width:100%;margin-top:12px;border-radius:12px;" />
+  <a id="ia-image-download" download="ia-africa-image.png"
+     style="display:none;color:#86efac;margin-top:12px;">Enregistrer l’image</a>
+</section>
+
+<script>
+(function () {
+  const button = document.getElementById("ia-image-generate");
+  const promptInput = document.getElementById("ia-image-prompt");
+  const styleInput = document.getElementById("ia-image-style");
+  const status = document.getElementById("ia-image-status");
+  const image = document.getElementById("ia-image-result");
+  const download = document.getElementById("ia-image-download");
+
+  if (!button || button.dataset.ready === "true") return;
+  button.dataset.ready = "true";
+
+  button.addEventListener("click", async function () {
+    const prompt = promptInput.value.trim();
+
+    if (!prompt) {
+      status.textContent = "Décris d’abord l’image à créer.";
+      return;
+    }
+
+    button.disabled = true;
+    status.textContent = "Génération en cours… Patiente quelques instants.";
+    image.style.display = "none";
+    download.style.display = "none";
+
+    try {
+      const response = await fetch("/api/generate-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          prompt: prompt,
+          style: styleInput.value
+        })
+      });
+
+      if (!response.ok) {
+        let message = "La génération a échoué. Réessaie.";
+        try {
+          const errorData = await response.json();
+          if (errorData.error) message = errorData.error;
+        } catch (_) {}
+        throw new Error(message);
+      }
+
+      const blob = await response.blob();
+      if (!blob.type.startsWith("image/")) {
+        throw new Error("Le serveur n’a pas renvoyé une image valide.");
+      }
+
+      const imageUrl = URL.createObjectURL(blob);
+      image.onload = function () {
+        URL.revokeObjectURL(image.src);
+      };
+      image.src = imageUrl;
+      image.style.display = "block";
+      download.href = imageUrl;
+      download.style.display = "inline-block";
+      status.textContent = "Image créée avec succès !";
+    } catch (error) {
+      status.textContent = error.message || "Erreur de connexion. Réessaie.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
+</script></body>
   </html>
   
 
