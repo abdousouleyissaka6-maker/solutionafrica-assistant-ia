@@ -2124,7 +2124,7 @@ if (webContext) {
 }
         const inputs = {
       messages,
-      max_tokens: 2048,
+      max_tokens: 4096,
       stream: false,
       temperature: 0.3,
     };
