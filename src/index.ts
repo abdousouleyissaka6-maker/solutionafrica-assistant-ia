@@ -6,7 +6,7 @@
 import { Env, ChatMessage } from "./types";
 
 // Modèle plus léger et rapide pour les conversations multilingues.
-const MODEL_ID = "@cf/meta/llama-3.2-3b-instruct";
+const MODEL_ID = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 
 const SYSTEM_PROMPT = `
 Tu es IA, l'intelligence artificielle centrale de la plateforme IA Africa.
@@ -1854,7 +1854,7 @@ continue;
             content: String(message.text.body).slice(0, 6000),
           },
         ],
-        max_tokens: 700,
+        max_tokens: 2048,
         temperature: 0.3,
       } as any);
 
@@ -2118,7 +2118,7 @@ if (webContext) {
 }
         const inputs = {
       messages,
-      max_tokens: 1024,
+      max_tokens: 2048,
       stream: false,
       temperature: 0.3,
     };
